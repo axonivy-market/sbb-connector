@@ -1,0 +1,87 @@
+{
+  "format" : "10.0.0",
+  "id" : "189FE2A1B2075999",
+  "kind" : "CALLABLE_SUB",
+  "description" : "Returns different trips for a specified origin and destination (and vias). The UIC codes of the origin and destination can be resolved using the locations service.",
+  "config" : {
+    "data" : "com.axonivy.connector.sbb.trip.GetTripsData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "call(GetTripsDataIn)",
+      "config" : {
+        "callSignature" : "call",
+        "input" : {
+          "params" : [
+            { "name" : "in", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn" }
+          ],
+          "map" : {
+            "out.in" : "param.in"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "trips", "type" : "List<ch.sbb.app.b2p.client.Trip>" }
+          ],
+          "map" : {
+            "result.trips" : "in.trips"
+          }
+        },
+        "tags" : "connector"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "description" : "Returns different trips for a specified origin and destination (and vias). The UIC codes of the origin and destination can be resolved using the locations service.",
+        "icon" : "res:/webContent/icons/sbb.png?small"
+      },
+      "connect" : { "id" : "f6", "to" : "f5" }
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "name" : "Return Trips",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f5",
+      "type" : "RestClientCall",
+      "name" : "Get Trips",
+      "config" : {
+        "path" : "/api/trips",
+        "headers" : {
+          "Accept" : "*/*",
+          "x-conversation-id" : "ivy.case.customFields().stringField(\"conversationId\").getOrDefault(in.in.headers.conversationId)",
+          "x-contract-id" : "ivy.var.swissMobilityApiContractId",
+          "Accept-Language" : "in.in.headers.acceptLanguage",
+          "Scroll-Context" : "in.in.headers.scrollContext"
+        },
+        "clientId" : "32c4d3f9-2d6d-4b4d-b0c8-066ebf7f2e04",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "queryParams" : {
+          "originId" : "in.in.parameters.originId",
+          "destinationId" : "in.in.parameters.destinationId",
+          "viaId" : "in.in.parameters.viaId",
+          "date" : "in.in.parameters.date",
+          "time" : "in.in.parameters.time",
+          "arrivalDeparture" : "in.in.parameters.arrivalDeparture",
+          "trainType" : "in.in.parameters.trainType",
+          "alternateMatch" : "in.in.parameters.alternateMatch",
+          "includeBefore" : "in.in.parameters.includeBefore",
+          "includeAfter" : "in.in.parameters.includeAfter",
+          "calculateEco" : "in.in.parameters.calculateEco"
+        },
+        "statusErrorCode" : "ivy:error:rest:client",
+        "responseMapping" : {
+          "out.trips" : "result"
+        },
+        "resultType" : "java.util.List<ch.sbb.app.b2p.client.Trip>"
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 },
+        "icon" : "res:/webContent/icons/sbb.png"
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    } ]
+}

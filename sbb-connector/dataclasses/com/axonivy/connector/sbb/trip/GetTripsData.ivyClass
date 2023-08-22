@@ -1,0 +1,8 @@
+GetTripsData #class
+com.axonivy.connector.sbb.trip #namespace
+in com.axonivy.connector.sbb.trip.GetTripsDataIn #field
+in 'Argument for subprocess GetTrips.' #fieldComment
+in PERSISTENT #fieldModifier
+trips List<ch.sbb.app.b2p.client.Trip> #field
+trips 'Return value of subprocess GetTrips.' #fieldComment
+trips PERSISTENT #fieldModifier

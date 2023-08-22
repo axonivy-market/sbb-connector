@@ -1,0 +1,26 @@
+.ui-panelgrid.departureOrArrivalContainer td {
+	vertical-align: top;
+	padding: 0;
+	padding-right: 1rem;
+}
+
+.ui-panelgrid.departureOrArrivalContainer td:has(.ui-toggleswitch) {
+	vertical-align: bottom;
+}
+
+body .ui-toggleswitch .ui-toggleswitch-slider {
+	background: var(--ivy-primary-lightest-color);
+}
+
+body .ui-toggleswitch .ui-toggleswitch-slider::before {
+	background: var(--ivy-primary-color);
+}
+
+body .ui-toggleswitch.ui-toggleswitch-checked .ui-toggleswitch-slider {
+	background: var(--ivy-primary-lightest-color);
+}
+
+body .ui-toggleswitch.ui-toggleswitch-checked .ui-toggleswitch-slider::before
+	{
+	background: var(--ivy-primary-color);
+}

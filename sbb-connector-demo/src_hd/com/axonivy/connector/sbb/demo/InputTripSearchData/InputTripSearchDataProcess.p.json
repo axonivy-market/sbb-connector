@@ -1,0 +1,339 @@
+{
+  "format" : "10.0.0",
+  "id" : "18A1BFBC93F677AB",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "com.axonivy.connector.sbb.demo.InputTripSearchData.InputTripSearchDataData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start(GetTripsDataIn)",
+      "config" : {
+        "callSignature" : "start",
+        "result" : {
+          "params" : [
+            { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn" }
+          ],
+          "map" : {
+            "result.getTripsDataIn" : "in.getTripsDataIn"
+          }
+        },
+        "input" : {
+          "params" : [
+            { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn" }
+          ],
+          "map" : {
+            "out.getTripsDataIn" : "param.getTripsDataIn",
+            "out.locationFrom" : "new ch.sbb.app.b2p.client.Location()",
+            "out.locationTo" : "new ch.sbb.app.b2p.client.Location()",
+            "out.time" : "new Time()"
+          }
+        },
+        "guid" : "189FE362F85F241B"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "HtmlDialogEventStart",
+      "name" : "close",
+      "config" : {
+        "guid" : "189FE362F89F58EC"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 256 }
+      },
+      "connect" : { "id" : "f7", "to" : "f6" }
+    }, {
+      "id" : "f4",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 608, "y" : 256 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "Alternative",
+      "name" : [
+        "Are locationFrom and",
+        "locationTo present?"
+      ],
+      "visual" : {
+        "at" : { "x" : 224, "y" : 256 },
+        "labelOffset" : { "x" : 14, "y" : 34 }
+      },
+      "connect" : [
+        { "id" : "f9", "to" : "f8", "label" : {
+            "name" : "Yes"
+          }, "condition" : "in.locationFrom.id != 0 && in.locationTo.id != 0" },
+        { "id" : "f11", "to" : "f10", "via" : [ { "x" : 224, "y" : 160 } ], "label" : {
+            "name" : "No",
+            "segment" : 1.17,
+            "offset" : { "x" : -21, "y" : 42 }
+          } }
+      ]
+    }, {
+      "id" : "f8",
+      "type" : "Script",
+      "name" : "Apply Values to getTripsDataIn",
+      "config" : {
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.getTripsDataIn" : "in.getTripsDataIn",
+            "out.getTripsDataIn.parameters.destinationId" : "in.locationTo.id",
+            "out.getTripsDataIn.parameters.originId" : "in.locationFrom.id"
+          },
+          "code" : [
+            "in.getTripsDataIn.parameters.time = in.time.toString();",
+            "in.getTripsDataIn.parameters.arrivalDeparture = in.arrival ? \"LA\" : \"ED\";"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 416, "y" : 256 }
+      },
+      "connect" : { "id" : "f5", "to" : "f4" }
+    }, {
+      "id" : "f10",
+      "type" : "Script",
+      "name" : "Add Validation Error Messages",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import javax.faces.context.FacesContext;",
+            "import javax.faces.application.FacesMessage;",
+            "",
+            "if (in.locationFrom.id == 0) {",
+            "  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, \"From: Choose a Location from the Dropdown Menu\", null));",
+            "}",
+            "",
+            "if (in.locationTo.id == 0) {",
+            "  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, \"To: Choose a Location from the Dropdown Menu\", null));",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 416, "y" : 160 }
+      },
+      "connect" : { "id" : "f13", "to" : "f12" }
+    }, {
+      "id" : "f12",
+      "type" : "HtmlDialogEnd",
+      "name" : [
+        "Validation of input fields",
+        "From and To failed"
+      ],
+      "visual" : {
+        "at" : { "x" : 608, "y" : 160 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f14",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "getLocations(String)",
+      "config" : {
+        "callSignature" : "getLocations",
+        "result" : {
+          "params" : [
+            { "name" : "locationNames", "type" : "List<String>" }
+          ],
+          "map" : {
+            "result.locationNames" : "in.locationNames"
+          }
+        },
+        "input" : {
+          "params" : [
+            { "name" : "name", "type" : "String" }
+          ],
+          "map" : {
+            "out.getLocationsDataIn.parameters.name" : "param.name"
+          }
+        },
+        "guid" : "189FE45FF14E72DE"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 448 },
+        "description" : [
+          "Performs a pattern-based search to retrieve a list of matching Locations (resp. concrete STATION's).",
+          "Sets getLocationsDataOut to retrieved Locations.",
+          "Returns list of retrieved Location names.",
+          "Used for autocomplete dropdown menu of input fields From and To."
+        ]
+      },
+      "connect" : { "id" : "f16", "to" : "f15" }
+    }, {
+      "id" : "f15",
+      "type" : "Alternative",
+      "name" : [
+        "Does argument contain",
+        "more than 1 character?"
+      ],
+      "visual" : {
+        "at" : { "x" : 224, "y" : 448 },
+        "labelOffset" : { "x" : 14, "y" : 34 }
+      },
+      "connect" : [
+        { "id" : "f18", "to" : "f17", "label" : {
+            "name" : "Yes"
+          }, "condition" : "in.getLocationsDataIn.parameters.name.length() > 1" },
+        { "id" : "f24", "to" : "f23", "via" : [ { "x" : 224, "y" : 352 } ], "label" : {
+            "name" : "No",
+            "segment" : 1.14,
+            "offset" : { "x" : -45, "y" : 46 }
+          } }
+      ]
+    }, {
+      "id" : "f17",
+      "type" : "SubProcessCall",
+      "name" : "Get Locations",
+      "config" : {
+        "processCall" : "GetLocations:call(com.axonivy.connector.sbb.location.GetLocationsDataIn)",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.locations" : "result.locations"
+          }
+        },
+        "call" : {
+          "params" : [
+            { "name" : "in", "type" : "com.axonivy.connector.sbb.location.GetLocationsDataIn" }
+          ],
+          "map" : {
+            "param.in" : "in.getLocationsDataIn"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 416, "y" : 448 },
+        "icon" : "res:/webContent/icons/sbb.png"
+      },
+      "connect" : { "id" : "f20", "to" : "f19" }
+    }, {
+      "id" : "f19",
+      "type" : "Script",
+      "name" : "Set locationNames",
+      "config" : {
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.locationNames" : "in.locationNames"
+          },
+          "code" : [
+            "import ch.sbb.app.b2p.client.Location;",
+            "",
+            "in.locationNames = new List<String>();",
+            "",
+            "for(Location location: in.locations) {",
+            "  in.locationNames.add(location.name);",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 608, "y" : 448 }
+      },
+      "connect" : { "id" : "f22", "to" : "f21" }
+    }, {
+      "id" : "f21",
+      "type" : "HtmlDialogEnd",
+      "name" : "Return locationNames",
+      "visual" : {
+        "at" : { "x" : 800, "y" : 448 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    }, {
+      "id" : "f23",
+      "type" : "Script",
+      "name" : "Empty locationNames",
+      "config" : {
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.locationNames" : "in.locationNames"
+          },
+          "code" : "in.locationNames = new List<String>();"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 608, "y" : 352 }
+      },
+      "connect" : { "id" : "f25", "to" : "f21", "via" : [ { "x" : 800, "y" : 352 } ] }
+    }, {
+      "id" : "f26",
+      "type" : "Script",
+      "name" : "Set Location",
+      "config" : {
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.locationFrom" : "in.locationFrom",
+            "out.locationTo" : "in.locationTo"
+          },
+          "code" : [
+            "import ch.sbb.app.b2p.client.Location;",
+            "",
+            "for(Location location: in.locations) {",
+            "  if (location.name.equals(in.selectEvent.getObject())) {",
+            "    if (in.selectEvent.getComponent().id.equals(\"from\")) {",
+            "      in.locationFrom = location;",
+            "    }",
+            "    else {",
+            "      in.locationTo = location;",
+            "    }",
+            "    break;",
+            "  }",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 416, "y" : 544 }
+      },
+      "connect" : { "id" : "f30", "to" : "f29" }
+    }, {
+      "id" : "f27",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "updateLocation(SelectEvent)",
+      "config" : {
+        "callSignature" : "updateLocation",
+        "input" : {
+          "params" : [
+            { "name" : "selectEvent", "type" : "org.primefaces.event.SelectEvent" }
+          ],
+          "map" : {
+            "out.selectEvent" : "param.selectEvent"
+          }
+        },
+        "guid" : "189FE563FDABE72F"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 544 },
+        "description" : [
+          "Method triggered when Location is selected from autocomplete dropdown menu of input field From or To.",
+          "Sets originId or destinationId of getTripsDataIn to id of selected Location."
+        ]
+      },
+      "connect" : { "id" : "f28", "to" : "f26" }
+    }, {
+      "id" : "f29",
+      "type" : "HtmlDialogEnd",
+      "name" : [
+        "Location has",
+        "been updated"
+      ],
+      "visual" : {
+        "at" : { "x" : 608, "y" : 544 },
+        "labelOffset" : { "x" : 10, "y" : 30 }
+      }
+    } ]
+}

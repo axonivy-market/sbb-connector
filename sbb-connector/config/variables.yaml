@@ -1,0 +1,7 @@
+# == Variables ==
+#
+# You can define here your project Variables.
+#
+Variables:
+  swissMobilityApiUri: ''
+  swissMobilityApiContractId: ''
