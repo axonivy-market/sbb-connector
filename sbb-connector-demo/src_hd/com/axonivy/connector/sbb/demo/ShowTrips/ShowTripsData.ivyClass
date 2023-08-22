@@ -1,0 +1,8 @@
+ShowTripsData #class
+com.axonivy.connector.sbb.demo.ShowTrips #namespace
+trips List<ch.sbb.app.b2p.client.Trip> #field
+trips 'Trips as received from Swiss Mobility API.' #fieldComment
+trips PERSISTENT #fieldModifier
+tripsForDisplay List<com.axonivy.connector.sbb.demo.trip.TripForDisplay> #field
+tripsForDisplay 'Trips parsed for displaying in user dialog.' #fieldComment
+tripsForDisplay PERSISTENT #fieldModifier

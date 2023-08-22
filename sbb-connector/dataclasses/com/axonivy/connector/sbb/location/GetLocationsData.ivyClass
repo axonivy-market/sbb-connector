@@ -1,0 +1,8 @@
+GetLocationsData #class
+com.axonivy.connector.sbb.location #namespace
+in com.axonivy.connector.sbb.location.GetLocationsDataIn #field
+in 'Argument for subprocess GetLocations.' #fieldComment
+in PERSISTENT #fieldModifier
+locations List<ch.sbb.app.b2p.client.Location> #field
+locations 'Return value of subprocess GetLocations.' #fieldComment
+locations PERSISTENT #fieldModifier

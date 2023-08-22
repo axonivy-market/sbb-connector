@@ -1,0 +1,11 @@
+RestClients:
+  #The SBB Swiss Mobility API is an interface that you can integrate into your own distribution system. Timetable and fare details are made available to you via this interface.
+  Swiss Mobility API (B2P API):
+    UUID: 32c4d3f9-2d6d-4b4d-b0c8-066ebf7f2e04
+    Url: ${ivy.var.swissMobilityApiUri}
+    Icon: res:/webContent/icons/sbb.png
+    Features:
+    - ch.ivyteam.ivy.rest.client.mapper.JsonFeature
+    OpenAPI:
+      SpecUrl: file:///C:/Users/zugPcLgi/Downloads/api-docs.json
+      Namespace: ch.sbb.app.b2p.client
