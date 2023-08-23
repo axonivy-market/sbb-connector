@@ -3,5 +3,7 @@
 # You can define here your project Variables.
 #
 Variables:
+  # The URI of the API to use. For example: `https://b2p-int.api.sbb.ch` (integration) or `https://b2p.api.sbb.ch` (production)
   swissMobilityApiUri: ''
+  # The contract id provided to you by SBB. For Example: `ACP1024`
   swissMobilityApiContractId: ''
