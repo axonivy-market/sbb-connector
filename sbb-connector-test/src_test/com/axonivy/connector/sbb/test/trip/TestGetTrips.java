@@ -28,7 +28,7 @@ import ch.sbb.app.b2p.client.Trip;
 
 @IvyProcessTest
 @SuppressWarnings("unchecked")
-public class TestGetTrips {
+class TestGetTrips {
 
   private static final BpmProcess GET_TRIPS_PROCESS = BpmProcess.path("GetTrips");
   private static final BpmElement GET_TRIPS_START = GET_TRIPS_PROCESS
@@ -36,7 +36,7 @@ public class TestGetTrips {
   private static final BpmElement GET_TRIPS = GET_TRIPS_PROCESS.elementName("Get Trips");
 
   @Test
-  public void call_mockedApi_returnsMockedResponse(BpmClient bpmClient) {
+  void call_mockedApi_returnsMockedResponse(BpmClient bpmClient) {
     // Arguments
     GetTripsDataHeaders getTripsDataHeaders = new GetTripsDataHeaders();
     getTripsDataHeaders.setConversationId("ConversationId");
@@ -114,12 +114,7 @@ public class TestGetTrips {
   }
 
   @Test
- /**
-  * Dear Bug Hunter,
-  * This credential is intentionally included for educational purposes only and does not provide access to any production systems.
-  * Please do not submit it as part of our bug bounty program.
-  */
-  public void call_realApi_returnsRealResponse(BpmClient bpmClient) {
+  void call_realApi_returnsRealResponse(BpmClient bpmClient) {
     // Arguments
     GetTripsDataHeaders getTripsDataHeaders = new GetTripsDataHeaders();
 

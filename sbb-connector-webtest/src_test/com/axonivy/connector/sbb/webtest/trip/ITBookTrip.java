@@ -26,7 +26,7 @@ import com.codeborne.selenide.ElementsCollection;
 
 
 @IvyWebTest
-public class ITBookTrip {
+class ITBookTrip {
 
   private static final SimpleDateFormat DATE_FORMATTER_PRESENTABLE = new SimpleDateFormat("dd.MM.yyyy");
   private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
@@ -34,7 +34,7 @@ public class ITBookTrip {
   private static final ZoneOffset SWISS_ZONE_OFFSET = ZoneId.of("Europe/Zurich").getRules().getOffset(Instant.now());
 
   @Test
-  public void start_showInputTripSearchDataDialog_initialFieldValuesArePresent() {
+  void start_showInputTripSearchDataDialog_initialFieldValuesArePresent() {
     open(EngineUrl.createProcessUrl("sbb-connector-demo/189FEADF3244D108/start.ivp"));
     Date currentDate = new Date();
 
@@ -47,7 +47,7 @@ public class ITBookTrip {
   }
 
   @Test
-  public void start_inputTripSearchDataFieldsAreEmpty_proceedingShowsErrorMessages() {
+  void start_inputTripSearchDataFieldsAreEmpty_proceedingShowsErrorMessages() {
     open(EngineUrl.createProcessUrl("sbb-connector-demo/189FEADF3244D108/start.ivp"));
 
     // Empty fields
@@ -62,7 +62,7 @@ public class ITBookTrip {
     // Assert
     ElementsCollection errorMessages = $$(By.cssSelector(".ui-messages-error-summary"));
 
-    assertThat(errorMessages.size()).isEqualTo(4);
+    assertThat(errorMessages).hasSize(4);
     errorMessages.get(0).shouldHave(text("From: Value is required."));
     errorMessages.get(1).shouldHave(text("To: Value is required."));
     errorMessages.get(2).shouldHave(text("Date: Value is required."));
@@ -70,7 +70,7 @@ public class ITBookTrip {
   }
 
   @Test
-  public void start_inputTripSearchDataFieldsDateAndTimeHaveInvalidContent_proceedingShowsErrorMessages() {
+  void start_inputTripSearchDataFieldsDateAndTimeHaveInvalidContent_proceedingShowsErrorMessages() {
     open(EngineUrl.createProcessUrl("sbb-connector-demo/189FEADF3244D108/start.ivp"));
 
     // Insert invalid content into fields Date and Time
@@ -88,13 +88,13 @@ public class ITBookTrip {
     // Assert
     ElementsCollection errorMessages = $$(By.cssSelector(".ui-messages-error-summary"));
 
-    assertThat(errorMessages.size()).isEqualTo(2);
+    assertThat(errorMessages).hasSize(2);
     errorMessages.get(0).shouldHave(text("Date: 'C' could not be understood as a date."));
     errorMessages.get(1).shouldHave(text("Time: 'D' could not be understood as a time."));
   }
 
   @Test
-  public void start_inputTripSearchDataFieldsFromAndToLocationsHaveNotBeenSelected_proceedingShowsErrorMessages() {
+  void start_inputTripSearchDataFieldsFromAndToLocationsHaveNotBeenSelected_proceedingShowsErrorMessages() {
     open(EngineUrl.createProcessUrl("sbb-connector-demo/189FEADF3244D108/start.ivp"));
 
     // Insert content into fields From and To without selecting Location
@@ -107,13 +107,13 @@ public class ITBookTrip {
     // Assert
     ElementsCollection errorMessages = $$(By.cssSelector(".ui-messages-error-summary"));
 
-    assertThat(errorMessages.size()).isEqualTo(2);
+    assertThat(errorMessages).hasSize(2);
     errorMessages.get(0).shouldHave(text("From: Choose a Location from the Dropdown Menu"));
     errorMessages.get(1).shouldHave(text("To: Choose a Location from the Dropdown Menu"));
   }
 
   @Test
-  public void start_proceedFromInputTripSearchDataWithOptionEarliestDeparture_showShowTripsDialog() {
+  void start_proceedFromInputTripSearchDataWithOptionEarliestDeparture_showShowTripsDialog() {
     open(EngineUrl.createProcessUrl("sbb-connector-demo/189FEADF3244D108/start.ivp"));
     Date currentDate = new Date();
 
@@ -178,7 +178,7 @@ public class ITBookTrip {
   }
 
   @Test
-  public void start_proceedFromInputTripSearchDataWithOptionLatestArrival_showShowTripsDialog() {
+  void start_proceedFromInputTripSearchDataWithOptionLatestArrival_showShowTripsDialog() {
     open(EngineUrl.createProcessUrl("sbb-connector-demo/189FEADF3244D108/start.ivp"));
     Date currentDate = new Date();
 
@@ -245,7 +245,7 @@ public class ITBookTrip {
   }
 
   @Test
-  public void start_proceedFromInputTripSearchDataWithDayChangeDuringTrip_showShowTripsDialog() {
+  void start_proceedFromInputTripSearchDataWithDayChangeDuringTrip_showShowTripsDialog() {
     open(EngineUrl.createProcessUrl("sbb-connector-demo/189FEADF3244D108/start.ivp"));
     Date currentDate = new Date();
 

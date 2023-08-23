@@ -19,7 +19,7 @@ import ch.sbb.app.b2p.client.Location.VehicleTypesEnum;
 
 @IvyProcessTest
 @SuppressWarnings("unchecked")
-public class TestGetLocations {
+class TestGetLocations {
 
   private static final BpmProcess GET_LOCATIONS_PROCESS = BpmProcess.path("GetLocations");
   private static final BpmElement GET_LOCATIONS_START = GET_LOCATIONS_PROCESS
@@ -27,7 +27,7 @@ public class TestGetLocations {
   private static final BpmElement GET_LOCATIONS = GET_LOCATIONS_PROCESS.elementName("Get Locations");
 
   @Test
-  public void call_mockedApi_returnsMockedResponse(BpmClient bpmClient) {
+  void call_mockedApi_returnsMockedResponse(BpmClient bpmClient) {
     // Arguments
     GetLocationsDataHeaders getLocationsDataHeaders = new GetLocationsDataHeaders();
     getLocationsDataHeaders.setConversationId("ConversationId");
@@ -80,12 +80,7 @@ public class TestGetLocations {
   }
 
   @Test
- /**
-  * Dear Bug Hunter,
-  * This credential is intentionally included for educational purposes only and does not provide access to any production systems.
-  * Please do not submit it as part of our bug bounty program.
-  */
-  public void call_realApi_returnsRealResponse(BpmClient bpmClient) {
+  void call_realApi_returnsRealResponse(BpmClient bpmClient) {
     // Arguments
     GetLocationsDataHeaders getLocationsDataHeaders = new GetLocationsDataHeaders();
 
