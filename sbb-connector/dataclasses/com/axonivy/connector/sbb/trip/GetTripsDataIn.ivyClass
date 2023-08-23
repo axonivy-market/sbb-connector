@@ -1,0 +1,6 @@
+GetTripsDataIn #class
+com.axonivy.connector.sbb.trip #namespace
+parameters com.axonivy.connector.sbb.trip.GetTripsDataParameters #field
+parameters PERSISTENT #fieldModifier
+headers com.axonivy.connector.sbb.trip.GetTripsDataHeaders #field
+headers PERSISTENT #fieldModifier

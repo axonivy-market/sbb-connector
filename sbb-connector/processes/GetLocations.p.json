@@ -1,0 +1,76 @@
+{
+  "format" : "10.0.0",
+  "id" : "189FE241C19F033D",
+  "kind" : "CALLABLE_SUB",
+  "description" : "Can be used to perform a pattern-based search to retrieve a list of matching locations (resp. concrete STATION's) for journey planning.",
+  "config" : {
+    "data" : "com.axonivy.connector.sbb.location.GetLocationsData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "call(GetLocationsDataIn)",
+      "config" : {
+        "callSignature" : "call",
+        "input" : {
+          "params" : [
+            { "name" : "in", "type" : "com.axonivy.connector.sbb.location.GetLocationsDataIn" }
+          ],
+          "map" : {
+            "out.in" : "param.in"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "locations", "type" : "List<ch.sbb.app.b2p.client.Location>" }
+          ],
+          "map" : {
+            "result.locations" : "in.locations"
+          }
+        },
+        "tags" : "connector"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "description" : "Can be used to perform a pattern-based search to retrieve a list of matching locations (resp. concrete STATION's) for journey planning.",
+        "icon" : "res:/webContent/icons/sbb.png?small"
+      },
+      "connect" : { "id" : "f3", "to" : "f5" }
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "name" : "Return Locations",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f5",
+      "type" : "RestClientCall",
+      "name" : "Get Locations",
+      "config" : {
+        "path" : "/api/locations",
+        "headers" : {
+          "Accept" : "*/*",
+          "x-conversation-id" : "ivy.case.customFields().stringField(\"conversationId\").getOrDefault(in.in.headers.conversationId)",
+          "x-contract-id" : "ivy.var.swissMobilityApiContractId",
+          "Accept-Language" : "in.in.headers.acceptLanguage"
+        },
+        "clientId" : "32c4d3f9-2d6d-4b4d-b0c8-066ebf7f2e04",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "queryParams" : {
+          "name" : "in.in.parameters.name"
+        },
+        "statusErrorCode" : "ivy:error:rest:client",
+        "responseMapping" : {
+          "out.locations" : "result"
+        },
+        "resultType" : "java.util.List<ch.sbb.app.b2p.client.Location>"
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 },
+        "icon" : "res:/webContent/icons/sbb.png"
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    } ]
+}

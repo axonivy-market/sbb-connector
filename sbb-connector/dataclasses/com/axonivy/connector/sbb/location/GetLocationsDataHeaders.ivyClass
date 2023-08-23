@@ -1,0 +1,8 @@
+GetLocationsDataHeaders #class
+com.axonivy.connector.sbb.location #namespace
+conversationId String #field
+conversationId 'REQUIRED. The Conversation Id of the current business process.' #fieldComment
+conversationId PERSISTENT #fieldModifier
+acceptLanguage String #field
+acceptLanguage 'The language of the translatable properties. Available values : de, fr, it, en' #fieldComment
+acceptLanguage PERSISTENT #fieldModifier
