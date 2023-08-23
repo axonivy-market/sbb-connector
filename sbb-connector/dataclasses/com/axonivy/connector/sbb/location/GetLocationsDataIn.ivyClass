@@ -1,0 +1,6 @@
+GetLocationsDataIn #class
+com.axonivy.connector.sbb.location #namespace
+parameters com.axonivy.connector.sbb.location.GetLocationsDataParameters #field
+parameters PERSISTENT #fieldModifier
+headers com.axonivy.connector.sbb.location.GetLocationsDataHeaders #field
+headers PERSISTENT #fieldModifier

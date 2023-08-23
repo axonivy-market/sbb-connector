@@ -1,6 +1,7 @@
 # == Variables ==
-# 
+#
 # You can define here your project Variables.
 #
 Variables:
-#  myVariable: value
+  swissMobilityApiUri: https://b2p.app.sbb.ch
+  swissMobilityApiContractId: ''

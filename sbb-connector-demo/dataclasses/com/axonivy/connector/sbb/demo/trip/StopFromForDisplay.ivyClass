@@ -1,0 +1,23 @@
+StopFromForDisplay #class
+com.axonivy.connector.sbb.demo.trip #namespace
+name String #field
+name 'Name of Stop.' #fieldComment
+name PERSISTENT #fieldModifier
+departureDateTime java.time.OffsetDateTime #field
+departureDateTime 'Departure dateTime in realtime.' #fieldComment
+departureDateTime PERSISTENT #fieldModifier
+departureDate String #field
+departureDate 'Departure date in realtime parsed for displaying in user dialog.' #fieldComment
+departureDate PERSISTENT #fieldModifier
+departureTime String #field
+departureTime 'Departure time in realtime parsed for displaying in user dialog.' #fieldComment
+departureTime PERSISTENT #fieldModifier
+departureDelay String #field
+departureDelay 'Departure delay in realtime parsed for displaying in user dialog.' #fieldComment
+departureDelay PERSISTENT #fieldModifier
+departurePlatform String #field
+departurePlatform 'Departing platform in realtime.' #fieldComment
+departurePlatform PERSISTENT #fieldModifier
+departurePlatformChanged Boolean #field
+departurePlatformChanged 'Flag to determine whether departurePlatform has changed in comparison to planned departurePlatform.' #fieldComment
+departurePlatformChanged PERSISTENT #fieldModifier
