@@ -12,6 +12,9 @@
 		<ui:define name="content">
 			<h:outputStylesheet name="layouts/styles/input-trip-search-data.css" />
 
+			<p:staticMessage severity="info" summary="DEMO"
+				detail="This demo uses the Sandbox URI of the Swiss Mobility API, which will only return the Location Bern and a Trip from Bern to Zürich HB." />
+
 			<h3>Search for Trips</h3>
 
 			<h:form id="form">
@@ -22,13 +25,15 @@
 
 					<p:outputLabel for="from" value="From" />
 					<p:autoComplete id="from" value="#{data.locationFrom.name}"
-						completeMethod="#{logic.getLocations}" required="true">
+						completeMethod="#{logic.getLocations}" required="true"
+						minQueryLength="2" forceSelection="true">
 						<p:ajax event="itemSelect" listener="#{logic.updateLocation}" />
 					</p:autoComplete>
 
 					<p:outputLabel for="to" value="To" />
 					<p:autoComplete id="to" value="#{data.locationTo.name}"
-						completeMethod="#{logic.getLocations}" required="true">
+						completeMethod="#{logic.getLocations}" required="true"
+						minQueryLength="2" forceSelection="true">
 						<p:ajax event="itemSelect" listener="#{logic.updateLocation}" />
 					</p:autoComplete>
 

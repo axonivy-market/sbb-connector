@@ -11,6 +11,9 @@
 		<ui:define name="content">
 			<h:outputStylesheet name="layouts/styles/show-trips.css" />
 
+			<p:staticMessage severity="info" summary="DEMO"
+				detail="This demo uses the Sandbox URI of the Swiss Mobility API, which will only return the Location Bern and a Trip from Bern to Zürich HB." />
+
 			<h3>Trips</h3>
 
 			<h:form id="form">
@@ -49,7 +52,8 @@
 							</p:column>
 
 							<p:column headerText="Departure">
-								<p:outputLabel id="departureName" value="#{segment.stopFrom.name}" />
+								<p:outputLabel id="departureName"
+									value="#{segment.stopFrom.name}" />
 								<br />
 
 								<p:outputLabel id="departureDate"
