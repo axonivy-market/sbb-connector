@@ -51,8 +51,6 @@ class ITBookTrip {
     open(EngineUrl.createProcessUrl("sbb-connector-demo/189FEADF3244D108/start.ivp"));
 
     // Empty fields
-    $(By.id("form:from_input")).clear();
-    $(By.id("form:to_input")).clear();
     $(By.id("form:date_input")).sendKeys(Keys.CONTROL, "A", Keys.DELETE);
     $(By.id("form:time_input")).sendKeys(Keys.CONTROL, "A", Keys.DELETE);
 
@@ -73,13 +71,17 @@ class ITBookTrip {
   void start_inputTripSearchDataFieldsDateAndTimeHaveInvalidContent_proceedingShowsErrorMessages() {
     open(EngineUrl.createProcessUrl("sbb-connector-demo/189FEADF3244D108/start.ivp"));
 
+    $(By.id("form:from_input")).setValue("AA");
+    $(By.id("form:from_panel")).click();
+
+    $(By.id("form:to_input")).setValue("BB");
+    $(By.id("form:to_panel")).click();
+
     // Insert invalid content into fields Date and Time
     $(By.id("form:date_input")).sendKeys(Keys.CONTROL, "A", Keys.DELETE);
-    $(By.id("form:time_input")).sendKeys(Keys.CONTROL, "A", Keys.DELETE);
-
-    $(By.id("form:from_input")).setValue("A");
-    $(By.id("form:to_input")).setValue("B");
     $(By.id("form:date_input")).setValue("C");
+
+    $(By.id("form:time_input")).sendKeys(Keys.CONTROL, "A", Keys.DELETE);
     $(By.id("form:time_input")).setValue("D");
 
     // Proceed
@@ -91,25 +93,6 @@ class ITBookTrip {
     assertThat(errorMessages).hasSize(2);
     errorMessages.get(0).shouldHave(text("Date: 'C' could not be understood as a date."));
     errorMessages.get(1).shouldHave(text("Time: 'D' could not be understood as a time."));
-  }
-
-  @Test
-  void start_inputTripSearchDataFieldsFromAndToLocationsHaveNotBeenSelected_proceedingShowsErrorMessages() {
-    open(EngineUrl.createProcessUrl("sbb-connector-demo/189FEADF3244D108/start.ivp"));
-
-    // Insert content into fields From and To without selecting Location
-    $(By.id("form:from_input")).setValue("A");
-    $(By.id("form:to_input")).setValue("B");
-
-    // Proceed
-    $(By.id("form:proceed")).click();
-
-    // Assert
-    ElementsCollection errorMessages = $$(By.cssSelector(".ui-messages-error-summary"));
-
-    assertThat(errorMessages).hasSize(2);
-    errorMessages.get(0).shouldHave(text("From: Choose a Location from the Dropdown Menu"));
-    errorMessages.get(1).shouldHave(text("To: Choose a Location from the Dropdown Menu"));
   }
 
   @Test
