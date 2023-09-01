@@ -53,7 +53,7 @@
         "headers" : {
           "Accept" : "*/*",
           "x-conversation-id" : "ivy.case.customFields().stringField(\"conversationId\").getOrDefault(in.in.headers.conversationId)",
-          "x-contract-id" : "ivy.var.swissMobilityApiContractId",
+          "x-contract-id" : "ivy.var.sbbConnector_contractId",
           "Accept-Language" : "in.in.headers.acceptLanguage",
           "Scroll-Context" : "in.in.headers.scrollContext"
         },

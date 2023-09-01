@@ -1,9 +1,15 @@
-# == Variables ==
-#
-# You can define here your project Variables.
-#
 Variables:
-  # The URI of the API to use. For example: `https://b2p-int.api.sbb.ch` (integration) or `https://b2p.api.sbb.ch` (production)
-  swissMobilityApiUri: ''
-  # The contract id provided to you by SBB. For Example: `ACP1024`
-  swissMobilityApiContractId: ''
+  sbbConnector:
+    # The URI of the API to use. For example: `https://b2p-int.api.sbb.ch` (integration) or `https://b2p.api.sbb.ch` (production)
+    uri: ''
+    # The contract id provided to you by SBB. For Example: `ACP1024`
+    contractId: ''
+    # The client id provided to you by SBB. For Example: `01234567-89ab-cdef-0123-456789abcdef`
+    clientId: ''
+    # The client secret provided to you by SBB.
+    # [password]
+    clientSecret: ''
+    # The endpoint for acquiring the bearer token using your client id and secret. For Example: `https://login.microsoftonline.com/2cda5d11-f0ac-46b3-967d-af1b2e1bd01a/oauth2/v2.0`
+    tokenEndpoint: ''
+    # The scope provided to you by SBB.
+    scope: ''
