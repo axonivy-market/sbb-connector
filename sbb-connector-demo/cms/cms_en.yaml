@@ -1,0 +1,2 @@
+demoInfoMessage: This demo uses the Sandbox URI of the Swiss Mobility API, which will only return the Location Bern and a Trip from Bern to Zürich HB. In case you already have access to the Swiss Mobility API, you can substitute your credentials and the other neccessary information in the variables.yaml
+  file of this demo project as explained in the setup section of the documentation for a fully working demonstration.

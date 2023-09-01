@@ -1,7 +1,11 @@
-# == Variables ==
-#
-# You can define here your project Variables.
-#
 Variables:
-  swissMobilityApiUri: https://b2p.app.sbb.ch
-  swissMobilityApiContractId: ''
+  sbbConnector:
+    # Dear Bug Hunter
+    # This credential is intentionally included for educational purposes only and does not provide access to any production systems
+    # Please do not submit it as part of our bug bounty program
+    uri: https://b2p.app.sbb.ch
+    contractId: DEMO
+    clientId: DEMO
+    clientSecret: DEMO
+    tokenEndpoint: DEMO
+    scope: DEMO
