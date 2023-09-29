@@ -1,7 +1,8 @@
-# == Variables ==
-#
-# You can define here your project Variables.
-#
 Variables:
-  swissMobilityApiUri: https://b2p.app.sbb.ch
-  swissMobilityApiContractId: ''
+  sbbConnector:
+    uri: https://b2p.app.sbb.ch
+    contractId: DEMO
+    clientId: DEMO
+    clientSecret: DEMO
+    tokenEndpoint: DEMO
+    scope: DEMO

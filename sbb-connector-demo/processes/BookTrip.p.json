@@ -72,7 +72,8 @@
             { "name" : "in", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn" }
           ],
           "map" : {
-            "param.in" : "in.getTripsDataIn"
+            "param.in" : "in.getTripsDataIn",
+            "param.in.parameters.includeAfter" : "5"
           }
         }
       },
