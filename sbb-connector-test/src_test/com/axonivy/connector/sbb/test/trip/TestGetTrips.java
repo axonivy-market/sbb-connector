@@ -26,7 +26,7 @@ import ch.sbb.app.b2p.client.Stop;
 import ch.sbb.app.b2p.client.TransportProduct;
 import ch.sbb.app.b2p.client.Trip;
 
-@IvyProcessTest
+@IvyProcessTest(enableWebServer = true)
 @SuppressWarnings("unchecked")
 class TestGetTrips {
 

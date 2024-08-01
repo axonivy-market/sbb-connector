@@ -17,7 +17,7 @@ import ch.ivyteam.ivy.scripting.objects.List;
 import ch.sbb.app.b2p.client.Location;
 import ch.sbb.app.b2p.client.Location.VehicleTypesEnum;
 
-@IvyProcessTest
+@IvyProcessTest(enableWebServer = true)
 @SuppressWarnings("unchecked")
 class TestGetLocations {
 
