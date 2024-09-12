@@ -1,8 +1,8 @@
-# SBB Connector
+# SBB Konnektor
 
-Axon Ivy's SBB Connector integrates the [Swiss Mobility API](https://developer.sbb.ch/apis/b2p/information) provided by SBB. This connector uses a REST client that allows you to retrieve timetables and fare details. Additionally, you can create and manage bookings of Swiss public transport through the API.
+Axon Ivy's SBB Konnektor integriert die  [Swiss Mobility API](https://developer.sbb.ch/apis/b2p/information) der SBB (= Schweizerische Bundesbahnen). Dieser Konnektor nutzt einen REST-Client, der es dir ermöglicht, Fahrpläne und Tarifdetails abzurufen. Zusätzlich kannst du über die API Buchungen für den  öffentlichen Verkehr der Schweiz erstellen und verwalten.
 
-Note that credentials are required to gain access to any features of the API. Although they are provided free of charge by SBB, the purpose of their API is to generate sales turnover through it. For more information about access, features and capabilities, visit the info page of the [Swiss Mobility API](https://developer.sbb.ch/apis/b2p/information).
+Beachte, dass Zugangsdaten erforderlich sind, um auf die Funktionen der API zuzugreifen. Obwohl diese von der SBB kostenlos zur Verfügung gestellt werden, dient ihre API dazu, Umsätze zu generieren. Weitere Informationen zu Zugang, Funktionen und Möglichkeiten findest du auf der Infoseite der Swiss Mobility API.
 
 ## Demo
 
