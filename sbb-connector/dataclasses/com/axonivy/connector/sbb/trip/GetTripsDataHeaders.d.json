@@ -1,0 +1,22 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "GetTripsDataHeaders",
+  "namespace" : "com.axonivy.connector.sbb.trip",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "conversationId",
+    "type" : "String",
+    "comment" : "REQUIRED. The Conversation Id of the current business process.",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "acceptLanguage",
+    "type" : "String",
+    "comment" : "The language of the translatable properties. Available values : de, fr, it, en",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "scrollContext",
+    "type" : "String",
+    "comment" : "Based on a previous search-response, earlier or later connections for the same trip can be retrieved by scrolling back and forward (by a pointer-context). You must use the same GET request parameters as in the previous trips-request. Additionally either of the given values in the previous response-header for \"Scrollback-Context\" or \"Scrollforward-Context\" can be set for \"Scroll-Context\" to force optional scrolling. Example : 2%7COF%7CMT%C2%B511%C2%B5431359%C2%B5431359%C2%B5431662%C2%B5431662%C2%B50%C2%B50%C2%B5485%C2%B5431330%C2%B55%C2%B5-2147483630%C2%B50%C2%B51%C2%B52%7CPDH%C2%B577a7e8108112554ba5d46aeba769461f%7CRD%C2%B57102020%7CRT%C2%B5114900%7CUS%C2%B50",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}

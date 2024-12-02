@@ -1,0 +1,62 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "GetTripsDataParameters",
+  "namespace" : "com.axonivy.connector.sbb.trip",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "originId",
+    "type" : "Number",
+    "comment" : "REQUIRED. The origin UIC code of the trip. Example : 8507000",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "destinationId",
+    "type" : "Number",
+    "comment" : "REQUIRED. The destination UIC code of the trip. Example : 8503000",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "viaId",
+    "type" : "List<Integer>",
+    "comment" : "The UIC code of forced via(s) during the trip, relates to trainType (number of , in trainType +1 viaId).",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "date",
+    "type" : "Date",
+    "comment" : "REQUIRED. The desired departure date (local date at origin of trip if arrivalDeparture=\"ED\" or at destination if arrivalDeparture=\"LA\"), relates to time. Example : 2020-11-27",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "time",
+    "type" : "String",
+    "comment" : "REQUIRED. The desired departure time (local time analog date), relates to date. Example : 10:22",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "arrivalDeparture",
+    "type" : "String",
+    "comment" : "Search by earliest departure \"ED\" or latest arrival \"LA\". Available values : ED, LA; Default value : ED",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "trainType",
+    "type" : "String",
+    "comment" : "Allows restriction of TransportProduct-categories per PUBLIC_JOURNEY segment and relates to viaId. If nothing is set all TransportProduct-categories may result by default. For a trip A(origin)--(segment0)--B(via0)--(segment1)--C(destination), the desired TransportProduct-categories for each segment may be restricted. Use ',' to separate different segments (via's) and ';' to separate multiple TransportProduct-categories like {ICE/TGV/RJ; EC/IC; IR; RE/D; BOAT; S/SN/R; BUS; CABLEWAY; ARZ/EXT; TRAMWAY} per segment. \"IR\" restrict to InterRegio for segment0 if viaId=B is given (or otherweise for the whole trip if viaId is not given at all). \"EC/IC,IR\" restrict to EuroCity/InterCity for segment0, for segment1 (and perhaps other via's following) only InterRegio is considered where viaId=B must be set. \"EC/IC;ICE/TGV/RJ,IR;EC/IC\" restrict segment0 to EC/IC or ICE/TGV/RJ, segment1 to IR or EC/IC (and perhaps other via's following) where viaId=B must be set. \",IR\" no restriction for segment0, restrict segment1 to IR (and perhaps other via's following) where viaId=B must be set. Example : IR;ICE/TGV/RJ,EC/IC",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "alternateMatch",
+    "type" : "String",
+    "comment" : "Allows control over displaying of cancelled trips with an alternate connection. IRRELEVANT delivers as is (cancelled and alternate without enrichment of alternate) BOTH delivers both trips of 1:1 alternative (cancelled and alternate with enrichment of alternative) ALTERNATE_ONLY delivers only the 1:1 alternate trips CANCELLED_ONLY delivers only the 1:1 cancelled trips. Available values : IRRELEVANT, BOTH, ALTERNATE_ONLY, CANCELLED_ONLY; Default value : IRRELEVANT",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "includeBefore",
+    "type" : "Number",
+    "comment" : "Indicate the minimum number of search results returned before related dateTime. Default value : 0",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "includeAfter",
+    "type" : "Number",
+    "comment" : "Indicate the minimum number of search results returned after related dateTime. Default value : 5",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "calculateEco",
+    "type" : "Boolean",
+    "comment" : "Create a simplified Trip::EcoBalance comparison object, based on SBB default car eco-params. Example : true; Default value : false",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}
