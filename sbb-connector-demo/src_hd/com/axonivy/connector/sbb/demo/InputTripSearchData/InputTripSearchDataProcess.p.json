@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
   "id" : "18A1BFBC93F677AB",
   "kind" : "HTML_DIALOG",
   "config" : {
@@ -10,18 +10,10 @@
       "type" : "HtmlDialogStart",
       "name" : "start(GetTripsDataIn)",
       "config" : {
-        "callSignature" : "start",
-        "result" : {
-          "params" : [
-            { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn" }
-          ],
-          "map" : {
-            "result.getTripsDataIn" : "in.getTripsDataIn"
-          }
-        },
+        "signature" : "start",
         "input" : {
           "params" : [
-            { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn" }
+            { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn", "desc" : "" }
           ],
           "map" : {
             "out.getTripsDataIn" : "param.getTripsDataIn",
@@ -30,12 +22,22 @@
             "out.time" : "new Time()"
           }
         },
+        "result" : {
+          "params" : [
+            { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn", "desc" : "" }
+          ],
+          "map" : {
+            "result.getTripsDataIn" : "in.getTripsDataIn"
+          }
+        },
         "guid" : "189FE362F85F241B"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     }, {
       "id" : "f1",
       "type" : "HtmlDialogEnd",
@@ -52,7 +54,9 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 160 }
       },
-      "connect" : { "id" : "f6", "to" : "f8" }
+      "connect" : [
+        { "id" : "f6", "to" : "f8" }
+      ]
     }, {
       "id" : "f4",
       "type" : "HtmlDialogExit",
@@ -80,27 +84,29 @@
       "visual" : {
         "at" : { "x" : 224, "y" : 160 }
       },
-      "connect" : { "id" : "f5", "to" : "f4" }
+      "connect" : [
+        { "id" : "f5", "to" : "f4" }
+      ]
     }, {
       "id" : "f14",
       "type" : "HtmlDialogMethodStart",
       "name" : "getLocations(String)",
       "config" : {
-        "callSignature" : "getLocations",
-        "result" : {
-          "params" : [
-            { "name" : "locationNames", "type" : "List<String>" }
-          ],
-          "map" : {
-            "result.locationNames" : "in.locationNames"
-          }
-        },
+        "signature" : "getLocations",
         "input" : {
           "params" : [
-            { "name" : "name", "type" : "String" }
+            { "name" : "name", "type" : "String", "desc" : "" }
           ],
           "map" : {
             "out.getLocationsDataIn.parameters.name" : "param.name"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "locationNames", "type" : "List<String>", "desc" : "" }
+          ],
+          "map" : {
+            "result.locationNames" : "in.locationNames"
           }
         },
         "guid" : "189FE45FF14E72DE"
@@ -114,7 +120,9 @@
           "Used for autocomplete dropdown menu of input fields From and To."
         ]
       },
-      "connect" : { "id" : "f16", "to" : "f15" }
+      "connect" : [
+        { "id" : "f16", "to" : "f15" }
+      ]
     }, {
       "id" : "f15",
       "type" : "Alternative",
@@ -123,6 +131,11 @@
         "at least 1 non-whitespace",
         "character?"
       ],
+      "config" : {
+        "conditions" : {
+          "f18" : "!in.getLocationsDataIn.parameters.name.isBlank()"
+        }
+      },
       "visual" : {
         "at" : { "x" : 224, "y" : 352 },
         "labelOffset" : { "x" : 14, "y" : 34 }
@@ -130,7 +143,7 @@
       "connect" : [
         { "id" : "f18", "to" : "f17", "label" : {
             "name" : "Yes"
-          }, "condition" : "!in.getLocationsDataIn.parameters.name.isBlank()" },
+          } },
         { "id" : "f24", "to" : "f23", "via" : [ { "x" : 224, "y" : 256 } ], "label" : {
             "name" : "No",
             "segment" : 1.14,
@@ -143,18 +156,15 @@
       "name" : "Get Locations",
       "config" : {
         "processCall" : "GetLocations:call(com.axonivy.connector.sbb.location.GetLocationsDataIn)",
+        "call" : {
+          "map" : {
+            "param.in" : "in.getLocationsDataIn"
+          }
+        },
         "output" : {
           "map" : {
             "out" : "in",
             "out.locations" : "result.locations"
-          }
-        },
-        "call" : {
-          "params" : [
-            { "name" : "in", "type" : "com.axonivy.connector.sbb.location.GetLocationsDataIn" }
-          ],
-          "map" : {
-            "param.in" : "in.getLocationsDataIn"
           }
         }
       },
@@ -162,7 +172,9 @@
         "at" : { "x" : 416, "y" : 352 },
         "icon" : "res:/webContent/icons/sbb.png"
       },
-      "connect" : { "id" : "f20", "to" : "f19" }
+      "connect" : [
+        { "id" : "f20", "to" : "f19" }
+      ]
     }, {
       "id" : "f19",
       "type" : "Script",
@@ -187,7 +199,9 @@
       "visual" : {
         "at" : { "x" : 608, "y" : 352 }
       },
-      "connect" : { "id" : "f22", "to" : "f21" }
+      "connect" : [
+        { "id" : "f22", "to" : "f21" }
+      ]
     }, {
       "id" : "f21",
       "type" : "HtmlDialogEnd",
@@ -212,7 +226,9 @@
       "visual" : {
         "at" : { "x" : 608, "y" : 256 }
       },
-      "connect" : { "id" : "f25", "to" : "f21", "via" : [ { "x" : 800, "y" : 256 } ] }
+      "connect" : [
+        { "id" : "f25", "to" : "f21", "via" : [ { "x" : 800, "y" : 256 } ] }
+      ]
     }, {
       "id" : "f26",
       "type" : "Script",
@@ -244,16 +260,18 @@
       "visual" : {
         "at" : { "x" : 416, "y" : 448 }
       },
-      "connect" : { "id" : "f30", "to" : "f29" }
+      "connect" : [
+        { "id" : "f30", "to" : "f29" }
+      ]
     }, {
       "id" : "f27",
       "type" : "HtmlDialogMethodStart",
       "name" : "updateLocation(SelectEvent)",
       "config" : {
-        "callSignature" : "updateLocation",
+        "signature" : "updateLocation",
         "input" : {
           "params" : [
-            { "name" : "selectEvent", "type" : "org.primefaces.event.SelectEvent" }
+            { "name" : "selectEvent", "type" : "org.primefaces.event.SelectEvent", "desc" : "" }
           ],
           "map" : {
             "out.selectEvent" : "param.selectEvent"
@@ -268,7 +286,9 @@
           "Sets originId or destinationId of getTripsDataIn to id of selected Location."
         ]
       },
-      "connect" : { "id" : "f28", "to" : "f26" }
+      "connect" : [
+        { "id" : "f28", "to" : "f26" }
+      ]
     }, {
       "id" : "f29",
       "type" : "HtmlDialogEnd",

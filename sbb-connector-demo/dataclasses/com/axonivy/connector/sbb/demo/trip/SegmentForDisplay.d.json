@@ -1,0 +1,32 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "SegmentForDisplay",
+  "namespace" : "com.axonivy.connector.sbb.demo.trip",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "iconClass",
+    "type" : "String",
+    "comment" : "Class of icon to represent segment.",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "stopFrom",
+    "type" : "com.axonivy.connector.sbb.demo.trip.StopFromForDisplay",
+    "comment" : "First stop in segment.",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "stopTo",
+    "type" : "com.axonivy.connector.sbb.demo.trip.StopToForDisplay",
+    "comment" : "Last stop in segment.",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "transportProductName",
+    "type" : "String",
+    "comment" : "Operator specific name of vehicle.",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "direction",
+    "type" : "String",
+    "comment" : "Last station of the associated transportProduct's journey.",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}
