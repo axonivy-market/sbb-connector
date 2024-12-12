@@ -6,12 +6,10 @@
   "fields" : [ {
     "name" : "getTripsDataIn",
     "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn",
-    "comment" : "Argument for subprocess GetTrips.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Argument for subprocess GetTrips."
   }, {
     "name" : "trips",
     "type" : "List<ch.sbb.app.b2p.client.Trip>",
-    "comment" : "Return value for subprocess GetTrips.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Return value for subprocess GetTrips."
   } ]
 }

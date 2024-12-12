@@ -6,12 +6,10 @@
   "fields" : [ {
     "name" : "in",
     "type" : "com.axonivy.connector.sbb.location.GetLocationsDataIn",
-    "comment" : "Argument for subprocess GetLocations.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Argument for subprocess GetLocations."
   }, {
     "name" : "locations",
     "type" : "List<ch.sbb.app.b2p.client.Location>",
-    "comment" : "Return value of subprocess GetLocations.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Return value of subprocess GetLocations."
   } ]
 }

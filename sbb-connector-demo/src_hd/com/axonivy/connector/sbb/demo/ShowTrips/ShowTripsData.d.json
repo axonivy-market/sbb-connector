@@ -6,12 +6,10 @@
   "fields" : [ {
     "name" : "trips",
     "type" : "List<ch.sbb.app.b2p.client.Trip>",
-    "comment" : "Trips as received from Swiss Mobility API.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Trips as received from Swiss Mobility API."
   }, {
     "name" : "tripsForDisplay",
     "type" : "List<com.axonivy.connector.sbb.demo.trip.TripForDisplay>",
-    "comment" : "Trips parsed for displaying in user dialog.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Trips parsed for displaying in user dialog."
   } ]
 }

@@ -6,47 +6,38 @@
   "fields" : [ {
     "name" : "getLocationsDataIn",
     "type" : "com.axonivy.connector.sbb.location.GetLocationsDataIn",
-    "comment" : "Argument for subprocess GetLocations.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Argument for subprocess GetLocations."
   }, {
     "name" : "locations",
     "type" : "List<ch.sbb.app.b2p.client.Location>",
-    "comment" : "Return value of subprocess GetLocations.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Return value of subprocess GetLocations."
   }, {
     "name" : "locationNames",
     "type" : "List<String>",
-    "comment" : "List of Location names returned by subprocess GetLocations. Used for autocomplete dropdown menu of input fields From and To.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "List of Location names returned by subprocess GetLocations. Used for autocomplete dropdown menu of input fields From and To."
   }, {
     "name" : "locationFrom",
     "type" : "ch.sbb.app.b2p.client.Location",
-    "comment" : "Selected Location from autocomplete dropdown menu of input field From.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Selected Location from autocomplete dropdown menu of input field From."
   }, {
     "name" : "locationTo",
     "type" : "ch.sbb.app.b2p.client.Location",
-    "comment" : "Selected Location from autocomplete dropdown menu of input field To.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Selected Location from autocomplete dropdown menu of input field To."
   }, {
     "name" : "selectEvent",
     "type" : "org.primefaces.event.SelectEvent",
-    "comment" : "Event triggered by selection of Location name in autocomplete dropdown menu to set locationFrom or locationTo.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Event triggered by selection of Location name in autocomplete dropdown menu to set locationFrom or locationTo."
   }, {
     "name" : "time",
     "type" : "Time",
-    "comment" : "Content of input field Time.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Content of input field Time."
   }, {
     "name" : "arrival",
     "type" : "Boolean",
-    "comment" : "Flag to determine whether to search for earliest departure or latest arrival at given date and time. False: Earliest departure; True: Latest arrival",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Flag to determine whether to search for earliest departure or latest arrival at given date and time. False: Earliest departure; True: Latest arrival"
   }, {
     "name" : "getTripsDataIn",
     "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn",
-    "comment" : "Argument for subprocess GetTrips.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Argument for subprocess GetTrips."
   } ]
 }
