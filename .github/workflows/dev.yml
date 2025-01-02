@@ -9,5 +9,3 @@ on:
 jobs:
   build:
     uses: axonivy-market/github-workflows/.github/workflows/dev.yml@v5
-    secrets:
-      mvnArgs: -DjourneyUri=${{ secrets.JOURNEY_URI }} -DclientId=${{ secrets.CLIENT_ID }}

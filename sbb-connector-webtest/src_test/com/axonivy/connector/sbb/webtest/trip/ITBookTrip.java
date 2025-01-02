@@ -34,8 +34,6 @@ class ITBookTrip {
 
 	@Test
 	void start_inputTripSearchDataFieldsAreEmpty_proceedingShowsErrorMessages() {
-		startDemoProcess();
-
 		processToShowTrip();
 
 		// Assert
@@ -49,7 +47,6 @@ class ITBookTrip {
 
 	@Test
 	void start_inputTripSearchDataFieldsDateAndTimeHaveInvalidContent_proceedingShowsErrorMessages() {
-		startDemoProcess();
 		selectFromAndTo();
 
 		// Insert invalid content into fields Date and Time
@@ -70,7 +67,6 @@ class ITBookTrip {
 
 	@Test
 	void start_proceedFromInputTripSearchDataWithOptionEarliestDeparture_showShowTripsDialog() throws ParseException {
-		startDemoProcess();
 		Date date = DATE_FORMATTER_PRESENTABLE.parse(MOCK_DATE_VALUE);
 		String dateStr = DATE_TIME_FORMATTER_PRESENTABLE.format(date);
 

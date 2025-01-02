@@ -53,16 +53,6 @@
 				<version>${project.build.plugin.version}</version>
 				<extensions>true</extensions>
 			</plugin>
-			<plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.2</version>
-        <configuration>
-          <systemPropertyVariables>
-            <journeyUri>${journeyUri}</journeyUri>
-            <clientId>${clientId}</clientId>
-          </systemPropertyVariables>
-        </configuration>
-      </plugin>
 		</plugins>
 	</build>
 </project>
