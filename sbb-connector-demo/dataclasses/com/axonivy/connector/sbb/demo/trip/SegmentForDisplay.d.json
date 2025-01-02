@@ -6,27 +6,30 @@
   "fields" : [ {
     "name" : "iconClass",
     "type" : "String",
-    "comment" : "Class of icon to represent segment.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Class of icon to represent segment."
   }, {
     "name" : "stopFrom",
     "type" : "com.axonivy.connector.sbb.demo.trip.StopFromForDisplay",
-    "comment" : "First stop in segment.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "First stop in segment."
   }, {
     "name" : "stopTo",
     "type" : "com.axonivy.connector.sbb.demo.trip.StopToForDisplay",
-    "comment" : "Last stop in segment.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Last stop in segment."
   }, {
-    "name" : "transportProductName",
+    "name" : "transportName",
     "type" : "String",
-    "comment" : "Operator specific name of vehicle.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Operator specific name of vehicle."
   }, {
     "name" : "direction",
     "type" : "String",
-    "comment" : "Last station of the associated transportProduct's journey.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Last station of the associated transportProduct's journey."
+  }, {
+    "name" : "transportDescription",
+    "type" : "String",
+    "comment" : "Operator specific description of vehicle."
+  }, {
+    "name" : "publishedServiceName",
+    "type" : "String",
+    "comment" : "Transport type of vehicle, line number and vehicle number"
   } ]
 }

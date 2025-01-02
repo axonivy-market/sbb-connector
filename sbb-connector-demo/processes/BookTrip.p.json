@@ -39,14 +39,13 @@
         "dialog" : "com.axonivy.connector.sbb.demo.InputTripSearchData:start(com.axonivy.connector.sbb.trip.GetTripsDataIn)",
         "call" : {
           "map" : {
-            "param.getTripsDataIn" : "in.getTripsDataIn",
             "param.getTripsDataIn.parameters.date" : "new Date()"
           }
         },
         "output" : {
           "map" : {
             "out" : "in",
-            "out.getTripsDataIn" : "result.getTripsDataIn"
+            "out.getTripsCollectionDataIn" : "result.getTripsCollectionDataIn"
           }
         }
       },
@@ -61,11 +60,10 @@
       "type" : "SubProcessCall",
       "name" : "Get Trips",
       "config" : {
-        "processCall" : "GetTrips:call(com.axonivy.connector.sbb.trip.GetTripsDataIn)",
+        "processCall" : "GetTripsCollection:call(com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn)",
         "call" : {
           "map" : {
-            "param.in" : "in.getTripsDataIn",
-            "param.in.parameters.includeAfter" : "5"
+            "param.getTripsCollectionDataIn" : "in.getTripsCollectionDataIn"
           }
         },
         "output" : {
@@ -87,7 +85,7 @@
       "type" : "DialogCall",
       "name" : "Show Trips",
       "config" : {
-        "dialog" : "com.axonivy.connector.sbb.demo.ShowTrips:start(List<ch.sbb.app.b2p.client.Trip>)",
+        "dialog" : "com.axonivy.connector.sbb.demo.ShowTrips:start(List<ch.sbb.api.smapi.osdm.journey.client.Trip>)",
         "call" : {
           "map" : {
             "param.trips" : "in.trips"

@@ -6,37 +6,30 @@
   "fields" : [ {
     "name" : "name",
     "type" : "String",
-    "comment" : "Name of Stop.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Name of Stop."
   }, {
     "name" : "departureDateTime",
     "type" : "java.time.OffsetDateTime",
-    "comment" : "Departure dateTime in realtime.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Departure dateTime in realtime."
   }, {
     "name" : "departureDate",
     "type" : "String",
-    "comment" : "Departure date in realtime parsed for displaying in user dialog.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Departure date in realtime parsed for displaying in user dialog."
   }, {
     "name" : "departureTime",
     "type" : "String",
-    "comment" : "Departure time in realtime parsed for displaying in user dialog.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Departure time in realtime parsed for displaying in user dialog."
   }, {
     "name" : "departureDelay",
     "type" : "String",
-    "comment" : "Departure delay in realtime parsed for displaying in user dialog.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Departure delay in realtime parsed for displaying in user dialog."
   }, {
     "name" : "departurePlatform",
     "type" : "String",
-    "comment" : "Departing platform in realtime.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Departing platform in realtime."
   }, {
     "name" : "departurePlatformChanged",
     "type" : "Boolean",
-    "comment" : "Flag to determine whether departurePlatform has changed in comparison to planned departurePlatform.",
-    "modifiers" : [ "PERSISTENT" ]
+    "comment" : "Flag to determine whether departurePlatform has changed in comparison to planned departurePlatform."
   } ]
 }

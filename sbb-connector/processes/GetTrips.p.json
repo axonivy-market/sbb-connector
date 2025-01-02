@@ -30,7 +30,8 @@
         }
       },
       "tags" : [
-        "connector"
+        "connector",
+        "deprecated"
       ],
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },

@@ -5,7 +5,7 @@
   "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "trips",
-    "type" : "List<ch.sbb.app.b2p.client.Trip>",
+    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.Trip>",
     "comment" : "Trips as received from Swiss Mobility API."
   }, {
     "name" : "tripsForDisplay",

@@ -16,18 +16,15 @@
             { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn", "desc" : "" }
           ],
           "map" : {
-            "out.getTripsDataIn" : "param.getTripsDataIn",
-            "out.locationFrom" : "new ch.sbb.app.b2p.client.Location()",
-            "out.locationTo" : "new ch.sbb.app.b2p.client.Location()",
             "out.time" : "new Time()"
           }
         },
         "result" : {
           "params" : [
-            { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn", "desc" : "" }
+            { "name" : "getTripsCollectionDataIn", "type" : "com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn", "desc" : "" }
           ],
           "map" : {
-            "result.getTripsDataIn" : "in.getTripsDataIn"
+            "result.getTripsCollectionDataIn" : "in.getTripsCollectionDataIn"
           }
         },
         "guid" : "189FE362F85F241B"
@@ -71,14 +68,9 @@
         "output" : {
           "map" : {
             "out" : "in",
-            "out.getTripsDataIn" : "in.getTripsDataIn",
-            "out.getTripsDataIn.parameters.destinationId" : "in.locationTo.id",
-            "out.getTripsDataIn.parameters.originId" : "in.locationFrom.id"
-          },
-          "code" : [
-            "in.getTripsDataIn.parameters.time = in.time.toString();",
-            "in.getTripsDataIn.parameters.arrivalDeparture = in.arrival ? \"LA\" : \"ED\";"
-          ]
+            "out.getTripsCollectionDataIn.params.arrivalTime" : "com.axonivy.connector.sbb.utils.DateUtils.convertDateToISO8601(in.arrivalDate, 2)",
+            "out.getTripsCollectionDataIn.params.departureTime" : "com.axonivy.connector.sbb.utils.DateUtils.convertDateToISO8601(in.departureDate, 2)"
+          }
         }
       },
       "visual" : {
@@ -90,15 +82,16 @@
     }, {
       "id" : "f14",
       "type" : "HtmlDialogMethodStart",
-      "name" : "getLocations(String)",
+      "name" : "getPlaces(String)",
       "config" : {
-        "signature" : "getLocations",
+        "signature" : "getPlaces",
         "input" : {
           "params" : [
             { "name" : "name", "type" : "String", "desc" : "" }
           ],
           "map" : {
-            "out.getLocationsDataIn.parameters.name" : "param.name"
+            "out.getPlacesDataIn.params.name" : "param.name",
+            "out.getPlacesDataIn.params.restrictions.type" : "ch.sbb.api.smapi.osdm.journey.client.PlaceParam.TypeEnum.STOP"
           }
         },
         "result" : {
@@ -133,7 +126,7 @@
       ],
       "config" : {
         "conditions" : {
-          "f18" : "!in.getLocationsDataIn.parameters.name.isBlank()"
+          "f18" : "!in.getPlacesDataIn.params.name.isBlank()"
         }
       },
       "visual" : {
@@ -153,18 +146,18 @@
     }, {
       "id" : "f17",
       "type" : "SubProcessCall",
-      "name" : "Get Locations",
+      "name" : "Get Places",
       "config" : {
-        "processCall" : "GetLocations:call(com.axonivy.connector.sbb.location.GetLocationsDataIn)",
+        "processCall" : "GetPlaces:call(com.axonivy.connector.sbb.place.GetPlacesDataIn)",
         "call" : {
           "map" : {
-            "param.in" : "in.getLocationsDataIn"
+            "param.getPlacesDataIn.params.name" : "in.getPlacesDataIn.params.name"
           }
         },
         "output" : {
           "map" : {
             "out" : "in",
-            "out.locations" : "result.locations"
+            "out.places" : "result.places"
           }
         }
       },
@@ -178,7 +171,7 @@
     }, {
       "id" : "f19",
       "type" : "Script",
-      "name" : "Set locationNames",
+      "name" : "Set Place Names",
       "config" : {
         "output" : {
           "map" : {
@@ -186,13 +179,9 @@
             "out.locationNames" : "in.locationNames"
           },
           "code" : [
-            "import ch.sbb.app.b2p.client.Location;",
+            "import com.axonivy.connector.sbb.demo.trip.PlaceUtils;",
             "",
-            "in.locationNames = new List<String>();",
-            "",
-            "for(Location location: in.locations) {",
-            "  in.locationNames.add(location.name);",
-            "}"
+            "in.locationNames = PlaceUtils.getNameOfPlaces(in.places);"
           ]
         }
       },
@@ -205,7 +194,7 @@
     }, {
       "id" : "f21",
       "type" : "HtmlDialogEnd",
-      "name" : "Return locationNames",
+      "name" : "Return Place Names",
       "visual" : {
         "at" : { "x" : 800, "y" : 352 },
         "labelOffset" : { "x" : 10, "y" : 30 }
@@ -232,7 +221,7 @@
     }, {
       "id" : "f26",
       "type" : "Script",
-      "name" : "Set Location",
+      "name" : "Set Place Ref",
       "config" : {
         "output" : {
           "map" : {
@@ -241,18 +230,12 @@
             "out.locationTo" : "in.locationTo"
           },
           "code" : [
-            "import ch.sbb.app.b2p.client.Location;",
-            "",
-            "for(Location location: in.locations) {",
-            "  if (location.name.equals(in.selectEvent.getObject())) {",
-            "    if (in.selectEvent.getComponent().id.equals(\"from\")) {",
-            "      in.locationFrom = location;",
-            "    }",
-            "    else {",
-            "      in.locationTo = location;",
-            "    }",
-            "    break;",
-            "  }",
+            "import com.axonivy.connector.sbb.demo.trip.PlaceUtils;",
+            "String nameOfPlace = String.valueOf(in.selectEvent.getObject());",
+            "if (in.selectEvent.getComponent().id.equals(\"from\")) {",
+            "  in.getTripsCollectionDataIn.params.origin = PlaceUtils.getTripSearchCriteriaOrigin(in.places, nameOfPlace);",
+            "} else {",
+            "  in.getTripsCollectionDataIn.params.destination = PlaceUtils.getTripSearchCriteriaDestination(in.places, nameOfPlace);;",
             "}"
           ]
         }
@@ -266,9 +249,9 @@
     }, {
       "id" : "f27",
       "type" : "HtmlDialogMethodStart",
-      "name" : "updateLocation(SelectEvent)",
+      "name" : "updatePlace(SelectEvent)",
       "config" : {
-        "signature" : "updateLocation",
+        "signature" : "updatePlace",
         "input" : {
           "params" : [
             { "name" : "selectEvent", "type" : "org.primefaces.event.SelectEvent", "desc" : "" }
@@ -293,7 +276,7 @@
       "id" : "f29",
       "type" : "HtmlDialogEnd",
       "name" : [
-        "Location has",
+        "Place has",
         "been updated"
       ],
       "visual" : {

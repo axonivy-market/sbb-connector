@@ -4,12 +4,10 @@
   "namespace" : "com.axonivy.connector.sbb.demo",
   "isBusinessCaseData" : false,
   "fields" : [ {
-    "name" : "getTripsDataIn",
-    "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn",
-    "comment" : "Argument for subprocess GetTrips."
+    "name" : "getTripsCollectionDataIn",
+    "type" : "com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn"
   }, {
     "name" : "trips",
-    "type" : "List<ch.sbb.app.b2p.client.Trip>",
-    "comment" : "Return value for subprocess GetTrips."
+    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.Trip>"
   } ]
 }

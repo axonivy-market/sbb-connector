@@ -5,7 +5,7 @@
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-		<classpathentry kind="src" path="src_wsproc">
+	<classpathentry kind="src" path="src_wsproc">
 		<attributes>
 			<attribute name="optional" value="true"/>
 		</attributes>
@@ -25,5 +25,6 @@
 	<classpathentry kind="con" path="WEBAPP_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="lib" path="lib/generated/rest/jaxRsClient_32c4d3f9-2d6d-4b4d-b0c8-066ebf7f2e04.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/generated/rest/jaxRsClient_13022aee-0653-4076-b253-a87b352403c8.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
