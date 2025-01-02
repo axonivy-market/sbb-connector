@@ -55,7 +55,7 @@
           "clientId" : "13022aee-0653-4076-b253-a87b352403c8",
           "path" : "/v1/trips-collection",
           "headers" : {
-            "Requestor" : "in.in.headers.requestor",
+            "Requestor" : "ivy.case.customFields().stringField(\"requestor\").getOrDefault(in.in.headers.requestor)",
             "Accept-Language" : "in.in.headers.acceptLanguage",
             "traceparent" : "in.in.headers.traceparent",
             "tracestate" : "in.in.headers.tracestate"

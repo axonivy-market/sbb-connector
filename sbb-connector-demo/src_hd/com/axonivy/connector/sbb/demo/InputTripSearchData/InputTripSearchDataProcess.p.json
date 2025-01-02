@@ -151,7 +151,6 @@
         "processCall" : "GetPlaces:call(com.axonivy.connector.sbb.place.GetPlacesDataIn)",
         "call" : {
           "map" : {
-            "param.getPlacesDataIn.headers.requestor" : "ivy.session.getSessionUserName()",
             "param.getPlacesDataIn.params.name" : "in.getPlacesDataIn.params.name"
           }
         },

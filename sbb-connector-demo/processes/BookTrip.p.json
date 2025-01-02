@@ -12,7 +12,7 @@
         "signature" : "start",
         "case" : {
           "customFields" : [
-            { "name" : "conversationId", "type" : "STRING", "value" : "java.util.UUID.randomUUID().toString()" }
+            { "name" : "requestor", "type" : "STRING", "value" : "ivy.session.getSessionUserName()" }
           ]
         }
       },
@@ -63,8 +63,7 @@
         "processCall" : "GetTripsCollection:call(com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn)",
         "call" : {
           "map" : {
-            "param.getTripsCollectionDataIn" : "in.getTripsCollectionDataIn",
-            "param.getTripsCollectionDataIn.headers.requestor" : "ivy.session.getSessionUserName()"
+            "param.getTripsCollectionDataIn" : "in.getTripsCollectionDataIn"
           }
         },
         "output" : {
