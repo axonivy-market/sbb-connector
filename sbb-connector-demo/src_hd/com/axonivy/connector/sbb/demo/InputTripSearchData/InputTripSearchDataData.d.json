@@ -7,37 +7,9 @@
     "name" : "getPlacesDataIn",
     "type" : "com.axonivy.connector.sbb.place.GetPlacesDataIn"
   }, {
-    "name" : "locations",
-    "type" : "List<ch.sbb.app.b2p.client.Location>",
-    "comment" : "Return value of subprocess GetLocations."
-  }, {
-    "name" : "locationNames",
-    "type" : "List<String>",
-    "comment" : "List of Location names returned by subprocess GetLocations. Used for autocomplete dropdown menu of input fields From and To."
-  }, {
-    "name" : "locationFrom",
-    "type" : "ch.sbb.app.b2p.client.Location",
-    "comment" : "Selected Location from autocomplete dropdown menu of input field From."
-  }, {
-    "name" : "locationTo",
-    "type" : "ch.sbb.app.b2p.client.Location",
-    "comment" : "Selected Location from autocomplete dropdown menu of input field To."
-  }, {
     "name" : "selectEvent",
     "type" : "org.primefaces.event.SelectEvent",
     "comment" : "Event triggered by selection of Location name in autocomplete dropdown menu to set locationFrom or locationTo."
-  }, {
-    "name" : "time",
-    "type" : "Time",
-    "comment" : "Content of input field Time."
-  }, {
-    "name" : "arrival",
-    "type" : "Boolean",
-    "comment" : "Flag to determine whether to search for earliest departure or latest arrival at given date and time. False: Earliest departure; True: Latest arrival"
-  }, {
-    "name" : "getTripsDataIn",
-    "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn",
-    "comment" : "Argument for subprocess GetTrips."
   }, {
     "name" : "places",
     "type" : "List<ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems>"
@@ -66,5 +38,9 @@
   }, {
     "name" : "destination",
     "type" : "String"
+  }, {
+    "name" : "placeNames",
+    "type" : "List<String>",
+    "comment" : "List of place names returned by subprocess GetPlaces. Used for autocomplete dropdown menu of input fields From and To."
   } ]
 }

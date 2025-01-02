@@ -15,9 +15,7 @@
           "params" : [
             { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn", "desc" : "" }
           ],
-          "map" : {
-            "out.time" : "new Time()"
-          }
+          "map" : { }
         },
         "result" : {
           "params" : [
@@ -74,7 +72,8 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 160 }
+        "at" : { "x" : 248, "y" : 161 },
+        "size" : { "width" : 160, "height" : 62 }
       },
       "connect" : [
         { "id" : "f5", "to" : "f4" }
@@ -96,10 +95,10 @@
         },
         "result" : {
           "params" : [
-            { "name" : "locationNames", "type" : "List<String>", "desc" : "" }
+            { "name" : "placeNames", "type" : "List<String>", "desc" : "" }
           ],
           "map" : {
-            "result.locationNames" : "in.locationNames"
+            "result.placeNames" : "in.placeNames"
           }
         },
         "guid" : "189FE45FF14E72DE"
@@ -135,12 +134,13 @@
       },
       "connect" : [
         { "id" : "f18", "to" : "f17", "label" : {
-            "name" : "Yes"
+            "name" : "Yes",
+            "offset" : { "x" : -3, "y" : -10 }
           } },
         { "id" : "f24", "to" : "f23", "via" : [ { "x" : 224, "y" : 256 } ], "label" : {
             "name" : "No",
             "segment" : 1.14,
-            "offset" : { "x" : -45, "y" : 46 }
+            "offset" : { "x" : -28, "y" : 46 }
           } }
       ]
     }, {
@@ -151,6 +151,7 @@
         "processCall" : "GetPlaces:call(com.axonivy.connector.sbb.place.GetPlacesDataIn)",
         "call" : {
           "map" : {
+            "param.getPlacesDataIn.headers.requestor" : "ivy.session.getSessionUserName()",
             "param.getPlacesDataIn.params.name" : "in.getPlacesDataIn.params.name"
           }
         },
@@ -176,12 +177,12 @@
         "output" : {
           "map" : {
             "out" : "in",
-            "out.locationNames" : "in.locationNames"
+            "out.placeNames" : "in.placeNames"
           },
           "code" : [
             "import com.axonivy.connector.sbb.demo.trip.PlaceUtils;",
             "",
-            "in.locationNames = PlaceUtils.getNameOfPlaces(in.places);"
+            "in.placeNames = PlaceUtils.getNameOfPlaces(in.places);"
           ]
         }
       },
@@ -202,14 +203,14 @@
     }, {
       "id" : "f23",
       "type" : "Script",
-      "name" : "Empty locationNames",
+      "name" : "Empty place names",
       "config" : {
         "output" : {
           "map" : {
             "out" : "in",
-            "out.locationNames" : "in.locationNames"
+            "out.placeNames" : "in.placeNames"
           },
-          "code" : "in.locationNames = new List<String>();"
+          "code" : "in.placeNames = new List<String>();"
         }
       },
       "visual" : {
@@ -224,11 +225,6 @@
       "name" : "Set Place Ref",
       "config" : {
         "output" : {
-          "map" : {
-            "out" : "in",
-            "out.locationFrom" : "in.locationFrom",
-            "out.locationTo" : "in.locationTo"
-          },
           "code" : [
             "import com.axonivy.connector.sbb.demo.trip.PlaceUtils;",
             "String nameOfPlace = String.valueOf(in.selectEvent.getObject());",

@@ -63,7 +63,8 @@
         "processCall" : "GetTripsCollection:call(com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn)",
         "call" : {
           "map" : {
-            "param.getTripsCollectionDataIn" : "in.getTripsCollectionDataIn"
+            "param.getTripsCollectionDataIn" : "in.getTripsCollectionDataIn",
+            "param.getTripsCollectionDataIn.headers.requestor" : "ivy.session.getSessionUserName()"
           }
         },
         "output" : {

@@ -31,7 +31,7 @@
       "id" : "f1",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 480, "y" : 80 }
+        "at" : { "x" : 432, "y" : 80 }
       }
     }, {
       "id" : "f3",
@@ -180,8 +180,8 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 288, "y" : 80 },
-        "size" : { "width" : 176, "height" : 94 }
+        "at" : { "x" : 266, "y" : 80 },
+        "size" : { "width" : 140, "height" : 64 }
       },
       "connect" : [
         { "id" : "f2", "to" : "f1" }
