@@ -15,23 +15,7 @@ Note that credentials are required to gain access to any features of the API. Al
 To use the SBB Connector, add the following variables to your Axon Ivy Project:
 
 ```
-Variables:
-  sbbConnector:
-    # The URI of the API to use. For example: `https://b2p-int.api.sbb.ch` (integration) or `https://b2p.api.sbb.ch` (production)
-    uri: ""
-    # The contract id provided to you by SBB. For Example: `ACP1024`
-    contractId: ""
-    # The client id provided to you by SBB. For Example: `01234567-89ab-cdef-0123-456789abcdef`
-    clientId: ""
-    # The client secret provided to you by SBB.
-    #[password]
-    clientSecret: ***
-    # The endpoint for acquiring the bearer token using your client id and secret. For Example: `https://login.microsoftonline.com/2cda5d11-f0ac-46b3-967d-af1b2e1bd01a/oauth2/v2.0`
-    tokenEndpoint: ""
-    # The scope provided to you by SBB.
-    scope: ""
-    # The URI of the Journey SBB Swiss Mobility API to use . For example: `https://smapi-osdm-journey-int.api.sbb.ch` (integration) or `https://smapi-osdm-journey.api.sbb.ch` (production)
-    journeyUri: ""
+@variables.yaml@
 ```
 
 Any request to the Journey SBB Swiss Mobility API requires a `Requestor` header of the current business process. For the already provided subprocesses by the SBB Connector you can either set the customField `requestor` at the beginning of a process or provide the `Requestor` as an argument each time you call a subprocess. Take a look at the demo project for an example.

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ch.ivyteam.ivy.environment.Ivy;
 import ch.sbb.api.smapi.osdm.journey.client.Address;
 import ch.sbb.api.smapi.osdm.journey.client.FareConnectionPoint;
 import ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems;
@@ -41,40 +42,49 @@ public class PlaceResponseDeserializer extends JsonDeserializer<PlaceResponse> {
 			List<OneOfPlaceResponsePlacesItems> places = new ArrayList<>();
 			if (node.has(Constant.PLACES)) {
 				JsonNode placesNode = node.get(Constant.PLACES);
-				if (placesNode != null && placesNode.isArray()) {
-					for (JsonNode placeNode : placesNode) {
-						if (placeNode.has(Constant.OBJECT_TYPE_JSON_PROPERTY) && StopPlace.class.getSimpleName()
-								.equals(placeNode.get(Constant.OBJECT_TYPE_JSON_PROPERTY).asText())) {
-							String stopPlaceJson = placeNode.toString().replace(Constant.OBJECT_TYPE_JSON_PROPERTY,
-									Constant.TYPE_JSON_PROPERTY);
-							OneOfPlaceResponsePlacesItems place = mapper.readValue(stopPlaceJson, StopPlace.class);
-							places.add(place);
-						} else if (placeNode.has(Constant.OBJECT_TYPE_JSON_PROPERTY) && PointOfInterest.class
-								.getSimpleName().equals(placeNode.get(Constant.OBJECT_TYPE_JSON_PROPERTY).asText())) {
-							String pointOfInterestJson = placeNode.toString()
-									.replace(Constant.OBJECT_TYPE_JSON_PROPERTY, Constant.TYPE_JSON_PROPERTY);
-							OneOfPlaceResponsePlacesItems place = mapper.readValue(pointOfInterestJson,
-									PointOfInterest.class);
-							places.add(place);
-						} else if (placeNode.has(Constant.OBJECT_TYPE_JSON_PROPERTY) && Address.class.getSimpleName()
-								.equals(placeNode.get(Constant.OBJECT_TYPE_JSON_PROPERTY).asText())) {
-							String addressJson = placeNode.toString().replace(Constant.OBJECT_TYPE_JSON_PROPERTY,
-									Constant.TYPE_JSON_PROPERTY);
-							OneOfPlaceResponsePlacesItems place = mapper.readValue(addressJson, Address.class);
-							places.add(place);
-						} else if (placeNode.has(Constant.OBJECT_TYPE_JSON_PROPERTY) && FareConnectionPoint.class
-								.getSimpleName().equals(placeNode.get(Constant.OBJECT_TYPE_JSON_PROPERTY).asText())) {
-							String fareConnectionPointJson = placeNode.toString()
-									.replace(Constant.OBJECT_TYPE_JSON_PROPERTY, Constant.TYPE_JSON_PROPERTY);
-							OneOfPlaceResponsePlacesItems place = mapper.readValue(fareConnectionPointJson,
-									FareConnectionPoint.class);
-							places.add(place);
-						}
-					}
-				}
+				extractPlaces(placesNode, places);
 				result.setPlaces(places);
 			}
 		}
 		return result;
+	}
+
+	private void extractPlaces(JsonNode placesNode, List<OneOfPlaceResponsePlacesItems> places) {
+		if (placesNode != null && placesNode.isArray()) {
+			for (JsonNode placeNode : placesNode) {
+				extractPlace(placeNode, places);
+			}
+		}
+	}
+
+	private void extractPlace(JsonNode placeNode, List<OneOfPlaceResponsePlacesItems> places) {
+		if (placeNode.has(Constant.OBJECT_TYPE_JSON_PROPERTY)) {
+			String jsonData = placeNode.toString().replace(Constant.OBJECT_TYPE_JSON_PROPERTY,
+					Constant.TYPE_JSON_PROPERTY);
+			String typeClassName = placeNode.get(Constant.OBJECT_TYPE_JSON_PROPERTY).asText();
+			OneOfPlaceResponsePlacesItems place = parseJsonToPlaceItem(jsonData, typeClassName);
+			if (place != null) {
+				places.add(place);
+			}
+		}
+	}
+
+	private OneOfPlaceResponsePlacesItems parseJsonToPlaceItem(String jsonData, String typeClassName) {
+		OneOfPlaceResponsePlacesItems place = null;
+		try {
+			if (StopPlace.class.getSimpleName().equals(typeClassName)) {
+				place = mapper.readValue(jsonData, StopPlace.class);
+			} else if (PointOfInterest.class.getSimpleName().equals(typeClassName)) {
+				place = mapper.readValue(jsonData, PointOfInterest.class);
+			} else if (Address.class.getSimpleName().equals(typeClassName)) {
+				place = mapper.readValue(jsonData, Address.class);
+			} else if (FareConnectionPoint.class.getSimpleName().equals(typeClassName)) {
+				place = mapper.readValue(jsonData, FareConnectionPoint.class);
+			}
+		} catch (Exception e) {
+			Ivy.log().error(e);
+		}
+
+		return place;
 	}
 }
