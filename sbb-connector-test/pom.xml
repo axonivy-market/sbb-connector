@@ -20,7 +20,7 @@
     </dependency>
     <dependency>
       <groupId>com.axonivy.connector.sbb</groupId>
-      <artifactId>sbb-connector-demo</artifactId>
+      <artifactId>sbb-connector</artifactId>
       <version>${project.version}</version>
       <type>iar</type>
     </dependency>

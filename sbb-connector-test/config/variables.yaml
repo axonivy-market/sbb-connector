@@ -1,2 +1,4 @@
-# yaml-language-server: $schema=https://json-schema.axonivy.com/app/12.0.0/variables.json
 Variables:
+  sbbConnector:
+    clientId: DEMO
+    journeyUri: 'https://smapi-osdm-journey-mock.app.sbb.ch'
