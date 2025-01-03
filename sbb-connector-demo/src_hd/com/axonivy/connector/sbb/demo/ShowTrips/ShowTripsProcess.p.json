@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
   "id" : "18A1BFBEB2EBD003",
   "kind" : "HTML_DIALOG",
   "config" : {
@@ -10,10 +10,10 @@
       "type" : "HtmlDialogStart",
       "name" : "start(List<Trip>)",
       "config" : {
-        "callSignature" : "start",
+        "signature" : "start",
         "input" : {
           "params" : [
-            { "name" : "trips", "type" : "List<ch.sbb.app.b2p.client.Trip>" }
+            { "name" : "trips", "type" : "List<ch.sbb.api.smapi.osdm.journey.client.Trip>", "desc" : "" }
           ],
           "map" : {
             "out.trips" : "param.trips"
@@ -22,14 +22,16 @@
         "guid" : "189FEA649F05C6F2"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 64 }
+        "at" : { "x" : 96, "y" : 80 }
       },
-      "connect" : { "id" : "f7", "to" : "f6" }
+      "connect" : [
+        { "id" : "f7", "to" : "f6" }
+      ]
     }, {
       "id" : "f1",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 352, "y" : 64 }
+        "at" : { "x" : 432, "y" : 80 }
       }
     }, {
       "id" : "f3",
@@ -41,7 +43,9 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 160 }
       },
-      "connect" : { "id" : "f5", "to" : "f4" }
+      "connect" : [
+        { "id" : "f5", "to" : "f4" }
+      ]
     }, {
       "id" : "f4",
       "type" : "HtmlDialogExit",
@@ -59,6 +63,11 @@
             "out.tripsForDisplay" : "in.tripsForDisplay"
           },
           "code" : [
+            "import ch.sbb.api.smapi.osdm.journey.client.Board;",
+            "import org.apache.commons.lang.StringUtils;",
+            "import ch.sbb.api.smapi.osdm.journey.client.Alight;",
+            "import ch.sbb.api.smapi.osdm.journey.client.TripLeg;",
+            "import ch.sbb.api.smapi.osdm.journey.client.Trip;",
             "import java.time.Instant;",
             "import java.time.ZoneId;",
             "import java.time.ZoneOffset;",
@@ -67,7 +76,6 @@
             "import ch.sbb.app.b2p.client.TransportProduct;",
             "import ch.sbb.app.b2p.client.Segment;",
             "import ch.sbb.app.b2p.client.Link;",
-            "import ch.sbb.app.b2p.client.Trip;",
             "import com.axonivy.connector.sbb.demo.trip.StopToForDisplay;",
             "import com.axonivy.connector.sbb.demo.trip.StopFromForDisplay;",
             "import java.time.temporal.ChronoUnit;",
@@ -79,7 +87,6 @@
             "",
             "DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(\"dd.MM.yyyy\");",
             "DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(\"HH:mm\");",
-            "",
             "// Add tripsForDisplay to ShowTripsData",
             "for (Trip trip: in.trips) {",
             "  TripForDisplay tripForDisplay = new TripForDisplay();",
@@ -94,116 +101,47 @@
             "    ",
             "  // Add segments to tripForDisplay",
             "  String currentDate = null;",
-            "  ",
-            "  for (Segment segment: trip.segments) {",
-            "    SegmentForDisplay segmentForDisplay = new SegmentForDisplay();",
-            "    ",
+            "  for (TripLeg leg: trip.legs) {",
             "    // Add iconClass to segmentForDisplay",
-            "    if (segment.type.toString().equals(\"PUBLIC_JOURNEY\")) {",
-            "      if (segment.transportProduct.vehicleType.equals(TransportProduct.VehicleTypeEnum.BOAT)) {",
-            "        segmentForDisplay.iconClass = SegmentIconClass.BOAT.iconClass;",
-            "      }",
-            "      else if (segment.transportProduct.vehicleType.equals(TransportProduct.VehicleTypeEnum.BUS)) {",
-            "        segmentForDisplay.iconClass = SegmentIconClass.BUS.iconClass;",
-            "      }",
-            "      else if (segment.transportProduct.vehicleType.equals(TransportProduct.VehicleTypeEnum.CABLE)) {",
-            "        segmentForDisplay.iconClass = SegmentIconClass.CABLE.iconClass;",
-            "      }",
-            "      else if (segment.transportProduct.vehicleType.equals(TransportProduct.VehicleTypeEnum.METRO)) {",
-            "        segmentForDisplay.iconClass = SegmentIconClass.METRO.iconClass;",
-            "      }",
-            "      else if (segment.transportProduct.vehicleType.equals(TransportProduct.VehicleTypeEnum.TRAIN)) {",
-            "        segmentForDisplay.iconClass = SegmentIconClass.TRAIN.iconClass;",
-            "      }",
-            "      else if (segment.transportProduct.vehicleType.equals(TransportProduct.VehicleTypeEnum.TRAMWAY)) {",
-            "        segmentForDisplay.iconClass = SegmentIconClass.TRAMWAY.iconClass;",
-            "      }",
-            "      else if (segment.transportProduct.vehicleType.equals(TransportProduct.VehicleTypeEnum.CHAIRLIFT)) {",
-            "        segmentForDisplay.iconClass = SegmentIconClass.CHAIRLIFT.iconClass;",
-            "      }",
-            "      else if (segment.transportProduct.vehicleType.equals(TransportProduct.VehicleTypeEnum.COG_RAILWAY)) {",
-            "        segmentForDisplay.iconClass = SegmentIconClass.COG_RAILWAY.iconClass;",
-            "      }",
-            "      else if (segment.transportProduct.vehicleType.equals(TransportProduct.VehicleTypeEnum.TAXI)) {",
-            "        segmentForDisplay.iconClass = SegmentIconClass.TAXI.iconClass;",
-            "      }",
-            "      else if (segment.transportProduct.vehicleType.equals(TransportProduct.VehicleTypeEnum.LIFT)) {",
-            "        segmentForDisplay.iconClass = SegmentIconClass.LIFT.iconClass;",
-            "      }",
-            "      else if (segment.transportProduct.vehicleType.equals(TransportProduct.VehicleTypeEnum.AIRPLANE)) {",
-            "        segmentForDisplay.iconClass = SegmentIconClass.AIRPLANE.iconClass;",
-            "      }",
-            "      else {",
-            "        segmentForDisplay.iconClass = SegmentIconClass.UNKNOWN.iconClass;",
-            "      }",
-            "    }",
-            "    else {",
+            "    SegmentForDisplay segmentForDisplay = new SegmentForDisplay();",
+            "    String ptMode = leg.timedLeg.service.mode.ptMode;",
+            "    if(\"URBAN\".equalsIgnoreCase(ptMode) || \"INTERREGIONAL\".equalsIgnoreCase(ptMode)) {",
+            "      segmentForDisplay.iconClass = SegmentIconClass.TRAMWAY.iconClass;",
+            "    } else {",
             "      segmentForDisplay.iconClass = SegmentIconClass.WALK.iconClass;",
             "    }",
-            "    ",
+            "",
             "    // Add stopFrom to segmentForDisplay",
-            "    Stop stopFrom = segment.stops.get(0);",
-            "    segmentForDisplay.stopFrom.name = stopFrom.name;",
+            "    Board board = leg.timedLeg.start;",
+            "    segmentForDisplay.stopFrom.name =  board.stopPlaceName + StringUtils.EMPTY + board.plannedStopPointName;",
+            "    segmentForDisplay.stopFrom.departurePlatform = String.valueOf(board.status.order);",
+            "    segmentForDisplay.stopFrom.departurePlatformChanged = board.status.unplannedStop;",
             "    // Add departureDateTime, departureDate, departureTime and departureDelay to segmentForDisplay.stopFrom",
-            "    if (stopFrom.#departureDateTimeRt == null) {",
-            "      segmentForDisplay.stopFrom.departureDateTime = stopFrom.departureDateTime;",
-            "      segmentForDisplay.stopFrom.departureDate = stopFrom.departureDateTime.withOffsetSameInstant(zoneOffset).format(dateFormatter);",
-            "      segmentForDisplay.stopFrom.departureTime = stopFrom.departureDateTime.withOffsetSameInstant(zoneOffset).format(timeFormatter);",
+            "    segmentForDisplay.stopFrom.departureDateTime = board.serviceDeparture.timetabledTime;",
+            "    segmentForDisplay.stopFrom.departureDate = board.serviceDeparture.timetabledTime.withOffsetSameInstant(zoneOffset).format(dateFormatter);",
+            "    segmentForDisplay.stopFrom.departureTime = board.serviceDeparture.timetabledTime.withOffsetSameInstant(zoneOffset).format(timeFormatter);",
+            "    if (board.serviceDeparture.#observedTime != null ) {",
+            "      segmentForDisplay.stopFrom.departureDelay = String.format(\"(+%d min)\", ChronoUnit.MINUTES.between(board.serviceDeparture.timetabledTime, board.serviceDeparture.observedTime));;",
             "    }",
-            "    else {",
-            "      segmentForDisplay.stopFrom.departureDateTime = stopFrom.departureDateTimeRt;",
-            "      segmentForDisplay.stopFrom.departureDate = stopFrom.departureDateTimeRt.withOffsetSameInstant(zoneOffset).format(dateFormatter);",
-            "      segmentForDisplay.stopFrom.departureTime = stopFrom.departureDateTimeRt.withOffsetSameInstant(zoneOffset).format(timeFormatter);",
-            "      segmentForDisplay.stopFrom.departureDelay = String.format(\"(+%d min)\", ChronoUnit.MINUTES.between(stopFrom.departureDateTime, stopFrom.departureDateTimeRt));",
-            "    }",
-            "    if (segmentForDisplay.stopFrom.departureDate == currentDate) {",
-            "      segmentForDisplay.stopFrom.departureDate = null;",
-            "    }",
-            "    else {",
-            "      currentDate = segmentForDisplay.stopFrom.departureDate;",
-            "    }",
-            "    // Add departurePlatform and departurePlatformChanged to segmentForDisplay.stopFrom",
-            "    if (!stopFrom.departurePlatformChanged) {",
-            "      segmentForDisplay.stopFrom.departurePlatform = stopFrom.departureTrack;",
-            "    }",
-            "    else {",
-            "      segmentForDisplay.stopFrom.departurePlatform = stopFrom.departureTrackRt;",
-            "      segmentForDisplay.stopFrom.departurePlatformChanged = true;",
-            "    }",
-            "    ",
+            "",
             "    // Add stopTo to segmentForDisplay",
-            "    Stop stopTo = segment.stops.get(segment.stops.size() - 1);",
-            "    segmentForDisplay.stopTo.name = stopTo.name;",
+            "    Alight alight = leg.timedLeg.end;",
+            "    segmentForDisplay.stopTo.name = alight.stopPlaceName + StringUtils.EMPTY + alight.plannedStopPointName;",
+            "    segmentForDisplay.stopTo.arrivalPlatform =  String.valueOf(alight.status.order);",
+            "    segmentForDisplay.stopTo.arrivalPlatformChanged = alight.status.unplannedStop;",
             "    // Add arrivalDateTime, arrivalDate, arrivalTime and arrivalDelay to segmentForDisplay.stopTo",
-            "    if (stopTo.#arrivalDateTimeRt == null ) {",
-            "      segmentForDisplay.stopTo.arrivalDateTime = stopTo.arrivalDateTime;",
-            "      segmentForDisplay.stopTo.arrivalDate = stopTo.arrivalDateTime.withOffsetSameInstant(zoneOffset).format(dateFormatter);",
-            "      segmentForDisplay.stopTo.arrivalTime = stopTo.arrivalDateTime.withOffsetSameInstant(zoneOffset).format(timeFormatter);",
+            "    segmentForDisplay.stopTo.arrivalDateTime = alight.serviceArrival.timetabledTime;",
+            "    segmentForDisplay.stopTo.arrivalDate = alight.serviceArrival.timetabledTime.withOffsetSameInstant(zoneOffset).format(dateFormatter);",
+            "    segmentForDisplay.stopTo.arrivalTime = alight.serviceArrival.timetabledTime.withOffsetSameInstant(zoneOffset).format(timeFormatter);",
+            "    if (alight.serviceArrival.#observedTime != null ) {",
+            "      segmentForDisplay.stopTo.arrivalDelay = String.format(\"(+%d min)\", ChronoUnit.MINUTES.between(alight.serviceArrival.timetabledTime, alight.serviceArrival.observedTime));",
             "    }",
-            "    else {",
-            "      segmentForDisplay.stopTo.arrivalDateTime = stopTo.arrivalDateTimeRt;",
-            "      segmentForDisplay.stopTo.arrivalDate = stopTo.arrivalDateTimeRt.withOffsetSameInstant(zoneOffset).format(dateFormatter);",
-            "      segmentForDisplay.stopTo.arrivalTime = stopTo.arrivalDateTimeRt.withOffsetSameInstant(zoneOffset).format(timeFormatter);",
-            "      segmentForDisplay.stopTo.arrivalDelay = String.format(\"(+%d min)\", ChronoUnit.MINUTES.between(stopTo.arrivalDateTime, stopTo.arrivalDateTimeRt));;",
-            "    }",
-            "    if (segmentForDisplay.stopTo.arrivalDate == currentDate) {",
-            "      segmentForDisplay.stopTo.arrivalDate = null;",
-            "    }",
-            "    else {",
-            "      currentDate = segmentForDisplay.stopTo.arrivalDate;",
-            "    }",
-            "    // Add arrivalPlatform and arrivalPlatformChanged to segmentForDisplay.stopTo",
-            "    if (!stopTo.arrivalPlatformChanged) {",
-            "      segmentForDisplay.stopTo.arrivalPlatform = stopTo.arrivalTrack;",
-            "    }",
-            "    else {",
-            "      segmentForDisplay.stopTo.arrivalPlatform = stopTo.arrivalTrackRt;",
-            "      segmentForDisplay.stopTo.arrivalPlatformChanged = true;",
-            "    }",
-            "    ",
+            "",
             "    // Add transportProductName and direction to segmentForDisplay",
-            "    segmentForDisplay.transportProductName = String.format(\"%s %s\", segment.transportProduct.categoryShortForm, segment.transportProduct.number);",
-            "    segmentForDisplay.direction = segment.direction;",
+            "    segmentForDisplay.transportName = leg.timedLeg.service.mode.name;",
+            "    segmentForDisplay.transportDescription = leg.timedLeg.service.mode.description;",
+            "    segmentForDisplay.publishedServiceName = leg.timedLeg.service.publishedServiceName;",
+            "    segmentForDisplay.direction = \"OUT_BOUND\".equals(trip.direction.name()) ? \"Out bound\" : \"In bound\";",
             "    ",
             "    tripForDisplay.segments.add(segmentForDisplay);",
             "  }",
@@ -229,20 +167,24 @@
             "  if (durationPartMinutes.length() < 2) {",
             "    durationPartMinutes = String.format(\"0%s\", durationPartMinutes);",
             "  }",
+            "",
             "  String durationPartHours = Long.toString((durationMinutes / 60) % 24);",
             "  if (durationPartHours.length() < 2) {",
             "    durationPartHours = String.format(\"0%s\", durationPartHours);",
             "  }",
+            "",
             "  tripForDisplay.duration = String.format(\"%s:%s\", durationPartHours, durationPartMinutes);",
-            "  ",
             "  in.tripsForDisplay.add(tripForDisplay);",
             "}"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 64 }
+        "at" : { "x" : 266, "y" : 80 },
+        "size" : { "width" : 140, "height" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     } ]
 }

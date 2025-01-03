@@ -1,0 +1,46 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "InputTripSearchDataData",
+  "namespace" : "com.axonivy.connector.sbb.demo.InputTripSearchData",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "getPlacesDataIn",
+    "type" : "com.axonivy.connector.sbb.place.GetPlacesDataIn"
+  }, {
+    "name" : "selectEvent",
+    "type" : "org.primefaces.event.SelectEvent",
+    "comment" : "Event triggered by selection of Location name in autocomplete dropdown menu to set locationFrom or locationTo."
+  }, {
+    "name" : "places",
+    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems>"
+  }, {
+    "name" : "placeFrom",
+    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems"
+  }, {
+    "name" : "placeTo",
+    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems"
+  }, {
+    "name" : "selectedPlace",
+    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems"
+  }, {
+    "name" : "getTripsCollectionDataIn",
+    "type" : "com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn"
+  }, {
+    "name" : "departureDate",
+    "type" : "java.util.Date",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "arrivalDate",
+    "type" : "java.util.Date"
+  }, {
+    "name" : "origin",
+    "type" : "String"
+  }, {
+    "name" : "destination",
+    "type" : "String"
+  }, {
+    "name" : "placeNames",
+    "type" : "List<String>",
+    "comment" : "List of place names returned by subprocess GetPlaces. Used for autocomplete dropdown menu of input fields From and To."
+  } ]
+}

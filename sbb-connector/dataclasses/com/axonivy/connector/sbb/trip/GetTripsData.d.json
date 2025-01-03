@@ -1,0 +1,16 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "GetTripsData",
+  "namespace" : "com.axonivy.connector.sbb.trip",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "in",
+    "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn",
+    "comment" : "Argument for subprocess GetTrips.",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "trips",
+    "type" : "List<ch.sbb.app.b2p.client.Trip>",
+    "comment" : "Return value of subprocess GetTrips."
+  } ]
+}

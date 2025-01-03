@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
   "id" : "189FE2A1B2075999",
   "kind" : "CALLABLE_SUB",
   "description" : "Returns different trips for a specified origin and destination (and vias). The UIC codes of the origin and destination can be resolved using the locations service.",
@@ -11,10 +11,10 @@
       "type" : "CallSubStart",
       "name" : "call(GetTripsDataIn)",
       "config" : {
-        "callSignature" : "call",
+        "signature" : "call",
         "input" : {
           "params" : [
-            { "name" : "in", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn" }
+            { "name" : "in", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn", "desc" : "" }
           ],
           "map" : {
             "out.in" : "param.in"
@@ -22,20 +22,25 @@
         },
         "result" : {
           "params" : [
-            { "name" : "trips", "type" : "List<ch.sbb.app.b2p.client.Trip>" }
+            { "name" : "trips", "type" : "List<ch.sbb.app.b2p.client.Trip>", "desc" : "" }
           ],
           "map" : {
             "result.trips" : "in.trips"
           }
-        },
-        "tags" : "connector"
+        }
       },
+      "tags" : [
+        "connector",
+        "deprecated"
+      ],
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },
         "description" : "Returns different trips for a specified origin and destination (and vias). The UIC codes of the origin and destination can be resolved using the locations service.",
         "icon" : "res:/webContent/icons/sbb.png?small"
       },
-      "connect" : { "id" : "f6", "to" : "f5" }
+      "connect" : [
+        { "id" : "f6", "to" : "f5" }
+      ]
     }, {
       "id" : "f1",
       "type" : "CallSubEnd",
@@ -49,39 +54,44 @@
       "type" : "RestClientCall",
       "name" : "Get Trips",
       "config" : {
-        "path" : "/api/trips",
-        "headers" : {
-          "Accept" : "*/*",
-          "x-conversation-id" : "ivy.case.customFields().stringField(\"conversationId\").getOrDefault(in.in.headers.conversationId)",
-          "x-contract-id" : "ivy.var.sbbConnector_contractId",
-          "Accept-Language" : "in.in.headers.acceptLanguage",
-          "Scroll-Context" : "in.in.headers.scrollContext"
+        "target" : {
+          "clientId" : "32c4d3f9-2d6d-4b4d-b0c8-066ebf7f2e04",
+          "path" : "/api/trips",
+          "queryParams" : {
+            "originId" : "in.in.parameters.originId",
+            "destinationId" : "in.in.parameters.destinationId",
+            "viaId" : "in.in.parameters.viaId",
+            "date" : "in.in.parameters.date",
+            "time" : "in.in.parameters.time",
+            "arrivalDeparture" : "in.in.parameters.arrivalDeparture",
+            "trainType" : "in.in.parameters.trainType",
+            "alternateMatch" : "in.in.parameters.alternateMatch",
+            "includeBefore" : "in.in.parameters.includeBefore",
+            "includeAfter" : "in.in.parameters.includeAfter",
+            "calculateEco" : "in.in.parameters.calculateEco"
+          },
+          "headers" : {
+            "x-conversation-id" : "ivy.case.customFields().stringField(\"conversationId\").getOrDefault(in.in.headers.conversationId)",
+            "x-contract-id" : "ivy.var.sbbConnector_contractId",
+            "Accept-Language" : "in.in.headers.acceptLanguage",
+            "Scroll-Context" : "in.in.headers.scrollContext"
+          }
         },
-        "clientId" : "32c4d3f9-2d6d-4b4d-b0c8-066ebf7f2e04",
-        "clientErrorCode" : "ivy:error:rest:client",
-        "queryParams" : {
-          "originId" : "in.in.parameters.originId",
-          "destinationId" : "in.in.parameters.destinationId",
-          "viaId" : "in.in.parameters.viaId",
-          "date" : "in.in.parameters.date",
-          "time" : "in.in.parameters.time",
-          "arrivalDeparture" : "in.in.parameters.arrivalDeparture",
-          "trainType" : "in.in.parameters.trainType",
-          "alternateMatch" : "in.in.parameters.alternateMatch",
-          "includeBefore" : "in.in.parameters.includeBefore",
-          "includeAfter" : "in.in.parameters.includeAfter",
-          "calculateEco" : "in.in.parameters.calculateEco"
-        },
-        "statusErrorCode" : "ivy:error:rest:client",
-        "responseMapping" : {
-          "out.trips" : "result"
-        },
-        "resultType" : "java.util.List<ch.sbb.app.b2p.client.Trip>"
+        "response" : {
+          "entity" : {
+            "type" : "java.util.List<ch.sbb.app.b2p.client.Trip>",
+            "map" : {
+              "out.trips" : "result"
+            }
+          }
+        }
       },
       "visual" : {
         "at" : { "x" : 224, "y" : 64 },
         "icon" : "res:/webContent/icons/sbb.png"
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     } ]
 }

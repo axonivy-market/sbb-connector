@@ -1,0 +1,96 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "193FD1D89FF5B75B",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "com.axonivy.connector.sbb.tripscollection.GetTripsCollectionData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "call(GetTripsCollectionDataIn)",
+      "config" : {
+        "signature" : "call",
+        "input" : {
+          "params" : [
+            { "name" : "getTripsCollectionDataIn", "type" : "com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn", "desc" : "" }
+          ],
+          "map" : {
+            "out.in" : "param.getTripsCollectionDataIn"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "trips", "type" : "List<ch.sbb.api.smapi.osdm.journey.client.Trip>", "desc" : "" }
+          ],
+          "map" : {
+            "result.trips" : "in.trips"
+          }
+        }
+      },
+      "tags" : [
+        "connector"
+      ],
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "icon" : "res:/webContent/icons/sbb.png?small"
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 376, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "RestClientCall",
+      "name" : "Get Trips Collection",
+      "config" : {
+        "method" : "POST",
+        "target" : {
+          "clientId" : "13022aee-0653-4076-b253-a87b352403c8",
+          "path" : "/v1/trips-collection",
+          "headers" : {
+            "Requestor" : "ivy.case.customFields().stringField(\"requestor\").getOrDefault(in.in.headers.requestor)",
+            "Accept-Language" : "in.in.headers.acceptLanguage",
+            "traceparent" : "in.in.headers.traceparent",
+            "tracestate" : "in.in.headers.tracestate"
+          }
+        },
+        "body" : {
+          "entity" : {
+            "type" : "ch.sbb.api.smapi.osdm.journey.client.TripSearchCriteria",
+            "map" : {
+              "param.arrivalTime" : "in.in.params.arrivalTime",
+              "param.departureTime" : "in.in.params.departureTime",
+              "param.destination" : "in.in.params.destination",
+              "param.embed" : "in.in.params.embed",
+              "param.notVias" : "in.in.params.notVias",
+              "param.origin" : "in.in.params.origin",
+              "param.parameters" : "in.in.params.parameters",
+              "param.returnSearchParameters" : "in.in.params.returnSearchParameters",
+              "param.vias" : "in.in.params.vias"
+            }
+          }
+        },
+        "response" : {
+          "entity" : {
+            "type" : "ch.sbb.api.smapi.osdm.journey.client.TripCollectionResponse",
+            "map" : {
+              "out.trips" : "result.trips"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 248, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f1", "color" : "default" }
+      ]
+    } ]
+}

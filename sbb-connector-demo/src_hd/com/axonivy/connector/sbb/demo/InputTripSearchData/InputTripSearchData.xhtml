@@ -23,39 +23,30 @@
 					columnClasses="ui-g-12 ui-md-3 ui-lg-2, ui-g-12 ui-md-9 ui-lg-4, ui-g-12 ui-md-3 ui-lg-2, ui-g-12 ui-md-9 ui-lg-4">
 
 					<p:outputLabel for="from" value="From" />
-					<p:autoComplete id="from" value="#{data.locationFrom.name}"
-						completeMethod="#{logic.getLocations}" required="true"
-						minQueryLength="2" forceSelection="true">
-						<p:ajax event="itemSelect" listener="#{logic.updateLocation}" />
+					<p:autoComplete id="from" value="#{data.origin}"
+						completeMethod="#{logic.getPlaces}" required="true"
+						minQueryLength="1" forceSelection="true">
+						<p:ajax event="itemSelect" listener="#{logic.updatePlace}" />
 					</p:autoComplete>
 
 					<p:outputLabel for="to" value="To" />
-					<p:autoComplete id="to" value="#{data.locationTo.name}"
-						completeMethod="#{logic.getLocations}" required="true"
-						minQueryLength="2" forceSelection="true">
-						<p:ajax event="itemSelect" listener="#{logic.updateLocation}" />
+					<p:autoComplete id="to" value="#{data.destination}"
+						completeMethod="#{logic.getPlaces}" required="true"
+						minQueryLength="1" forceSelection="true">
+						<p:ajax event="itemSelect" listener="#{logic.updatePlace}" />
 					</p:autoComplete>
 
-					<p:outputLabel for="date" value="Date" />
-					<p:datePicker id="date"
-						value="#{data.getTripsDataIn.parameters.date}"
-						pattern="dd.MM.yyyy" required="true">
-						<f:convertDateTime pattern="dd.MM.yyyy" />
+					<p:outputLabel for="departure-date" value="Departure date" />
+					<p:datePicker id="departure-date" value="#{data.departureDate}"
+						showTime="true" pattern="dd.MM.yyyy" required="true">
+						<p:ajax update="@this" process="@this" />
 					</p:datePicker>
 
-					<p:outputLabel for="time" value="Time" />
-					<p:datePicker id="time" value="#{data.time}" pattern="HH:mm"
-						timeOnly="true" required="true">
-						<f:convertDateTime pattern="HH:mm" />
+					<p:outputLabel for="arrival-date" value="Arrival date" />
+					<p:datePicker id="arrival-date" value="#{data.arrivalDate}"
+						showTime="true" pattern="dd.MM.yyyy" required="true">
+						<p:ajax update="@this" process="@this" />
 					</p:datePicker>
-
-					<p:outputLabel for="departureOrArrival" value="Departure | Arrival" />
-					<p:panelGrid columns="3" styleClass="departureOrArrivalContainer">
-						<p:outputLabel value="Dep" />
-						<p:toggleSwitch id="departureOrArrival" value="#{data.arrival}" />
-						<p:outputLabel value="Arr" />
-					</p:panelGrid>
-
 				</p:panelGrid>
 				<br />
 				<div class="command-btns">

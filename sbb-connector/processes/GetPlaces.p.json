@@ -1,0 +1,91 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "193FCC46D4415009",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "com.axonivy.connector.sbb.place.GetPlacesData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "call(GetPlacesDataIn)",
+      "config" : {
+        "signature" : "call",
+        "input" : {
+          "params" : [
+            { "name" : "getPlacesDataIn", "type" : "com.axonivy.connector.sbb.place.GetPlacesDataIn", "desc" : "" }
+          ],
+          "map" : {
+            "out.in" : "param.getPlacesDataIn"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "places", "type" : "List<ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems>", "desc" : "" }
+          ],
+          "map" : {
+            "result.places" : "in.places"
+          }
+        }
+      },
+      "tags" : [
+        "connector"
+      ],
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 },
+        "icon" : "res:/webContent/icons/sbb.png?small"
+      },
+      "connect" : [
+        { "id" : "f2", "to" : "f3" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 360, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "RestClientCall",
+      "name" : "Get Places",
+      "config" : {
+        "method" : "POST",
+        "target" : {
+          "clientId" : "13022aee-0653-4076-b253-a87b352403c8",
+          "path" : "/v1/places",
+          "headers" : {
+            "Requestor" : "ivy.case.customFields().stringField(\"requestor\").getOrDefault(in.in.headers.requestor)",
+            "Accept-Language" : "in.in.headers.acceptLanguage",
+            "traceparent" : "in.in.headers.traceparent",
+            "tracestate" : "in.in.headers.tracestate"
+          }
+        },
+        "body" : {
+          "entity" : {
+            "type" : "ch.sbb.api.smapi.osdm.journey.client.PlaceRequest",
+            "map" : {
+              "param.placeInput.geoPosition.latitude" : "in.in.params.geoPositionLatitude",
+              "param.placeInput.geoPosition.longitude" : "in.in.params.geoPositionLongitude",
+              "param.placeInput.name" : "in.in.params.name",
+              "param.restrictions" : "in.in.params.restrictions"
+            }
+          }
+        },
+        "response" : {
+          "entity" : {
+            "type" : "ch.sbb.api.smapi.osdm.journey.client.PlaceResponse",
+            "map" : {
+              "out.places" : "result.places"
+            }
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 232, "y" : 64 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f1", "color" : "default" }
+      ]
+    } ]
+}

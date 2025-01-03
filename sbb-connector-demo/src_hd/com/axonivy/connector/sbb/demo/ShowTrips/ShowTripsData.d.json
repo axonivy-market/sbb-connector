@@ -1,0 +1,15 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "ShowTripsData",
+  "namespace" : "com.axonivy.connector.sbb.demo.ShowTrips",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "trips",
+    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.Trip>",
+    "comment" : "Trips as received from Swiss Mobility API."
+  }, {
+    "name" : "tripsForDisplay",
+    "type" : "List<com.axonivy.connector.sbb.demo.trip.TripForDisplay>",
+    "comment" : "Trips parsed for displaying in user dialog."
+  } ]
+}

@@ -1,5 +1,0 @@
-GetLocationsDataParameters #class
-com.axonivy.connector.sbb.location #namespace
-name String #field
-name 'REQUIRED. Expression (min. 2 characters) to search for locations (STATION''s). Example : Bern' #fieldComment
-name PERSISTENT #fieldModifier
