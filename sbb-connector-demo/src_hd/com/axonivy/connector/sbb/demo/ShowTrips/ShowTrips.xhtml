@@ -22,18 +22,20 @@
 					tableStyle="width:auto">
 
 					<p:column headerText="Time">
-						<p:outputLabel id="departureDate" value="#{trip.departureDate}" />
 						<br />
-						<p:outputLabel id="departureTime"
+						<br />
+						<p:outputLabel id="departure-date" value="#{trip.departureDate}" />
+						<br />
+						<p:outputLabel id="departure-time"
 							value="#{trip.departureTime} #{trip.departureDelay} –"
 							styleClass="#{!trip.departureDelay.equals('') ? 'red' : ''}" />
 						<br />
 
 						<ui:fragment rendered="#{trip.arrivalDate != null}">
-							<p:outputLabel id="arrivalDate" value="#{trip.arrivalDate}" />
+							<p:outputLabel id="arrival-date" value="#{trip.arrivalDate}" />
 							<br />
 						</ui:fragment>
-						<p:outputLabel id="arrivalTime"
+						<p:outputLabel id="arrival-time"
 							value="#{trip.arrivalTime} #{trip.arrivalDelay}"
 							styleClass="#{!trip.arrivalDelay.equals('') ? 'red' : ''}" />
 						<br />
@@ -51,43 +53,49 @@
 							</p:column>
 
 							<p:column headerText="Departure">
-								<p:outputLabel id="departureName"
+								<p:outputLabel id="departure-name"
 									value="#{segment.stopFrom.name}" />
 								<br />
 
-								<p:outputLabel id="departureDate"
+								<p:outputLabel id="departure-date"
 									value="#{segment.stopFrom.departureDate}" />
 								<br />
-								<p:outputLabel id="departureTime"
+								<p:outputLabel id="departure-time"
 									value="#{segment.stopFrom.departureTime} #{segment.stopFrom.departureDelay}"
 									styleClass="#{!segment.stopFrom.departureDelay.equals('') ? 'red' : ''}" />
 								<br />
 
-								<p:outputLabel id="departurePlatform"
+								<p:outputLabel id="departure-platform"
 									value="Platform: #{segment.stopFrom.departurePlatform}"
 									styleClass="#{segment.stopFrom.departurePlatformChanged ? 'red' : ''}" />
 							</p:column>
 
 							<p:column headerText="Arrival">
-								<p:outputLabel id="arrivalName" value="#{segment.stopTo.name}" />
+								<p:outputLabel id="arrival-name" value="#{segment.stopTo.name}" />
 								<br />
 
-								<p:outputLabel id="arrivalDate"
+								<p:outputLabel id="arrival-date"
 									value="#{segment.stopTo.arrivalDate}" />
 								<br />
-								<p:outputLabel id="arrivalTime"
+								<p:outputLabel id="arrival-time"
 									value="#{segment.stopTo.arrivalTime} #{segment.stopTo.arrivalDelay}"
 									styleClass="#{!segment.stopTo.arrivalDelay.equals('') ? 'red' : ''}" />
 								<br />
 
-								<p:outputLabel id="arrivalPlatform"
+								<p:outputLabel id="arrival-platform"
 									value="Platform: #{segment.stopTo.arrivalPlatform}"
 									styleClass="#{segment.stopTo.arrivalPlatformChanged ? 'red' : ''}" />
 							</p:column>
 
 							<p:column headerText="Info">
-								<p:outputLabel id="transportProductName"
-									value="#{segment.transportProductName}" />
+								<p:outputLabel id="transport-name"
+									value="#{segment.transportName}" />
+								<br />
+								<p:outputLabel id="transport-description"
+									value="#{segment.transportDescription}" />
+								<br />
+								<p:outputLabel id="published-service-name"
+									value="#{segment.publishedServiceName}" />
 								<br />
 								<p:outputLabel id="direction"
 									value="Direction: #{segment.direction}" />
@@ -97,7 +105,7 @@
 					</p:column>
 
 					<p:column headerText="Links">
-						<h:outputLink id="onlineOffersLink"
+						<h:outputLink id="online-offers-link"
 							value="#{trip.onlineOffersLink}" target="_blank">Online Offers</h:outputLink>
 					</p:column>
 

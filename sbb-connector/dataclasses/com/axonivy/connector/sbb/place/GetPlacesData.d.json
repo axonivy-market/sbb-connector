@@ -1,0 +1,14 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "GetPlacesData",
+  "namespace" : "com.axonivy.connector.sbb.place",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "places",
+    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems>"
+  }, {
+    "name" : "in",
+    "type" : "com.axonivy.connector.sbb.place.GetPlacesDataIn",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}

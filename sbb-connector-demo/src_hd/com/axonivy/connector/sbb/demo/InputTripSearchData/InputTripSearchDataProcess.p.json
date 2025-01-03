@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
   "id" : "18A1BFBC93F677AB",
   "kind" : "HTML_DIALOG",
   "config" : {
@@ -10,24 +10,19 @@
       "type" : "HtmlDialogStart",
       "name" : "start(GetTripsDataIn)",
       "config" : {
-        "callSignature" : "start",
-        "result" : {
-          "params" : [
-            { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn" }
-          ],
-          "map" : {
-            "result.getTripsDataIn" : "in.getTripsDataIn"
-          }
-        },
+        "signature" : "start",
         "input" : {
           "params" : [
-            { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn" }
+            { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn", "desc" : "" }
+          ],
+          "map" : { }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "getTripsCollectionDataIn", "type" : "com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn", "desc" : "" }
           ],
           "map" : {
-            "out.getTripsDataIn" : "param.getTripsDataIn",
-            "out.locationFrom" : "new ch.sbb.app.b2p.client.Location()",
-            "out.locationTo" : "new ch.sbb.app.b2p.client.Location()",
-            "out.time" : "new Time()"
+            "result.getTripsCollectionDataIn" : "in.getTripsCollectionDataIn"
           }
         },
         "guid" : "189FE362F85F241B"
@@ -35,7 +30,9 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     }, {
       "id" : "f1",
       "type" : "HtmlDialogEnd",
@@ -52,7 +49,9 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 160 }
       },
-      "connect" : { "id" : "f6", "to" : "f8" }
+      "connect" : [
+        { "id" : "f6", "to" : "f8" }
+      ]
     }, {
       "id" : "f4",
       "type" : "HtmlDialogExit",
@@ -67,40 +66,39 @@
         "output" : {
           "map" : {
             "out" : "in",
-            "out.getTripsDataIn" : "in.getTripsDataIn",
-            "out.getTripsDataIn.parameters.destinationId" : "in.locationTo.id",
-            "out.getTripsDataIn.parameters.originId" : "in.locationFrom.id"
-          },
-          "code" : [
-            "in.getTripsDataIn.parameters.time = in.time.toString();",
-            "in.getTripsDataIn.parameters.arrivalDeparture = in.arrival ? \"LA\" : \"ED\";"
-          ]
+            "out.getTripsCollectionDataIn.params.arrivalTime" : "com.axonivy.connector.sbb.utils.DateUtils.convertDateToISO8601(in.arrivalDate, 2)",
+            "out.getTripsCollectionDataIn.params.departureTime" : "com.axonivy.connector.sbb.utils.DateUtils.convertDateToISO8601(in.departureDate, 2)"
+          }
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 160 }
+        "at" : { "x" : 248, "y" : 161 },
+        "size" : { "width" : 160, "height" : 62 }
       },
-      "connect" : { "id" : "f5", "to" : "f4" }
+      "connect" : [
+        { "id" : "f5", "to" : "f4" }
+      ]
     }, {
       "id" : "f14",
       "type" : "HtmlDialogMethodStart",
-      "name" : "getLocations(String)",
+      "name" : "getPlaces(String)",
       "config" : {
-        "callSignature" : "getLocations",
-        "result" : {
-          "params" : [
-            { "name" : "locationNames", "type" : "List<String>" }
-          ],
-          "map" : {
-            "result.locationNames" : "in.locationNames"
-          }
-        },
+        "signature" : "getPlaces",
         "input" : {
           "params" : [
-            { "name" : "name", "type" : "String" }
+            { "name" : "name", "type" : "String", "desc" : "" }
           ],
           "map" : {
-            "out.getLocationsDataIn.parameters.name" : "param.name"
+            "out.getPlacesDataIn.params.name" : "param.name",
+            "out.getPlacesDataIn.params.restrictions.type" : "ch.sbb.api.smapi.osdm.journey.client.PlaceParam.TypeEnum.STOP"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "placeNames", "type" : "List<String>", "desc" : "" }
+          ],
+          "map" : {
+            "result.placeNames" : "in.placeNames"
           }
         },
         "guid" : "189FE45FF14E72DE"
@@ -114,7 +112,9 @@
           "Used for autocomplete dropdown menu of input fields From and To."
         ]
       },
-      "connect" : { "id" : "f16", "to" : "f15" }
+      "connect" : [
+        { "id" : "f16", "to" : "f15" }
+      ]
     }, {
       "id" : "f15",
       "type" : "Alternative",
@@ -123,38 +123,41 @@
         "at least 1 non-whitespace",
         "character?"
       ],
+      "config" : {
+        "conditions" : {
+          "f18" : "!in.getPlacesDataIn.params.name.isBlank()"
+        }
+      },
       "visual" : {
         "at" : { "x" : 224, "y" : 352 },
         "labelOffset" : { "x" : 14, "y" : 34 }
       },
       "connect" : [
         { "id" : "f18", "to" : "f17", "label" : {
-            "name" : "Yes"
-          }, "condition" : "!in.getLocationsDataIn.parameters.name.isBlank()" },
+            "name" : "Yes",
+            "offset" : { "x" : -3, "y" : -10 }
+          } },
         { "id" : "f24", "to" : "f23", "via" : [ { "x" : 224, "y" : 256 } ], "label" : {
             "name" : "No",
             "segment" : 1.14,
-            "offset" : { "x" : -45, "y" : 46 }
+            "offset" : { "x" : -28, "y" : 46 }
           } }
       ]
     }, {
       "id" : "f17",
       "type" : "SubProcessCall",
-      "name" : "Get Locations",
+      "name" : "Get Places",
       "config" : {
-        "processCall" : "GetLocations:call(com.axonivy.connector.sbb.location.GetLocationsDataIn)",
+        "processCall" : "GetPlaces:call(com.axonivy.connector.sbb.place.GetPlacesDataIn)",
+        "call" : {
+          "map" : {
+            "param.getPlacesDataIn.params.name" : "in.getPlacesDataIn.params.name"
+          }
+        },
         "output" : {
           "map" : {
             "out" : "in",
-            "out.locations" : "result.locations"
-          }
-        },
-        "call" : {
-          "params" : [
-            { "name" : "in", "type" : "com.axonivy.connector.sbb.location.GetLocationsDataIn" }
-          ],
-          "map" : {
-            "param.in" : "in.getLocationsDataIn"
+            "out.places" : "result.places"
           }
         }
       },
@@ -162,36 +165,36 @@
         "at" : { "x" : 416, "y" : 352 },
         "icon" : "res:/webContent/icons/sbb.png"
       },
-      "connect" : { "id" : "f20", "to" : "f19" }
+      "connect" : [
+        { "id" : "f20", "to" : "f19" }
+      ]
     }, {
       "id" : "f19",
       "type" : "Script",
-      "name" : "Set locationNames",
+      "name" : "Set Place Names",
       "config" : {
         "output" : {
           "map" : {
             "out" : "in",
-            "out.locationNames" : "in.locationNames"
+            "out.placeNames" : "in.placeNames"
           },
           "code" : [
-            "import ch.sbb.app.b2p.client.Location;",
+            "import com.axonivy.connector.sbb.demo.trip.PlaceUtils;",
             "",
-            "in.locationNames = new List<String>();",
-            "",
-            "for(Location location: in.locations) {",
-            "  in.locationNames.add(location.name);",
-            "}"
+            "in.placeNames = PlaceUtils.getNameOfPlaces(in.places);"
           ]
         }
       },
       "visual" : {
         "at" : { "x" : 608, "y" : 352 }
       },
-      "connect" : { "id" : "f22", "to" : "f21" }
+      "connect" : [
+        { "id" : "f22", "to" : "f21" }
+      ]
     }, {
       "id" : "f21",
       "type" : "HtmlDialogEnd",
-      "name" : "Return locationNames",
+      "name" : "Return Place Names",
       "visual" : {
         "at" : { "x" : 800, "y" : 352 },
         "labelOffset" : { "x" : 10, "y" : 30 }
@@ -199,44 +202,35 @@
     }, {
       "id" : "f23",
       "type" : "Script",
-      "name" : "Empty locationNames",
+      "name" : "Empty place names",
       "config" : {
         "output" : {
           "map" : {
             "out" : "in",
-            "out.locationNames" : "in.locationNames"
+            "out.placeNames" : "in.placeNames"
           },
-          "code" : "in.locationNames = new List<String>();"
+          "code" : "in.placeNames = new List<String>();"
         }
       },
       "visual" : {
         "at" : { "x" : 608, "y" : 256 }
       },
-      "connect" : { "id" : "f25", "to" : "f21", "via" : [ { "x" : 800, "y" : 256 } ] }
+      "connect" : [
+        { "id" : "f25", "to" : "f21", "via" : [ { "x" : 800, "y" : 256 } ] }
+      ]
     }, {
       "id" : "f26",
       "type" : "Script",
-      "name" : "Set Location",
+      "name" : "Set Place Ref",
       "config" : {
         "output" : {
-          "map" : {
-            "out" : "in",
-            "out.locationFrom" : "in.locationFrom",
-            "out.locationTo" : "in.locationTo"
-          },
           "code" : [
-            "import ch.sbb.app.b2p.client.Location;",
-            "",
-            "for(Location location: in.locations) {",
-            "  if (location.name.equals(in.selectEvent.getObject())) {",
-            "    if (in.selectEvent.getComponent().id.equals(\"from\")) {",
-            "      in.locationFrom = location;",
-            "    }",
-            "    else {",
-            "      in.locationTo = location;",
-            "    }",
-            "    break;",
-            "  }",
+            "import com.axonivy.connector.sbb.demo.trip.PlaceUtils;",
+            "String nameOfPlace = String.valueOf(in.selectEvent.getObject());",
+            "if (in.selectEvent.getComponent().id.equals(\"from\")) {",
+            "  in.getTripsCollectionDataIn.params.origin = PlaceUtils.getTripSearchCriteriaOrigin(in.places, nameOfPlace);",
+            "} else {",
+            "  in.getTripsCollectionDataIn.params.destination = PlaceUtils.getTripSearchCriteriaDestination(in.places, nameOfPlace);;",
             "}"
           ]
         }
@@ -244,16 +238,18 @@
       "visual" : {
         "at" : { "x" : 416, "y" : 448 }
       },
-      "connect" : { "id" : "f30", "to" : "f29" }
+      "connect" : [
+        { "id" : "f30", "to" : "f29" }
+      ]
     }, {
       "id" : "f27",
       "type" : "HtmlDialogMethodStart",
-      "name" : "updateLocation(SelectEvent)",
+      "name" : "updatePlace(SelectEvent)",
       "config" : {
-        "callSignature" : "updateLocation",
+        "signature" : "updatePlace",
         "input" : {
           "params" : [
-            { "name" : "selectEvent", "type" : "org.primefaces.event.SelectEvent" }
+            { "name" : "selectEvent", "type" : "org.primefaces.event.SelectEvent", "desc" : "" }
           ],
           "map" : {
             "out.selectEvent" : "param.selectEvent"
@@ -268,12 +264,14 @@
           "Sets originId or destinationId of getTripsDataIn to id of selected Location."
         ]
       },
-      "connect" : { "id" : "f28", "to" : "f26" }
+      "connect" : [
+        { "id" : "f28", "to" : "f26" }
+      ]
     }, {
       "id" : "f29",
       "type" : "HtmlDialogEnd",
       "name" : [
-        "Location has",
+        "Place has",
         "been updated"
       ],
       "visual" : {

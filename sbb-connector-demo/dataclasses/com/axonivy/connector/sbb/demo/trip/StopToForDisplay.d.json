@@ -1,0 +1,35 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "StopToForDisplay",
+  "namespace" : "com.axonivy.connector.sbb.demo.trip",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "name",
+    "type" : "String",
+    "comment" : "Name of Stop."
+  }, {
+    "name" : "arrivalDateTime",
+    "type" : "java.time.OffsetDateTime",
+    "comment" : "Arrival dateTime in realtime."
+  }, {
+    "name" : "arrivalDate",
+    "type" : "String",
+    "comment" : "Arrival date in realtime parsed for displaying in user dialog."
+  }, {
+    "name" : "arrivalTime",
+    "type" : "String",
+    "comment" : "Arrival time in realtime parsed for displaying in user dialog."
+  }, {
+    "name" : "arrivalDelay",
+    "type" : "String",
+    "comment" : "Arrival delay in realtime parsed for displaying in user dialog."
+  }, {
+    "name" : "arrivalPlatform",
+    "type" : "String",
+    "comment" : "Arrival platform in realtime."
+  }, {
+    "name" : "arrivalPlatformChanged",
+    "type" : "Boolean",
+    "comment" : "Flag to determine whether arrivalPlatform has changed in comparison to planned departurePlatform."
+  } ]
+}

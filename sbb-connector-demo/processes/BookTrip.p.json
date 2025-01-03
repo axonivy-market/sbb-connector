@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
   "id" : "189FEADF3244D108",
   "config" : {
     "data" : "com.axonivy.connector.sbb.demo.BookTripData"
@@ -9,19 +9,22 @@
       "type" : "RequestStart",
       "name" : "start.ivp",
       "config" : {
-        "callSignature" : "start",
+        "signature" : "start",
         "case" : {
           "customFields" : [
-            { "name" : "conversationId", "type" : "String", "value" : "java.util.UUID.randomUUID().toString()" }
+            { "name" : "requestor", "type" : "STRING", "value" : "ivy.session.getSessionUserName()" }
           ]
-        },
-        "outLink" : "start.ivp",
-        "tags" : "demo"
+        }
       },
+      "tags" : [
+        "demo"
+      ],
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
       },
-      "connect" : { "id" : "f4", "to" : "f3" }
+      "connect" : [
+        { "id" : "f4", "to" : "f3" }
+      ]
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -33,47 +36,40 @@
       "type" : "DialogCall",
       "name" : "Input Trip Search Data",
       "config" : {
-        "dialogId" : "com.axonivy.connector.sbb.demo.InputTripSearchData",
-        "startMethod" : "start(com.axonivy.connector.sbb.trip.GetTripsDataIn)",
+        "dialog" : "com.axonivy.connector.sbb.demo.InputTripSearchData:start(com.axonivy.connector.sbb.trip.GetTripsDataIn)",
+        "call" : {
+          "map" : {
+            "param.getTripsDataIn.parameters.date" : "new Date()"
+          }
+        },
         "output" : {
           "map" : {
             "out" : "in",
-            "out.getTripsDataIn" : "result.getTripsDataIn"
-          }
-        },
-        "call" : {
-          "params" : [
-            { "name" : "getTripsDataIn", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn" }
-          ],
-          "map" : {
-            "param.getTripsDataIn" : "in.getTripsDataIn",
-            "param.getTripsDataIn.parameters.date" : "new Date()"
+            "out.getTripsCollectionDataIn" : "result.getTripsCollectionDataIn"
           }
         }
       },
       "visual" : {
         "at" : { "x" : 224, "y" : 64 }
       },
-      "connect" : { "id" : "f6", "to" : "f5" }
+      "connect" : [
+        { "id" : "f6", "to" : "f5" }
+      ]
     }, {
       "id" : "f5",
       "type" : "SubProcessCall",
       "name" : "Get Trips",
       "config" : {
-        "processCall" : "GetTrips:call(com.axonivy.connector.sbb.trip.GetTripsDataIn)",
+        "processCall" : "GetTripsCollection:call(com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn)",
+        "call" : {
+          "map" : {
+            "param.getTripsCollectionDataIn" : "in.getTripsCollectionDataIn"
+          }
+        },
         "output" : {
           "map" : {
             "out" : "in",
             "out.trips" : "result.trips"
-          }
-        },
-        "call" : {
-          "params" : [
-            { "name" : "in", "type" : "com.axonivy.connector.sbb.trip.GetTripsDataIn" }
-          ],
-          "map" : {
-            "param.in" : "in.getTripsDataIn",
-            "param.in.parameters.includeAfter" : "5"
           }
         }
       },
@@ -81,18 +77,16 @@
         "at" : { "x" : 384, "y" : 64 },
         "icon" : "res:/webContent/icons/sbb.png"
       },
-      "connect" : { "id" : "f8", "to" : "f7" }
+      "connect" : [
+        { "id" : "f8", "to" : "f7" }
+      ]
     }, {
       "id" : "f7",
       "type" : "DialogCall",
       "name" : "Show Trips",
       "config" : {
-        "dialogId" : "com.axonivy.connector.sbb.demo.ShowTrips",
-        "startMethod" : "start(List<ch.sbb.app.b2p.client.Trip>)",
+        "dialog" : "com.axonivy.connector.sbb.demo.ShowTrips:start(List<ch.sbb.api.smapi.osdm.journey.client.Trip>)",
         "call" : {
-          "params" : [
-            { "name" : "trips", "type" : "List<ch.sbb.app.b2p.client.Trip>" }
-          ],
           "map" : {
             "param.trips" : "in.trips"
           }
@@ -101,6 +95,8 @@
       "visual" : {
         "at" : { "x" : 544, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     } ]
 }

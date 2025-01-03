@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
   "id" : "189FE241C19F033D",
   "kind" : "CALLABLE_SUB",
   "description" : "Can be used to perform a pattern-based search to retrieve a list of matching locations (resp. concrete STATION's) for journey planning.",
@@ -11,10 +11,10 @@
       "type" : "CallSubStart",
       "name" : "call(GetLocationsDataIn)",
       "config" : {
-        "callSignature" : "call",
+        "signature" : "call",
         "input" : {
           "params" : [
-            { "name" : "in", "type" : "com.axonivy.connector.sbb.location.GetLocationsDataIn" }
+            { "name" : "in", "type" : "com.axonivy.connector.sbb.location.GetLocationsDataIn", "desc" : "" }
           ],
           "map" : {
             "out.in" : "param.in"
@@ -22,20 +22,25 @@
         },
         "result" : {
           "params" : [
-            { "name" : "locations", "type" : "List<ch.sbb.app.b2p.client.Location>" }
+            { "name" : "locations", "type" : "List<ch.sbb.app.b2p.client.Location>", "desc" : "" }
           ],
           "map" : {
             "result.locations" : "in.locations"
           }
-        },
-        "tags" : "connector"
+        }
       },
+      "tags" : [
+        "connector",
+        "deprecated"
+      ],
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },
         "description" : "Can be used to perform a pattern-based search to retrieve a list of matching locations (resp. concrete STATION's) for journey planning.",
         "icon" : "res:/webContent/icons/sbb.png?small"
       },
-      "connect" : { "id" : "f3", "to" : "f5" }
+      "connect" : [
+        { "id" : "f3", "to" : "f5" }
+      ]
     }, {
       "id" : "f1",
       "type" : "CallSubEnd",
@@ -49,28 +54,33 @@
       "type" : "RestClientCall",
       "name" : "Get Locations",
       "config" : {
-        "path" : "/api/locations",
-        "headers" : {
-          "Accept" : "*/*",
-          "x-conversation-id" : "ivy.case.customFields().stringField(\"conversationId\").getOrDefault(in.in.headers.conversationId)",
-          "x-contract-id" : "ivy.var.sbbConnector_contractId",
-          "Accept-Language" : "in.in.headers.acceptLanguage"
+        "target" : {
+          "clientId" : "32c4d3f9-2d6d-4b4d-b0c8-066ebf7f2e04",
+          "path" : "/api/locations",
+          "queryParams" : {
+            "name" : "in.in.parameters.name"
+          },
+          "headers" : {
+            "x-conversation-id" : "ivy.case.customFields().stringField(\"conversationId\").getOrDefault(in.in.headers.conversationId)",
+            "x-contract-id" : "ivy.var.sbbConnector_contractId",
+            "Accept-Language" : "in.in.headers.acceptLanguage"
+          }
         },
-        "clientId" : "32c4d3f9-2d6d-4b4d-b0c8-066ebf7f2e04",
-        "clientErrorCode" : "ivy:error:rest:client",
-        "queryParams" : {
-          "name" : "in.in.parameters.name"
-        },
-        "statusErrorCode" : "ivy:error:rest:client",
-        "responseMapping" : {
-          "out.locations" : "result"
-        },
-        "resultType" : "java.util.List<ch.sbb.app.b2p.client.Location>"
+        "response" : {
+          "entity" : {
+            "type" : "java.util.List<ch.sbb.app.b2p.client.Location>",
+            "map" : {
+              "out.locations" : "result"
+            }
+          }
+        }
       },
       "visual" : {
         "at" : { "x" : 224, "y" : 64 },
         "icon" : "res:/webContent/icons/sbb.png"
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
     } ]
 }

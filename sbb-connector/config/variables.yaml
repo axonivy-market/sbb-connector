@@ -1,15 +1,18 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/app/12.0.0/variables.json
 Variables:
   sbbConnector:
     # The URI of the API to use. For example: `https://b2p-int.api.sbb.ch` (integration) or `https://b2p.api.sbb.ch` (production)
-    uri: ''
+    uri: ""
     # The contract id provided to you by SBB. For Example: `ACP1024`
-    contractId: ''
+    contractId: ""
     # The client id provided to you by SBB. For Example: `01234567-89ab-cdef-0123-456789abcdef`
-    clientId: ''
+    clientId: ""
     # The client secret provided to you by SBB.
-    # [password]
-    clientSecret: ''
+    #[password]
+    clientSecret: ${decrypt:}
     # The endpoint for acquiring the bearer token using your client id and secret. For Example: `https://login.microsoftonline.com/2cda5d11-f0ac-46b3-967d-af1b2e1bd01a/oauth2/v2.0`
-    tokenEndpoint: ''
+    tokenEndpoint: ""
     # The scope provided to you by SBB.
-    scope: ''
+    scope: ""
+    # The URI of the Journey SBB Swiss Mobility API to use . For example: `https://smapi-osdm-journey-int.api.sbb.ch` (integration) or `https://smapi-osdm-journey.api.sbb.ch` (production)
+    journeyUri: ""

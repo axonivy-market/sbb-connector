@@ -1,8 +1,4 @@
 Variables:
   sbbConnector:
-    uri: https://b2p.app.sbb.ch
-    contractId: DEMO
     clientId: DEMO
-    clientSecret: DEMO
-    tokenEndpoint: DEMO
-    scope: DEMO
+    journeyUri: 'https://smapi-osdm-journey-mock.app.sbb.ch'

@@ -1,0 +1,43 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "TripForDisplay",
+  "namespace" : "com.axonivy.connector.sbb.demo.trip",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "onlineOffersLink",
+    "type" : "String",
+    "comment" : "Link to offers on website of SBB."
+  }, {
+    "name" : "segments",
+    "type" : "List<com.axonivy.connector.sbb.demo.trip.SegmentForDisplay>",
+    "comment" : "The segments of the trip and its stops parsed for displaying in user dialog."
+  }, {
+    "name" : "departureDate",
+    "type" : "String",
+    "comment" : "Departure date in realtime parsed for displaying in user dialog."
+  }, {
+    "name" : "departureTime",
+    "type" : "String",
+    "comment" : "Departure time in realtime parsed for displaying in user dialog."
+  }, {
+    "name" : "departureDelay",
+    "type" : "String",
+    "comment" : "Departure delay in realtime parsed for displaying in user dialog."
+  }, {
+    "name" : "arrivalDate",
+    "type" : "String",
+    "comment" : "Arrival date in realtime parsed for displaying in user dialog."
+  }, {
+    "name" : "arrivalTime",
+    "type" : "String",
+    "comment" : "Arrival time in realtime parsed for displaying in user dialog."
+  }, {
+    "name" : "arrivalDelay",
+    "type" : "String",
+    "comment" : "Arrival delay in realtime parsed for displaying in user dialog."
+  }, {
+    "name" : "duration",
+    "type" : "String",
+    "comment" : "Duration of the trip in realtime parsed for displaying in user dialog."
+  } ]
+}

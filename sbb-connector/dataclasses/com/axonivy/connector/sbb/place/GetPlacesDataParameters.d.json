@@ -1,0 +1,20 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "GetPlacesDataParameters",
+  "namespace" : "com.axonivy.connector.sbb.place",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "restrictions",
+    "type" : "ch.sbb.api.smapi.osdm.journey.client.PlaceParam"
+  }, {
+    "name" : "name",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "geoPositionLatitude",
+    "type" : "Number"
+  }, {
+    "name" : "geoPositionLongitude",
+    "type" : "Number"
+  } ]
+}
