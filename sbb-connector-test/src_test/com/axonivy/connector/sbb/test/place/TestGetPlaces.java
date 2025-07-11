@@ -9,18 +9,17 @@ import org.junit.jupiter.api.Test;
 import com.axonivy.connector.sbb.place.GetPlacesDataHeaders;
 import com.axonivy.connector.sbb.place.GetPlacesDataIn;
 import com.axonivy.connector.sbb.place.GetPlacesDataParameters;
+import com.axonivy.connector.sbb.test.BaseTest;
 import com.axonivy.connector.sbb.test.constant.Constant;
 
 import ch.ivyteam.ivy.bpm.engine.client.BpmClient;
 import ch.ivyteam.ivy.bpm.engine.client.element.BpmElement;
 import ch.ivyteam.ivy.bpm.engine.client.element.BpmProcess;
 import ch.ivyteam.ivy.bpm.engine.client.sub.SubProcessCallResult;
-import ch.ivyteam.ivy.bpm.exec.client.IvyProcessTest;
 import ch.ivyteam.ivy.scripting.objects.List;
 import ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems;
 
-@IvyProcessTest
-class TestGetPlaces {
+class TestGetPlaces extends BaseTest {
 
 	private static final BpmProcess GET_PLACES_PROCESS = BpmProcess.path("GetPlaces");
 	private static final BpmElement GET_PLACES_START = GET_PLACES_PROCESS.elementName("call(GetPlacesDataIn)");

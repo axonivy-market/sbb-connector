@@ -17,6 +17,7 @@ import org.openqa.selenium.Keys;
 
 import com.axonivy.ivy.webtest.IvyWebTest;
 import com.axonivy.ivy.webtest.engine.EngineUrl;
+import com.axonivy.ivy.webtest.engine.WebAppFixture;
 import com.codeborne.selenide.ElementsCollection;
 
 @IvyWebTest
@@ -26,9 +27,15 @@ class ITBookTrip {
 	private static final SimpleDateFormat DATE_TIME_FORMATTER_PRESENTABLE = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 	private static final String MOCK_DATE_VALUE = "10.06.2023";
 	private static final String ERROR_MESSAGE_CLASS = ".ui-messages-error-summary";
+	private static final String CLIENT_ID_VARIABLE = "sbbConnector.clientId";
+	private static final String CLIENT_ID_VALUE = "DEMO";
+	private static final String JOURNEY_URI_VARIABLE = "sbbConnector.journeyUri";
+	private static final String JOURNEY_URI_VALUE = "https://smapi-osdm-journey-mock.app.sbb.ch";
 
 	@BeforeEach
-	void startDemoProcess() {
+	void startDemoProcess(WebAppFixture fixture) {
+		fixture.var(CLIENT_ID_VARIABLE, CLIENT_ID_VALUE);
+		fixture.var(JOURNEY_URI_VARIABLE, JOURNEY_URI_VALUE);
 		open(EngineUrl.createProcessUrl("sbb-connector-demo/189FEADF3244D108/start.ivp"));
 	}
 
