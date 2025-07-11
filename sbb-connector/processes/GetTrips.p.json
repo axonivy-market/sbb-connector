@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/13.1.2/process.json",
   "id" : "189FE2A1B2075999",
   "kind" : "CALLABLE_SUB",
   "description" : "Returns different trips for a specified origin and destination (and vias). The UIC codes of the origin and destination can be resolved using the locations service.",
