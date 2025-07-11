@@ -12,4 +12,8 @@ public class Constant {
 	public static final String IN = "in";
 	public static final String HEADERS = "headers";
 	public static final String PARAMS = "params";
+	public static final String CLIENT_ID_VARIABLE = "sbbConnector.clientId";
+	public static final String CLIENT_ID_VALUE = "DEMO";
+	public static final String JOURNEY_URI_VARIABLE = "sbbConnector.journeyUri";
+	public static final String JOURNEY_URI_VALUE = "https://smapi-osdm-journey-mock.app.sbb.ch";
 }

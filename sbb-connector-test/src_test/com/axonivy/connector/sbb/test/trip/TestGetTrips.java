@@ -2,9 +2,11 @@ package com.axonivy.connector.sbb.test.trip;
 
 import static com.axonivy.connector.sbb.constant.Constant.TRIPS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.axonivy.connector.sbb.test.BaseTest;
 import com.axonivy.connector.sbb.test.constant.Constant;
 import com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataHeaders;
 import com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn;
@@ -14,13 +16,11 @@ import ch.ivyteam.ivy.bpm.engine.client.BpmClient;
 import ch.ivyteam.ivy.bpm.engine.client.element.BpmElement;
 import ch.ivyteam.ivy.bpm.engine.client.element.BpmProcess;
 import ch.ivyteam.ivy.bpm.engine.client.sub.SubProcessCallResult;
-import ch.ivyteam.ivy.bpm.exec.client.IvyProcessTest;
 import ch.ivyteam.ivy.scripting.objects.List;
 import ch.sbb.api.smapi.osdm.journey.client.StopPlaceRef;
 import ch.sbb.api.smapi.osdm.journey.client.Trip;
 
-@IvyProcessTest
-class TestGetTrips {
+class TestGetTrips extends BaseTest {
 
 	private static final BpmProcess GET_TRIPS_COLLECTION_PROCESS = BpmProcess.path("GetTripsCollection");
 	private static final BpmElement GET_TRIPS_COLLECTION_START = GET_TRIPS_COLLECTION_PROCESS

@@ -1,4 +1,1 @@
 Variables:
-  sbbConnector:
-    clientId: DEMO
-    journeyUri: 'https://smapi-osdm-journey-mock.app.sbb.ch'
