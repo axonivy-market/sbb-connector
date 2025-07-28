@@ -9,4 +9,4 @@ on:
 
 jobs:
   build:
-    uses: axonivy-market/github-workflows/.github/workflows/ci.yml@v6
+    uses: axonivy-market/github-workflows/.github/workflows/ci.yml@bugfix/MARP-2689-CI-workflow-failed-test-without-test-report
