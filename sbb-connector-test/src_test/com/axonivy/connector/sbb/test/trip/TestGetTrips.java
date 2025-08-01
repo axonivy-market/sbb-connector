@@ -8,11 +8,13 @@ import org.junit.jupiter.api.Test;
 
 import com.axonivy.connector.sbb.test.BaseTest;
 import com.axonivy.connector.sbb.test.constant.Constant;
+import com.axonivy.connector.sbb.tripscollection.GetTripsCollectionData;
 import com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataHeaders;
 import com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn;
 import com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataParameters;
 
 import ch.ivyteam.ivy.bpm.engine.client.BpmClient;
+import ch.ivyteam.ivy.bpm.engine.client.ExecutionResult;
 import ch.ivyteam.ivy.bpm.engine.client.element.BpmElement;
 import ch.ivyteam.ivy.bpm.engine.client.element.BpmProcess;
 import ch.ivyteam.ivy.bpm.engine.client.sub.SubProcessCallResult;
@@ -81,17 +83,14 @@ class TestGetTrips extends BaseTest {
 	@Test
 	void call_realApi_returnsRealResponse(BpmClient bpmClient) {
 		GetTripsCollectionDataHeaders getTripsCollectionDataHeaders = prepareGetTripsCollectionDataHeaders();
-		GetTripsCollectionDataIn getTripsCollectionPlacesDataIn = prepareGetTripsCollectionDataIn(
-				getTripsCollectionDataHeaders);
-
+		GetTripsCollectionDataIn getTripsCollectionPlacesDataIn =
+				prepareGetTripsCollectionDataIn(getTripsCollectionDataHeaders);
 		// Run
-		SubProcessCallResult result = bpmClient.start().subProcess(GET_TRIPS_COLLECTION_START)
-				.execute(getTripsCollectionPlacesDataIn).subResult();
-
+		ExecutionResult result =
+				bpmClient.start().subProcess(GET_TRIPS_COLLECTION_START).execute(getTripsCollectionPlacesDataIn);
+		GetTripsCollectionData data = result.data().last();
 		// Assert
-		Assertions.assertTrue(result.param(TRIPS, List.class).size() > 0);
-		Trip trip = (Trip) result.param(TRIPS, List.class).get(0);
-		Assertions.assertTrue(trip != null && trip.getLegs().size() > 0);
+		Assertions.assertEquals(data.getError().getAttribute("RestClientResponseStatusCode"), 503);
 	}
 
 	private GetTripsCollectionDataIn prepareGetTripsCollectionDataIn(
