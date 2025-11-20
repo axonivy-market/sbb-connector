@@ -1,45 +1,46 @@
-# SBB Anschluss
+# SBB Connector
 
-#Axon Efeuhat SBB Anschluss integriert den [schweizerische Mobilität API -
-#Journey](https://developer-int.sbb.ch/apis/smapi-osdm-journey/information)
-versehen mal SBB. Dieser Anschluss benutzt einen REST Kunden jener erlaubt du zu
-#wiedergewinnen Fahrpläne und ergehen Details. Außerdem, du kannst schaffen und
-fertigbringen bookings von schweizerisch Öffentlichkeit Transport durch den API.
+Der SBB Connector von Axon Ivy integriert die von der SBB bereitgestellte [Swiss
+Mobility API –
+Journey](https://developer-int.sbb.ch/apis/smapi-osdm-journey/information).
+Dieser Connector verwendet einen REST-Client, mit dem Sie Fahrpläne und
+Tarifdetails abrufen können. Darüber hinaus können Sie über die API Buchungen
+für den öffentlichen Nahverkehr in der Schweiz erstellen und verwalten.
 
-Beachten dass #Berechtigungsnachweis sind bedürft zu gewinnen zugreifen zu
-irgendwelchen Charakterzügen von den API. Wobei sind versehen sie gratis mal
-SBB, der Zweck von ihr API ist zu generieren Verkäufe Umsatz durch ihm. Für
-#mehr Auskunft von zugreifen, Charakterzüge und Fähigkeiten, besuchen die info
-Seite von die [schweizerische Mobilität API -
-#Journey](https://developer-int.sbb.ch/apis/smapi-osdm-journey/information).
+Beachten Sie, dass für den Zugriff auf alle Funktionen der API Anmeldedaten
+erforderlich sind. Diese werden zwar von der SBB kostenlos zur Verfügung
+gestellt, aber der Zweck ihrer API besteht darin, damit Umsatz zu generieren.
+Weitere Informationen zu Zugriff, Funktionen und Möglichkeiten finden Sie auf
+der Infoseite der [Swiss Mobility API –
+Journey](https://developer-int.sbb.ch/apis/smapi-osdm-journey/information).
 
 ## Demo
 
-![#Suchen Reisen Formen](images/search-for-trips.png)
+![Formular „Reisen suchen“](images/search-for-trips.png)
 
-![Zeigen Reisen](images/trips.png)
+![Show Trips](images/trips.png)
 
 ## Einrichtung
 
-Zu benutzen das SBB Anschluss, füg zu die folgenden Variablen zu euren #Axon
-Efeu Projiziert:
+Um den SBB Connector zu verwenden, fügen Sie Ihrem Axon Ivy-Projekt die
+folgenden Variablen hinzu:
 
 ```
 @variables.yaml@
 ```
 
-Irgendwelche Bitte zu der Reise SBB schweizerische Mobilität API bedürft eine
-`Requestor` Kopfball von dem gängigen Geschäft Arbeitsgang. Für das schon
-versehen subprocesses mal das SBB Anschluss kannst du #jeder setzen den
-customField `requestor` #anfangs einen Arbeitsgang oder versehen den `Requestor`
-da einen Streit jede Zeit rufst du eine subprocess. Nimm ein ansehen das Demo
-Projekt für ein Beispiel.
+Jede Anfrage an die Journey SBB Swiss Mobility API erfordert einen `Requestor`
+Header des aktuellen Geschäftsprozesses. Für die bereits vom SBB Connector
+bereitgestellten Teilprozesse können Sie entweder das customField `requestor` zu
+Beginn eines Prozesses setzen oder den `Requestor` jedes Mal, wenn Sie einen
+Teilprozess aufrufen, als Argument angeben. Ein Beispiel finden Sie im
+Demo-Projekt.
 
-> [!Beachten] Ob dir hast nicht diesen Anschluss benutzt noch, du kannst diese
-> Note überhören. Von dieser Version, `GetLocations` und `GetTrips` callable
-> Arbeitsgänge sind #schlechtmachen. Du kannst besuchen das info Seite von die
-> [schweizerische Mobilität API](https://developer.sbb.ch/apis/b2p/information)
-> zu bekommen #mehr Auskunft. Stattdessen, Wir hereingebracht haben zwei
-> Alternative `GetPlaces` und `GetTripsCollection` callable Arbeitsgänge. Indes,
-> #der #Daten #eingruppieren ist gewechselt, du brauchst zu adaptieren ihm zu
-> benutzen diese callable Arbeitsgänge.
+> [!Hinweis] Wenn Sie diesen Konnektor noch nicht verwendet haben, können Sie
+> diesen Hinweis ignorieren. Ab dieser Version sind die aufrufbaren Prozesse
+> `GetLocations` und `GetTrips` veraltet. Weitere Informationen finden Sie auf
+> der Infoseite der [Swiss Mobility
+> API](https://developer.sbb.ch/apis/b2p/information). Stattdessen haben wir
+> zwei alternative aufrufbare Prozesse eingeführt: `GetPlaces` und
+> `GetTripsCollection`. Da sich jedoch die Datenklasse geändert hat, müssen Sie
+> diese anpassen, um diese aufrufbaren Prozesse verwenden zu können.
