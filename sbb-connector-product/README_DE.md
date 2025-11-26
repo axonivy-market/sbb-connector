@@ -20,7 +20,7 @@ Journey](https://developer-int.sbb.ch/apis/smapi-osdm-journey/information).
 
 ![Show Trips](images/trips.png)
 
-## Einrichtung
+## Setup
 
 Um den SBB Connector zu verwenden, fügen Sie Ihrem Axon Ivy-Projekt die
 folgenden Variablen hinzu:
