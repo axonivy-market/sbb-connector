@@ -89,6 +89,24 @@
       "visual" : {
         "at" : { "x" : 248, "y" : 64 }
       },
+      "boundaries" : [ {
+          "id" : "f5",
+          "type" : "ErrorBoundaryEvent",
+          "config" : {
+            "output" : {
+              "map" : {
+                "out" : "in",
+                "out.error" : "#error"
+              }
+            }
+          },
+          "visual" : {
+            "at" : { "x" : 280, "y" : 104 }
+          },
+          "connect" : [
+            { "id" : "f6", "to" : "f1", "via" : [ { "x" : 376, "y" : 104 } ] }
+          ]
+        } ],
       "connect" : [
         { "id" : "f4", "to" : "f1", "color" : "default" }
       ]
