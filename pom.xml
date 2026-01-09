@@ -10,15 +10,15 @@
   </properties>
 
   <modules>
-    <module>${project.name}</module>
-    <module>${project.name}-demo</module>
-    <module>${project.name}-test</module>
-    <module>${project.name}-webtest</module>
-    <module>${project.name}-product</module>
+    <module>sbb-connector</module>
+    <module>sbb-connector-demo</module>
+    <module>sbb-connector-test</module>
+    <module>sbb-connector-webtest</module>
+    <module>sbb-connector-product</module>
   </modules>
 
   <scm>
-    <developerConnection>scm:git:https://github.com/axonivy-market/${project.name}.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/axonivy-market/sbb-connector.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
