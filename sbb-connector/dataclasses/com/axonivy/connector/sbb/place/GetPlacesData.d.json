@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/data-class/13.1.0/data-class.json",
   "simpleName" : "GetPlacesData",
   "namespace" : "com.axonivy.connector.sbb.place",
   "isBusinessCaseData" : false,
@@ -10,5 +10,8 @@
     "name" : "in",
     "type" : "com.axonivy.connector.sbb.place.GetPlacesDataIn",
     "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "error",
+    "type" : "ch.ivyteam.ivy.bpm.error.BpmError"
   } ]
 }

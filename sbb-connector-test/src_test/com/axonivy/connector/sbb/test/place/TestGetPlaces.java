@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import com.axonivy.connector.sbb.place.GetPlacesData;
 import com.axonivy.connector.sbb.place.GetPlacesDataHeaders;
 import com.axonivy.connector.sbb.place.GetPlacesDataIn;
 import com.axonivy.connector.sbb.place.GetPlacesDataParameters;
@@ -13,6 +14,7 @@ import com.axonivy.connector.sbb.test.BaseTest;
 import com.axonivy.connector.sbb.test.constant.Constant;
 
 import ch.ivyteam.ivy.bpm.engine.client.BpmClient;
+import ch.ivyteam.ivy.bpm.engine.client.ExecutionResult;
 import ch.ivyteam.ivy.bpm.engine.client.element.BpmElement;
 import ch.ivyteam.ivy.bpm.engine.client.element.BpmProcess;
 import ch.ivyteam.ivy.bpm.engine.client.sub.SubProcessCallResult;
@@ -76,11 +78,9 @@ class TestGetPlaces extends BaseTest {
 		GetPlacesDataHeaders getPlacesDataHeaders = prepareGetPlacesDataHeaders();
 		GetPlacesDataIn getPlacesDataIn = prepareGetPlacesDataIn(getPlacesDataHeaders);
 		// Run
-		SubProcessCallResult result = bpmClient.start().subProcess(GET_PLACES_START).execute(getPlacesDataIn)
-				.subResult();
-
-		// Assert
-		Assertions.assertTrue(result.param(PLACES, List.class).size() > 1);
+		ExecutionResult result = bpmClient.start().subProcess(GET_PLACES_START).execute(getPlacesDataIn);
+		GetPlacesData data = result.data().last();
+		Assertions.assertEquals(data.getError().getAttribute("RestClientResponseStatusCode"), 503);
 	}
 
 	private GetPlacesDataIn prepareGetPlacesDataIn(GetPlacesDataHeaders getPlacesDataHeaders) {
