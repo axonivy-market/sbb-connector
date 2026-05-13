@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/13.1.2/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/13.2.0/process.json",
   "id" : "189FE2A1B2075999",
   "kind" : "CALLABLE_SUB",
   "description" : "Returns different trips for a specified origin and destination (and vias). The UIC codes of the origin and destination can be resolved using the locations service.",
@@ -36,7 +36,7 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 64 },
         "description" : "Returns different trips for a specified origin and destination (and vias). The UIC codes of the origin and destination can be resolved using the locations service.",
-        "icon" : "res:/webContent/icons/sbb.png?small"
+        "icon" : "res:/webContent/icons/sbb.png"
       },
       "connect" : [
         { "id" : "f6", "to" : "f5" }
