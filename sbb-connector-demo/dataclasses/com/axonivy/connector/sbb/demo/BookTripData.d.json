@@ -1,13 +1,14 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "BookTripData",
   "namespace" : "com.axonivy.connector.sbb.demo",
-  "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "getTripsCollectionDataIn",
-    "type" : "com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn"
+    "type" : "com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn",
+    "modifiers" : [ ]
   }, {
     "name" : "trips",
-    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.Trip>"
+    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.Trip>",
+    "modifiers" : [ ]
   } ]
 }

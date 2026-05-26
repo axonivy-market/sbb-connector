@@ -1,15 +1,12 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "GetTripsDataIn",
   "namespace" : "com.axonivy.connector.sbb.trip",
-  "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "parameters",
-    "type" : "com.axonivy.connector.sbb.trip.GetTripsDataParameters",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "com.axonivy.connector.sbb.trip.GetTripsDataParameters"
   }, {
     "name" : "headers",
-    "type" : "com.axonivy.connector.sbb.trip.GetTripsDataHeaders",
-    "modifiers" : [ "PERSISTENT" ]
+    "type" : "com.axonivy.connector.sbb.trip.GetTripsDataHeaders"
   } ]
 }

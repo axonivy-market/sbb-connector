@@ -1,0 +1,2182 @@
+openapi: "3.0.1"
+info:
+  title: "SBB Swiss Mobility API - Journey"
+  contact:
+    name: "SBB Digital Affiliates"
+    url: "https://www.sbb.ch/api"
+    email: "digitalsales@sbb.ch"
+  license:
+    name: "SBB Licensed"
+    url: "https://data.sbb.ch/page/licence/"
+  version: "1.1.4"
+  description: "## SBB Swiss Mobility API\n\n<p>This API is one of the modules of\
+    \ the SBB Swiss Mobility API suite (see the <a href=\"https://smapi-cookbooks.app.sbb.ch/cookbooks/smapi-overview/index.html\"\
+    >SBB Swiss Mobility API Overview</a>). </p>\n<p>The <strong>SBB Swiss Mobility\
+    \ API - Journey</strong> is a REST API that enables SBB partners to request for\
+    \ <strong>places</strong> and <strong>trips</strong> for swiss public transportation\
+    \ in the OSDM Version 3 standard. </p>\n<p>Before you request access to the API,\
+    \ please get in contact with <strong>SBB Digital Affiliates</strong>. On the right\
+    \ you can find the contact details. </p>\n<h3>The OSDM standard</h3>\n<p>OSDM\
+    \ stands for “Open Sales and Distribution Model”. It aims at simplifying and improving\
+    \ the search and booking of public transportation and to increase interoperability\
+    \ between providers, distributors and retailers. Further details can be found\
+    \ in the official OSDM documentation on osdm.io:</p>\n<ul>\n  <li>\n    <a href=\"\
+    https://osdm.io\">OSDM Open Sales and Distribution Model</a>\n  </li>\n  <a></a>\n\
+    \  <li>\n    <a href=\"https://github.com/UnionInternationalCheminsdeFer/OSDM\"\
+    >OSDM Specification</a>\n  </li>\n  <li>\n    <a href=\"https://osdm.io/spec/getting-started/\"\
+    >Getting Started with OSDM</a>\n  </li>\n</ul>"
+servers:
+- description: "External Endpoint"
+  url: "https://smapi-osdm-journey.api.sbb.ch:443"
+- description: "Sandbox"
+  url: "https://smapi-osdm-journey-mock.app.sbb.ch"
+tags:
+- name: "Places"
+  description: "resources to search for places "
+- name: "Trips"
+  description: "resources to search for trips "
+- name: "Master Data"
+  description: "resources to get master data "
+paths:
+  /v1/trips-collection:
+    post:
+      tags:
+      - "Trips"
+      summary: "returns a collection of trips for a given OJP trip request"
+      description: "Returns trips for a given trip request based on the OJP specification. "
+      operationId: "postTrips"
+      parameters:
+      - name: "Requestor"
+        in: "header"
+        description: "The requestor header contains detailed information about who\
+          \ is calling the API. It can include information such as channel, organization,\
+          \ sales unit or workstation id and be used to configure e.g. the fare range\
+          \ provided to the caller. The content of the string is part of a bilateral\
+          \ contract by the two parties and not standardized by OSDM. It is recommend\
+          \ to encrypt the information transferred. "
+        required: true
+        schema:
+          type: "string"
+      - name: "Accept-Language"
+        in: "header"
+        description: "Describes the set of natural languages that are preferred for\
+          \ localized text in the response to the request (see RFC2616-sec14.4). Supporting\
+          \ English (en) is a must. "
+        required: false
+        schema:
+          type: "string"
+      - name: "traceparent"
+        in: "header"
+        description: "The traceparent header describes the position of the incoming\
+          \ request in its trace graph in a portable, fixed-length format. Its design\
+          \ focuses on fast parsing. Every tracing tool MUST properly set traceparent\
+          \ even when it only relies on vendor-specific information in tracestate\
+          \ (see W3C Trace Context). "
+        required: false
+        schema:
+          type: "string"
+      - name: "tracestate"
+        in: "header"
+        description: "The tracestate extends traceparent with vendor-specific data\
+          \ represented by a set of name/value pairs. Storing information in tracestate\
+          \ is optional (see W3C Trace Context). "
+        required: false
+        schema:
+          type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TripSearchCriteria"
+      responses:
+        "200":
+          description: "trips found "
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TripCollectionResponse"
+        "400":
+          description: "Bad Request (400) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "401":
+          description: "Unauthorized (401) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: "Forbidden (403) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: "Not Found (404) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "406":
+          description: "Not Acceptable (406) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "415":
+          description: "Unsupported Media Type (415) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "500":
+          description: "Internal Server Error (500) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "501":
+          description: "Not Implemented (501) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "503":
+          description: "Service Unavailable (503) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        default:
+          description: "default error response "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+      security:
+      - oauth2-azure-ad:
+        - "api://233a2404-020e-4cc8-9eed-ebe491087969/.default"
+  /v1/places:
+    get:
+      tags:
+      - "Master Data"
+      summary: "Returns all places."
+      operationId: "getPlaces"
+      parameters:
+      - name: "Requestor"
+        in: "header"
+        description: "The requestor header contains detailed information about who\
+          \ is calling the API. It can include information such as channel, organization,\
+          \ sales unit or workstation id and be used to configure e.g. the fare range\
+          \ provided to the caller. The content of the string is part of a bilateral\
+          \ contract by the two parties and not standardized by OSDM. It is recommend\
+          \ to encrypt the information transferred. "
+        required: true
+        schema:
+          type: "string"
+      - name: "Accept-Language"
+        in: "header"
+        description: "Describes the set of natural languages that are preferred for\
+          \ localized text in the response to the request (see RFC2616-sec14.4). Supporting\
+          \ English (en) is a must. "
+        required: false
+        schema:
+          type: "string"
+      - name: "traceparent"
+        in: "header"
+        description: "The traceparent header describes the position of the incoming\
+          \ request in its trace graph in a portable, fixed-length format. Its design\
+          \ focuses on fast parsing. Every tracing tool MUST properly set traceparent\
+          \ even when it only relies on vendor-specific information in tracestate\
+          \ (see W3C Trace Context). "
+        required: false
+        schema:
+          type: "string"
+      - name: "tracestate"
+        in: "header"
+        description: "The tracestate extends traceparent with vendor-specific data\
+          \ represented by a set of name/value pairs. Storing information in tracestate\
+          \ is optional (see W3C Trace Context). "
+        required: false
+        schema:
+          type: "string"
+      - name: "If-None-Match"
+        in: "header"
+        description: "The HTTP If-None-Match parameter isn't supported at the moment.\
+          \ It should be used to check whether the providing system has a newer version\
+          \ of the requested data."
+        required: false
+        schema:
+          type: "string"
+      - name: "page"
+        in: "query"
+        description: "can be used for pagination "
+        required: false
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "the requested places "
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlaceResponse"
+        "400":
+          description: "Bad Request (400) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "401":
+          description: "Unauthorized (401) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: "Forbidden (403) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: "Not Found (404) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "406":
+          description: "Not Acceptable (406) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "415":
+          description: "Unsupported Media Type (415) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "500":
+          description: "Internal Server Error (500) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "501":
+          description: "Not Implemented (501) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "503":
+          description: "Service Unavailable (503) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        default:
+          description: "default error response "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+      security:
+      - oauth2-azure-ad:
+        - "api://233a2404-020e-4cc8-9eed-ebe491087969/.default"
+    post:
+      tags:
+      - "Places"
+      summary: "returns place information for a given place request"
+      description: "Returns places for a given place request based on the OJP specification. "
+      operationId: "postPlaces"
+      parameters:
+      - name: "Requestor"
+        in: "header"
+        description: "The requestor header contains detailed information about who\
+          \ is calling the API. It can include information such as channel, organization,\
+          \ sales unit or workstation id and be used to configure e.g. the fare range\
+          \ provided to the caller. The content of the string is part of a bilateral\
+          \ contract by the two parties and not standardized by OSDM. It is recommend\
+          \ to encrypt the information transferred. "
+        required: true
+        schema:
+          type: "string"
+      - name: "Accept-Language"
+        in: "header"
+        description: "Describes the set of natural languages that are preferred for\
+          \ localized text in the response to the request (see RFC2616-sec14.4). Supporting\
+          \ English (en) is a must. "
+        required: false
+        schema:
+          type: "string"
+      - name: "traceparent"
+        in: "header"
+        description: "The traceparent header describes the position of the incoming\
+          \ request in its trace graph in a portable, fixed-length format. Its design\
+          \ focuses on fast parsing. Every tracing tool MUST properly set traceparent\
+          \ even when it only relies on vendor-specific information in tracestate\
+          \ (see W3C Trace Context). "
+        required: false
+        schema:
+          type: "string"
+      - name: "tracestate"
+        in: "header"
+        description: "The tracestate extends traceparent with vendor-specific data\
+          \ represented by a set of name/value pairs. Storing information in tracestate\
+          \ is optional (see W3C Trace Context). "
+        required: false
+        schema:
+          type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlaceRequest"
+      responses:
+        "200":
+          description: "place information found matching criteria "
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlaceResponse"
+        "400":
+          description: "Bad Request (400) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "401":
+          description: "Unauthorized (401) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: "Forbidden (403) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: "Not Found (404) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "406":
+          description: "Not Acceptable (406) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "415":
+          description: "Unsupported Media Type (415) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "500":
+          description: "Internal Server Error (500) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "501":
+          description: "Not Implemented (501) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "503":
+          description: "Service Unavailable (503) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        default:
+          description: "default error response "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+      security:
+      - oauth2-azure-ad:
+        - "api://233a2404-020e-4cc8-9eed-ebe491087969/.default"
+  /v1/trips/{tripId}:
+    get:
+      tags:
+      - "Trips"
+      summary: "Returns a trip element representing a travel trip."
+      description: "A trip consists of one or more legs for a given tripId. Depending\
+        \ on the embed either references or full location definitions is returned. "
+      operationId: "getTripsId"
+      parameters:
+      - name: "Requestor"
+        in: "header"
+        description: "The requestor header contains detailed information about who\
+          \ is calling the API. It can include information such as channel, organization,\
+          \ sales unit or workstation id and be used to configure e.g. the fare range\
+          \ provided to the caller. The content of the string is part of a bilateral\
+          \ contract by the two parties and not standardized by OSDM. It is recommend\
+          \ to encrypt the information transferred. "
+        required: true
+        schema:
+          type: "string"
+      - name: "tripId"
+        in: "path"
+        description: "id of the trip to get. "
+        required: true
+        schema:
+          type: "string"
+      - name: "Accept-Language"
+        in: "header"
+        description: "Describes the set of natural languages that are preferred for\
+          \ localized text in the response to the request (see RFC2616-sec14.4). Supporting\
+          \ English (en) is a must. "
+        required: false
+        schema:
+          type: "string"
+      - name: "traceparent"
+        in: "header"
+        description: "The traceparent header describes the position of the incoming\
+          \ request in its trace graph in a portable, fixed-length format. Its design\
+          \ focuses on fast parsing. Every tracing tool MUST properly set traceparent\
+          \ even when it only relies on vendor-specific information in tracestate\
+          \ (see W3C Trace Context). "
+        required: false
+        schema:
+          type: "string"
+      - name: "tracestate"
+        in: "header"
+        description: "The tracestate extends traceparent with vendor-specific data\
+          \ represented by a set of name/value pairs. Storing information in tracestate\
+          \ is optional (see W3C Trace Context). "
+        required: false
+        schema:
+          type: "string"
+      - name: "stopBehavior"
+        in: "query"
+        description: "Influences what stops are to be returned in response (ORIGIN_DESTINATION_ONLY\
+          \ returns no intermediate stops; REAL_BOARDING_ALIGHTING returns all stops\
+          \ except virtual stops). Default value: ORIGIN_DESTINATION_ONLY "
+        required: false
+        schema:
+          type: "string"
+          enum:
+          - "ORIGIN_DESTINATION_ONLY"
+          - "REAL_BOARDING_ALIGHTING"
+      - name: "embed"
+        in: "query"
+        description: "Influences whether referenced resources are returned in full\
+          \ or as references only. Default value: ALL "
+        required: false
+        schema:
+          maxItems: 1
+          minItems: 0
+          type: "array"
+          items:
+            type: "string"
+            enum:
+            - "ALL"
+            - "PLACES"
+            - "NONE"
+      responses:
+        "200":
+          description: "trip found "
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TripResponse"
+        "400":
+          description: "Bad Request (400) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "401":
+          description: "Unauthorized (401) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: "Forbidden (403) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: "Not Found (404) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "406":
+          description: "Not Acceptable (406) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "415":
+          description: "Unsupported Media Type (415) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "500":
+          description: "Internal Server Error (500) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "501":
+          description: "Not Implemented (501) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "503":
+          description: "Service Unavailable (503) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        default:
+          description: "default error response "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+      security:
+      - oauth2-azure-ad:
+        - "api://233a2404-020e-4cc8-9eed-ebe491087969/.default"
+  /v1/trips-collections/{tripsCollectionId}:
+    get:
+      tags:
+      - "Trips"
+      summary: "Returns a collection of trips for a specified origin and destination\
+        \ (and via)."
+      description: "The unique codes of the origin and destination can be resolved\
+        \ using the places service. "
+      operationId: "getTripsCollectionId"
+      parameters:
+      - name: "Requestor"
+        in: "header"
+        description: "The requestor header contains detailed information about who\
+          \ is calling the API. It can include information such as channel, organization,\
+          \ sales unit or workstation id and be used to configure e.g. the fare range\
+          \ provided to the caller. The content of the string is part of a bilateral\
+          \ contract by the two parties and not standardized by OSDM. It is recommend\
+          \ to encrypt the information transferred. "
+        required: true
+        schema:
+          type: "string"
+      - name: "tripsCollectionId"
+        in: "path"
+        description: "id of the trips "
+        required: true
+        schema:
+          type: "string"
+      - name: "Accept-Language"
+        in: "header"
+        description: "Describes the set of natural languages that are preferred for\
+          \ localized text in the response to the request (see RFC2616-sec14.4). Supporting\
+          \ English (en) is a must. "
+        required: false
+        schema:
+          type: "string"
+      - name: "traceparent"
+        in: "header"
+        description: "The traceparent header describes the position of the incoming\
+          \ request in its trace graph in a portable, fixed-length format. Its design\
+          \ focuses on fast parsing. Every tracing tool MUST properly set traceparent\
+          \ even when it only relies on vendor-specific information in tracestate\
+          \ (see W3C Trace Context). "
+        required: false
+        schema:
+          type: "string"
+      - name: "tracestate"
+        in: "header"
+        description: "The tracestate extends traceparent with vendor-specific data\
+          \ represented by a set of name/value pairs. Storing information in tracestate\
+          \ is optional (see W3C Trace Context). "
+        required: false
+        schema:
+          type: "string"
+      - name: "page"
+        in: "query"
+        required: false
+        schema:
+          type: "string"
+      - name: "embed"
+        in: "query"
+        description: "Influences whether referenced resources are returned in full\
+          \ or as references only. Default value: ALL "
+        required: false
+        schema:
+          maxItems: 2
+          minItems: 0
+          type: "array"
+          items:
+            type: "string"
+            enum:
+            - "ALL"
+            - "TRIPS"
+            - "TRIPSUMMARIES"
+            - "NONE"
+      responses:
+        "200":
+          description: "trips found "
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TripCollectionResponse"
+        "400":
+          description: "Bad Request (400) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "401":
+          description: "Unauthorized (401) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: "Forbidden (403) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: "Not Found (404) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "406":
+          description: "Not Acceptable (406) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "415":
+          description: "Unsupported Media Type (415) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "500":
+          description: "Internal Server Error (500) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "501":
+          description: "Not Implemented (501) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "503":
+          description: "Service Unavailable (503) "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        default:
+          description: "default error response "
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+      security:
+      - oauth2-azure-ad:
+        - "api://233a2404-020e-4cc8-9eed-ebe491087969/.default"
+components:
+  schemas:
+    Address:
+      required:
+      - "id"
+      type: "object"
+      description: "A descriptive data associated with a place that can be used to\
+        \ describe the unique geographical context of a place for the purposes of\
+        \ identifying it. may be refined as either a road address, a postal address\
+        \ or both. Provided by OJP. "
+      allOf:
+      - $ref: "#/components/schemas/Place"
+      - type: "object"
+        properties:
+          name:
+            type: "string"
+            description: "Name or description of address for use in passenger information. "
+            example: "Oude Trambaan 7, 2265CA Leidschendam, Nederland"
+          code:
+            type: "string"
+            description: "id of the address "
+            example: "NL:1916200000022621"
+          countryName:
+            type: "string"
+            description: "Country of the address. "
+            example: "The Netherlands"
+          countryCode:
+            type: "string"
+            description: "ISO country code (2 alpha), relative URNs with base urn:iso:std:iso:3166\
+              \ are recommended "
+            example: "DE"
+          postCode:
+            type: "string"
+            description: "Postal code of the address. "
+            example: "2265CA"
+          city:
+            type: "string"
+            description: "City name "
+            example: "Leidschendam"
+          topographicPlaceName:
+            type: "string"
+            description: "TopographicPlace name of the address. If set it should at\
+              \ least contain the city name. "
+            example: "Leidschendam"
+          street:
+            type: "string"
+            description: "Street name of the address. Can also contain the house number. "
+            example: "Oude Trambaan"
+          houseNumber:
+            type: "string"
+            description: "House number of the address. House number can either be\
+              \ in this separate field, or can be contained in the street field. "
+            example: "7"
+          ref:
+            $ref: "#/components/schemas/AddressRef"
+    AddressRef:
+      required:
+      - "addressRef"
+      type: "object"
+      properties:
+        addressRef:
+          type: "string"
+      description: "Reference to an Address. "
+    Alight:
+      required:
+      - "serviceArrival"
+      - "stopPlaceName"
+      - "stopPlaceRef"
+      type: "object"
+      properties:
+        stopPlaceRef:
+          $ref: "#/components/schemas/StopPlaceRef"
+        stopPlaceName:
+          type: "string"
+          example: "Luzern"
+        plannedStopPointName:
+          type: "string"
+          description: "Name of the bay/quay/terminal where to board/alight from the\
+            \ vehicle. According to planned timetable. "
+          example: "3"
+        estimatedStopPointName:
+          type: "string"
+          description: "Name of the bay/quay/terminal where to board the vehicle.\
+            \ As to the latest realtime status. "
+          example: "8"
+        serviceArrival:
+          $ref: "#/components/schemas/ServiceTime"
+        status:
+          $ref: "#/components/schemas/StopCallStatus"
+      description: "Describes the situation at a stop or station at which the passenger\
+        \ alights from a Leg of a trip including time-related information. Provided\
+        \ by OJP. "
+    Board:
+      required:
+      - "serviceDeparture"
+      - "stopPlaceName"
+      - "stopPlaceRef"
+      type: "object"
+      properties:
+        stopPlaceRef:
+          $ref: "#/components/schemas/StopPlaceRef"
+        stopPlaceName:
+          type: "string"
+          example: "Luzern"
+        plannedStopPointName:
+          type: "string"
+          description: "Name of the bay/quay/terminal where to board/alight from the\
+            \ vehicle. According to planned timetable. "
+          example: "3"
+        estimatedStopPointName:
+          type: "string"
+          description: "Name of the bay/quay/terminal where to board the vehicle.\
+            \ As to the latest realtime status. "
+          example: "8"
+        serviceDeparture:
+          $ref: "#/components/schemas/ServiceTime"
+        status:
+          $ref: "#/components/schemas/StopCallStatus"
+      description: "Describes the the situation at a stop or station at which the\
+        \ passenger boards a Leg of a trip including time-related information. Provided\
+        \ by OJP. "
+    ContinuousLeg:
+      required:
+      - "end"
+      - "service"
+      - "start"
+      type: "object"
+      properties:
+        start:
+          oneOf:
+          - $ref: "#/components/schemas/Place"
+          - $ref: "#/components/schemas/Address"
+          - $ref: "#/components/schemas/FareConnectionPoint"
+          - $ref: "#/components/schemas/PointOfInterest"
+          - $ref: "#/components/schemas/StopPlace"
+        end:
+          oneOf:
+          - $ref: "#/components/schemas/Place"
+          - $ref: "#/components/schemas/Address"
+          - $ref: "#/components/schemas/FareConnectionPoint"
+          - $ref: "#/components/schemas/PointOfInterest"
+          - $ref: "#/components/schemas/StopPlace"
+        service:
+          $ref: "#/components/schemas/ContinuousService"
+        timeWindowStart:
+          type: "string"
+          description: "Time at which window begins. "
+          format: "date-time"
+        timeWindowEnd:
+          type: "string"
+          description: "Time at which window ends. "
+          format: "date-time"
+        duration:
+          type: "string"
+          description: "Duration of this leg according to user preferences like walk\
+            \ speed. "
+          example: "1800S"
+        situationFullRefs:
+          type: "array"
+          items:
+            type: "string"
+        co2Emission:
+          $ref: "#/components/schemas/Quantity"
+      description: "A leg of a journey that is not bound to a timetable. Provided\
+        \ by OJP. "
+    ContinuousService:
+      required:
+      - "destinationText"
+      - "journeyRef"
+      - "mode"
+      - "operatingDayRef"
+      - "originText"
+      - "publishedServiceName"
+      type: "object"
+      properties:
+        continuousMode:
+          type: "string"
+          description: "Types of modes that run at any time without a timetable. Provided\
+            \ by OJP. "
+        individualMode:
+          type: "string"
+          description: "Modes which an individual powers themselves (such as walk,\
+            \ cycle). Provided by OJP. "
+        operatingDayRef:
+          type: "string"
+          description: "Reference to an operating day. Provided by OJP. "
+          example: "OperatingDay:12345"
+        journeyRef:
+          type: "string"
+          description: "Reference to a journey. Provided by OJP. "
+          example: "ServiceJourney:1"
+        mode:
+          type: "string"
+          example: "Ask Stefan"
+        publishedServiceName:
+          type: "string"
+          example: "Circle Line"
+        originText:
+          type: "string"
+        destinationText:
+          type: "string"
+      description: "A vehicle movement on a continuous, non-timetabled service. Service\
+        \ of this leg. May be 'walk' in most cases, but also cycling or taxi etc.\
+        \ Provided by OJP. "
+    DatedJourney:
+      required:
+      - "carriers"
+      - "vehicleNumbers"
+      type: "object"
+      properties:
+        operatingDayRef:
+          type: "string"
+          description: "Reference to an operating day. Provided by OJP. "
+          example: "OperatingDay:12345"
+        mode:
+          $ref: "#/components/schemas/Mode"
+        productCategory:
+          $ref: "#/components/schemas/ProductCategory"
+        publishedServiceName:
+          type: "string"
+          description: "Line name or service description as known to the public, f.e.\
+            \ '512', 'S8' or 'Circle Line' or 'ICE 488'. "
+          example: "S1"
+        vehicleNumbers:
+          maxItems: 2147483647
+          minItems: 1
+          type: "array"
+          items:
+            type: "string"
+        lineNumbers:
+          type: "array"
+          items:
+            type: "string"
+        serviceStatus:
+          $ref: "#/components/schemas/ServiceStatus"
+        situationFullRefs:
+          type: "array"
+          items:
+            type: "string"
+        carriers:
+          maxItems: 2147483647
+          minItems: 1
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NamedCompany"
+        attributes:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/GeneralAttribute"
+      description: "Vehicle journey that runs at a specific date. Provided by OJP. "
+    FareConnectionPoint:
+      required:
+      - "id"
+      - "stationSets"
+      type: "object"
+      description: "Connection point connecting two fare regimes. The connection is\
+        \ possible between stations of the two provided station sets. A legacy border\
+        \ point code (id) might be provided as an additional code within the stations\
+        \ (code list BORDER_POINT provided in URN). In case the connection point is\
+        \ a real station this station is indicated. In case the connection point is\
+        \ between stations for each side of the border real stations must be provided.\
+        \ Multiple sets of station can be provided in the rare case that the connection\
+        \ point connects more than two station (A-B and A-C). Multiple stations within\
+        \ a set at one side of the border might be provided in case of changes (new\
+        \ stations build near the border).  Providing the UIC code for the station\
+        \ is mandatory. "
+      allOf:
+      - $ref: "#/components/schemas/Place"
+      - type: "object"
+        properties:
+          name:
+            type: "string"
+          stationSets:
+            maxItems: 2147483647
+            minItems: 1
+            type: "array"
+            items:
+              $ref: "#/components/schemas/StationSet"
+          ref:
+            $ref: "#/components/schemas/FareConnectionPointRef"
+    FareConnectionPointRef:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+      description: "Reference to a Fare Connection Point. "
+    GeneralAttribute:
+      required:
+      - "text"
+      type: "object"
+      properties:
+        text:
+          type: "string"
+        code:
+          type: "string"
+        url:
+          type: "string"
+    GeoPosition:
+      required:
+      - "latitude"
+      - "longitude"
+      type: "object"
+      properties:
+        longitude:
+          maximum: 180
+          exclusiveMaximum: false
+          minimum: -180
+          exclusiveMinimum: false
+          type: "number"
+          description: "Longitude from Greenwich Meridian. -180 (West) to +180 (East).\
+            \ Decimal degrees. eg 2.356. "
+          format: "double"
+          example: 8.54021
+        latitude:
+          maximum: 90
+          exclusiveMaximum: false
+          minimum: -90
+          exclusiveMinimum: false
+          type: "number"
+          description: "Latitude from equator. -90 (South) to +90 (North). Decimal\
+            \ degrees. e.g. 56.356. "
+          format: "double"
+          example: 47.37818
+      description: "WGS84 coordinates position. Provided by OJP. "
+    GeoPositionRef:
+      required:
+      - "latitude"
+      - "longitude"
+      type: "object"
+      description: "Reference to a GeoPosition consisting of latitude and longitude. "
+      allOf:
+      - $ref: "#/components/schemas/PlaceRef"
+      - type: "object"
+        properties:
+          latitude:
+            maximum: 90
+            exclusiveMaximum: false
+            minimum: -90
+            exclusiveMinimum: false
+            type: "number"
+            description: "Latitude from equator. -90 (South) to +90 (North). Decimal\
+              \ degrees. e.g. 56.356. "
+            format: "double"
+            example: 47.37818
+          longitude:
+            maximum: 180
+            exclusiveMaximum: false
+            minimum: -180
+            exclusiveMinimum: false
+            type: "number"
+            description: "Longitude from Greenwich Meridian. -180 (West) to +180 (East).\
+              \ Decimal degrees. eg 2.356. "
+            format: "double"
+            example: 8.54021
+    Intermediate:
+      required:
+      - "serviceArrival"
+      - "serviceDeparture"
+      - "stopPlaceName"
+      - "stopPlaceRef"
+      type: "object"
+      properties:
+        stopPlaceRef:
+          $ref: "#/components/schemas/StopPlaceRef"
+        stopPlaceName:
+          type: "string"
+          example: "Luzern"
+        plannedStopPointName:
+          type: "string"
+          description: "Name of the bay/quay/terminal where to board/alight from the\
+            \ vehicle. According to planned timetable. "
+          example: "3"
+        estimatedStopPointName:
+          type: "string"
+          description: "Name of the bay/quay/terminal where to board the vehicle.\
+            \ As to the latest realtime status. "
+          example: "8"
+        serviceArrival:
+          $ref: "#/components/schemas/ServiceTime"
+        serviceDeparture:
+          $ref: "#/components/schemas/ServiceTime"
+        status:
+          $ref: "#/components/schemas/StopCallStatus"
+      description: "Describes the situation at a stop or station that lies between\
+        \ the Board and Alight stop or station including time-related information.\
+        \ Provided by OJP. "
+    LegAttribute:
+      required:
+      - "text"
+      type: "object"
+      properties:
+        text:
+          type: "string"
+          description: "Text of the attribute to be shown to the user. "
+        code:
+          type: "string"
+          description: "Internal code of the attribute. Can be used for detection\
+            \ of double occurrences. Refers to Service Facilities / Leg Attributes\
+            \ from the Catalog of Code Lists "
+        fromStopSeqNumber:
+          minimum: 0
+          type: "integer"
+          description: "The attribute is valid from the stop point with this sequence\
+            \ number within the leg. If missing it is valid from the beginning of\
+            \ the leg. "
+          format: "int32"
+        toStopSeqNumber:
+          minimum: 0
+          type: "integer"
+          description: "The attribute is valid to the stop point (inclusively) with\
+            \ this sequence number within the leg. If missing it is valid to the end\
+            \ of the leg. "
+          format: "int32"
+      description: "Attributes that are not valid on the whole service, but only on\
+        \ section of a trip made on a single mode without interchange between boarding\
+        \ and alighting. "
+    Link:
+      required:
+      - "href"
+      - "rel"
+      type: "object"
+      properties:
+        rel:
+          type: "string"
+          description: "the 'rel' field in HATEOAS navigation. "
+          example: "self"
+        href:
+          type: "string"
+          description: "Allows to provide a value to the link, for example id of the\
+            \ targeted resource or displayable representation for the link. "
+          format: "uri"
+        type:
+          type: "string"
+          description: "Hint to indicate the media type expected when dereferencing\
+            \ the target resource. "
+          example: "application/json"
+        value:
+          type: "string"
+          description: "Allows to provide a value to the link, for example id of the\
+            \ targeted resource or displayable representation for the link. "
+      description: "The underlying system may provide links for pagination of links\
+        \ pointing on further information (such as HTML download links, web sites\
+        \ or extended APIs). Mechanism to add flexible extensions specific to an underlying\
+        \ system. Implemented the JSON-HAL specification. "
+    Mode:
+      required:
+      - "ptMode"
+      type: "object"
+      properties:
+        ptMode:
+          type: "string"
+          description: "TAP-TSI/UIC contains a sensible subset of SIRI Transport Modes. "
+        name:
+          type: "string"
+          description: "Name of the mode "
+          example: "rail"
+        shortName:
+          type: "string"
+          description: "Short name or acronym of the mode "
+          example: "S"
+        description:
+          type: "string"
+          description: "Additional text that further describes the mode "
+      description: "A method of transportation such as bus, rail, etc. Provided by\
+        \ OJP. "
+    NamedCompany:
+      required:
+      - "ref"
+      type: "object"
+      properties:
+        ref:
+          type: "string"
+          description: "Identifies a company. For rail, a RICS company code or compatible\
+            \ ERA company code are used.  E.g.: 'urn:uic:rics:1185:000011' "
+        name:
+          type: "string"
+          description: "Textual representation of the carrier to be displayed unless\
+            \ the application is able to indicate the name by the carrier references. "
+          example: "RhB"
+      description: "Provides the reference and name of a company. "
+    OperatingDays:
+      required:
+      - "from"
+      - "pattern"
+      - "until"
+      type: "object"
+      properties:
+        from:
+          type: "string"
+          description: "Start date of period "
+          format: "date-time"
+        until:
+          type: "string"
+          description: "End date of period "
+          format: "date-time"
+        pattern:
+          type: "string"
+          description: "Bit pattern for operating days between start date and end\
+            \ date. The length of the pattern is equal to the number of days from\
+            \ start date to end date. A bit value of '1' indicates that an event actually\
+            \ happens on the day that is represented by the bit position. "
+      description: "Day of public transport operation of which the characteristics\
+        \ are defined in a specific service calendar and which may last more than\
+        \ 24 hours. Provided by OJP. "
+    Place:
+      required:
+      - "id"
+      - "objectType"
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          description: "id  defining the place. The code is provided as URN, relative\
+            \ URNs are allowed with base path urn:uic:stn '0850000' "
+          example: "urn:uic:stn:8500000"
+        alternativeIds:
+          type: "array"
+          description: "For a place with ids in different reference systems, the alternative\
+            \ ids can be returned.  The reference system is encoded in the string.\
+            \ E.g.: 'urn:uic:std:80000', 'x_swe:stn:10000', 'ch:1:sloid:343434' "
+          items:
+            type: "string"
+            description: "For a place with ids in different reference systems, the\
+              \ alternative ids can be returned.  The reference system is encoded\
+              \ in the string. E.g.: 'urn:uic:std:80000', 'x_swe:stn:10000', 'ch:1:sloid:343434' "
+        geoPosition:
+          $ref: "#/components/schemas/GeoPosition"
+        _links:
+          type: "array"
+          description: " Java Property Name: 'links' "
+          items:
+            $ref: "#/components/schemas/Link"
+        objectType:
+          type: "string"
+      description: "A geographic place of any type which may be specified as the origin\
+        \ or destination of a trip. Provided by OJP. "
+      discriminator:
+        propertyName: "objectType"
+    PlaceRef:
+      required:
+      - "objectType"
+      type: "object"
+      properties:
+        objectType:
+          type: "string"
+      discriminator:
+        propertyName: "objectType"
+    PointOfInterest:
+      required:
+      - "code"
+      - "id"
+      - "name"
+      type: "object"
+      description: "A type of place to or through which passengers may wish to navigate\
+        \ as part of their journey and which is modelled in detail by journey planners.\
+        \ Provided by OJP. "
+      allOf:
+      - $ref: "#/components/schemas/Place"
+      - type: "object"
+        properties:
+          name:
+            type: "string"
+            description: "Name or description of point of interest for use in passenger\
+              \ information. "
+            example: "Park Rozenrust"
+          code:
+            type: "string"
+            description: "id of the Point of Interest. "
+          ref:
+            $ref: "#/components/schemas/PointOfInterestRef"
+    PointOfInterestRef:
+      required:
+      - "pointOfInterestRef"
+      type: "object"
+      properties:
+        pointOfInterestRef:
+          type: "string"
+      description: "Reference to a Point of Interest. Provided by OJP. "
+    ProductCategory:
+      required:
+      - "name"
+      - "productCategoryRef"
+      - "shortName"
+      type: "object"
+      properties:
+        name:
+          type: "string"
+          description: "Full name of this product category, e.g. 'TGV Lyria' in Switzerland\
+            \ and France. UIC: Long name of Service Brand "
+          example: "TGV Lyria"
+        shortName:
+          type: "string"
+          description: "Short name or acronym of the product category, likely to be\
+            \ published, e.g. 'TGV' UIC: Abbreviation of Service Brand "
+          example: "TGV"
+        productCategoryRef:
+          type: "string"
+          description: "Reference to a product category. Product categories should\
+            \ be defined once and used uniformly in all channels (e.g. NeTEx, SIRI,\
+            \ OJP). Provided by OJP. "
+          example: "urn:uic:sbc:76"
+      description: "Product category based on NeTEx/SIRI. A product category is a\
+        \ classification for vehicle journeys to express some common properties of\
+        \ journeys for marketing and fare products. Provided by OJP. "
+    Quantity:
+      required:
+      - "unit"
+      - "value"
+      type: "object"
+      properties:
+        value:
+          type: "number"
+          format: "float"
+        unit:
+          type: "string"
+          example: "kg"
+      description: "Generic entity to model a quantity. "
+    ServiceStatus:
+      type: "object"
+      properties:
+        unplanned:
+          type: "boolean"
+          description: "Whether this trip is an additional one that has not been planned. "
+        cancelled:
+          type: "boolean"
+          description: "Whether this trip is cancelled and will not be run. "
+        deviation:
+          type: "boolean"
+          description: "Whether this trip deviates from the planned service pattern. "
+        occupancy:
+          type: "string"
+          description: "Passenger load status on vehicle. If omitted, not known. Equivalent\
+            \ to siri:OccupancyEnumeration which describes three values: 'full', 'seatingAvailable'\
+            \ and 'standingAvailable'. "
+      description: "Parameters which describe the current status of a dated vehicle\
+        \ journey. Provided by OJP. "
+    ServiceTime:
+      required:
+      - "timetabledTime"
+      type: "object"
+      properties:
+        timetabledTime:
+          type: "string"
+          format: "date-time"
+        estimatedTime:
+          type: "string"
+          format: "date-time"
+        observedTime:
+          type: "string"
+          format: "date-time"
+      description: "The time needs to be in Offset Time Format, i.e.  2023-12-03T10:15:30+01:00\
+        \ as it is important the time zones are important  to show in the timetable.\
+        \  Do not use the Coordinated Universal Time (UTC) format, i.e. 2023-12-03T10:15:30Z. "
+    StationSet:
+      required:
+      - "stations"
+      type: "object"
+      properties:
+        stations:
+          maxItems: 2147483647
+          minItems: 1
+          type: "array"
+          items:
+            $ref: "#/components/schemas/StopPlaceRef"
+    StopCallStatus:
+      type: "object"
+      properties:
+        order:
+          minimum: 0
+          type: "integer"
+          description: "Sequence number of this stop in the service pattern of the\
+            \ journey. "
+          format: "int32"
+        requestStop:
+          type: "boolean"
+          description: "The vehicle journey calls at this stop only on demand. "
+        unplannedStop:
+          type: "boolean"
+          description: "This stop has not been planned by the planning department. "
+        notServicedStop:
+          type: "boolean"
+          description: "The vehicle will not call at this stop despite earlier planning. "
+        noBoardingAtStop:
+          type: "boolean"
+          description: "Boarding will not be allowed at this stop of this journey. "
+        noAlightingAtStop:
+          type: "boolean"
+          description: "Alighting will not be allowed at this stop of this journey. "
+      description: "Status properties for the vehicle call at this stop. Provided\
+        \ by OJP. "
+    StopPlace:
+      required:
+      - "id"
+      - "name"
+      type: "object"
+      description: "A place extended by accessibility limitation properties and some\
+        \ attributes of the associated equipment, comprising one or more places where\
+        \ vehicles may stop and where passengers may board or leave vehicles or prepare\
+        \ their trip, and which will usually have one or more wellknown names. Provided\
+        \ by OJP. "
+      allOf:
+      - $ref: "#/components/schemas/Place"
+      - type: "object"
+        properties:
+          ref:
+            $ref: "#/components/schemas/StopPlaceRef"
+          name:
+            type: "string"
+            description: "Name of this stop place for use in passenger information. "
+            example: "Zürich HB"
+    StopPlaceRef:
+      required:
+      - "stopPlaceRef"
+      type: "object"
+      properties:
+        stopPlaceRef:
+          type: "string"
+          example: "urn:uic:stn:8503000"
+      description: "Reference to a Stop Place using URNs to define code. For UIC see\
+        \ UIC MERITS/TAP-TSI station codes. Provided by OJP. "
+    TimedLeg:
+      required:
+      - "end"
+      - "service"
+      - "start"
+      type: "object"
+      properties:
+        start:
+          $ref: "#/components/schemas/Board"
+        intermediates:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Intermediate"
+        end:
+          $ref: "#/components/schemas/Alight"
+        service:
+          $ref: "#/components/schemas/DatedJourney"
+        operatingDays:
+          $ref: "#/components/schemas/OperatingDays"
+        operatingDaysDescription:
+          type: "string"
+          description: "Textual description of the operation days, e.g. 'Monday to\
+            \ Friday' or 'not on holidays'. "
+        duration:
+          type: "string"
+        co2Emission:
+          $ref: "#/components/schemas/Quantity"
+        attributes:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/LegAttribute"
+      description: "A leg which is bound to a timetabled schedule. Corresponds to\
+        \ a ride. Provided by OJP. "
+    TransferLeg:
+      required:
+      - "end"
+      - "start"
+      type: "object"
+      properties:
+        continuousMode:
+          type: "string"
+          description: "Types of modes that run at any time without a timetable. Provided\
+            \ by OJP. "
+        transferMode:
+          type: "string"
+          description: "Modes dedicated to perform transfers. Provided by OJP. "
+        start:
+          oneOf:
+          - $ref: "#/components/schemas/PlaceRef"
+          - $ref: "#/components/schemas/AddressRef"
+          - $ref: "#/components/schemas/FareConnectionPointRef"
+          - $ref: "#/components/schemas/GeoPositionRef"
+          - $ref: "#/components/schemas/PointOfInterestRef"
+          - $ref: "#/components/schemas/StopPlaceRef"
+        end:
+          oneOf:
+          - $ref: "#/components/schemas/PlaceRef"
+          - $ref: "#/components/schemas/AddressRef"
+          - $ref: "#/components/schemas/FareConnectionPointRef"
+          - $ref: "#/components/schemas/GeoPositionRef"
+          - $ref: "#/components/schemas/PointOfInterestRef"
+          - $ref: "#/components/schemas/StopPlaceRef"
+        timeWindowStart:
+          type: "string"
+          description: "Time at which window begins. "
+          format: "date-time"
+        timeWindowEnd:
+          type: "string"
+          description: "Time at which window ends. "
+          format: "date-time"
+        duration:
+          type: "string"
+          description: "Overall duration of this interchange. "
+          example: "PT20M"
+        situationFullRefs:
+          type: "array"
+          items:
+            type: "string"
+        co2Emission:
+          $ref: "#/components/schemas/Quantity"
+      description: "A leg which links other legs of a trip where a transfer between\
+        \ different places is required. Provided by OJP. "
+    Trip:
+      required:
+      - "direction"
+      - "duration"
+      - "endTime"
+      - "id"
+      - "legs"
+      - "startTime"
+      - "transfers"
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          description: "Id of this trip for referencing purposes. Unique within a\
+            \ trip. "
+        externalRef:
+          type: "string"
+          description: "External reference of this trip for referencing purposes. "
+        summary:
+          type: "string"
+          description: "A human-readable description of the trip. "
+        duration:
+          type: "string"
+          description: "Overall duration of the trip "
+          example: "PT20M"
+        direction:
+          type: "string"
+          enum:
+          - "OUT_BOUND"
+          - "IN_BOUND"
+        origin:
+          oneOf:
+          - $ref: "#/components/schemas/PlaceRef"
+          - $ref: "#/components/schemas/AddressRef"
+          - $ref: "#/components/schemas/FareConnectionPointRef"
+          - $ref: "#/components/schemas/GeoPositionRef"
+          - $ref: "#/components/schemas/PointOfInterestRef"
+          - $ref: "#/components/schemas/StopPlaceRef"
+        destination:
+          oneOf:
+          - $ref: "#/components/schemas/PlaceRef"
+          - $ref: "#/components/schemas/AddressRef"
+          - $ref: "#/components/schemas/FareConnectionPointRef"
+          - $ref: "#/components/schemas/GeoPositionRef"
+          - $ref: "#/components/schemas/PointOfInterestRef"
+          - $ref: "#/components/schemas/StopPlaceRef"
+        startTime:
+          type: "string"
+          description: "Departure time at origin. "
+          format: "date-time"
+        endTime:
+          type: "string"
+          description: "Arrival time at destination "
+          format: "date-time"
+        transfers:
+          minimum: 0
+          type: "integer"
+          description: "Number of interchanges "
+          format: "int32"
+        distance:
+          minimum: 0
+          type: "integer"
+          description: "Distance in meters over the the complete trip, i.e., including\
+            \ transfer legs. "
+          format: "int32"
+        legs:
+          maxItems: 2147483647
+          minItems: 1
+          type: "array"
+          description: "Legs ot the trip "
+          items:
+            $ref: "#/components/schemas/TripLeg"
+        operatingDays:
+          $ref: "#/components/schemas/OperatingDays"
+        operatingDaysDescription:
+          type: "string"
+          description: "Textual description of the operation days, e.g. 'Monday to\
+            \ Friday' or 'Not on holidays'. "
+        situationFullRefs:
+          type: "array"
+          items:
+            type: "string"
+        tripStatus:
+          $ref: "#/components/schemas/TripStatus"
+        _links:
+          type: "array"
+          description: " Java Property Name: 'links' "
+          items:
+            $ref: "#/components/schemas/Link"
+      description: "A complete trip from origin to destination. Provided by OJP. "
+    TripCollectionResponse:
+      required:
+      - "id"
+      type: "object"
+      properties:
+        warning:
+          $ref: "#/components/schemas/WarningCollection"
+        id:
+          type: "string"
+        trips:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Trip"
+        tripSummaries:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/TripSummary"
+        _links:
+          type: "array"
+          description: " Java Property Name: 'links' "
+          items:
+            $ref: "#/components/schemas/Link"
+      description: "Trip response structure. Provided by OJP. "
+    TripLeg:
+      required:
+      - "id"
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          description: "Id of this trip leg. Unique within trip result. A seqId is\
+            \ a leg id. "
+        externalRef:
+          type: "string"
+          description: "External reference of this tripLeg for referencing purposes. "
+        timedLeg:
+          $ref: "#/components/schemas/TimedLeg"
+        transferLeg:
+          $ref: "#/components/schemas/TransferLeg"
+        continuousLeg:
+          $ref: "#/components/schemas/ContinuousLeg"
+      description: "A single stage of a trip that is made without change of MODE or\
+        \ service (ie: between each interchange). Provided by OJP. "
+    TripStatus:
+      type: "object"
+      properties:
+        unplanned:
+          type: "boolean"
+          description: "Whether this trip is an additional one that has not been planned. "
+        cancelled:
+          type: "boolean"
+          description: "Whether this trip is cancelled and will not be run. "
+        deviation:
+          type: "boolean"
+          description: "Whether this trip deviates from the planned service pattern. "
+        delayed:
+          type: "boolean"
+          description: "Whether this trip is delayed. "
+        infeasible:
+          type: "boolean"
+          description: "Whether this trip cannot be used, due to operational delays\
+            \ and impossible transfers. "
+    TripSummary:
+      required:
+      - "id"
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          description: "Id of this trip for referencing purposes. Unique within trip\
+            \ response. "
+        summary:
+          type: "string"
+        externalRef:
+          type: "string"
+        startTime:
+          type: "string"
+          description: "Departure time at origin. "
+          format: "date-time"
+        endTime:
+          type: "string"
+          description: "Arrival time at destination. "
+          format: "date-time"
+        duration:
+          type: "string"
+          description: "Overall duration of the trip. "
+        origin:
+          oneOf:
+          - $ref: "#/components/schemas/PlaceRef"
+          - $ref: "#/components/schemas/AddressRef"
+          - $ref: "#/components/schemas/FareConnectionPointRef"
+          - $ref: "#/components/schemas/GeoPositionRef"
+          - $ref: "#/components/schemas/PointOfInterestRef"
+          - $ref: "#/components/schemas/StopPlaceRef"
+        destination:
+          oneOf:
+          - $ref: "#/components/schemas/PlaceRef"
+          - $ref: "#/components/schemas/AddressRef"
+          - $ref: "#/components/schemas/FareConnectionPointRef"
+          - $ref: "#/components/schemas/GeoPositionRef"
+          - $ref: "#/components/schemas/PointOfInterestRef"
+          - $ref: "#/components/schemas/StopPlaceRef"
+        transfers:
+          type: "integer"
+          format: "int32"
+        distance:
+          type: "integer"
+          format: "int32"
+      description: "Trip summary. Provided by OJP. "
+    Warning:
+      required:
+      - "code"
+      type: "object"
+      properties:
+        code:
+          type: "string"
+        type:
+          type: "string"
+          description: "An absolute URI that identifies the warning type. When dereferenced,\
+            \ it SHOULD provide human-readable documentation for the problem type\
+            \ (e.g., using HTML). "
+          format: "uri"
+          example: "https://example.com/warns/price-updated"
+        detail:
+          type: "string"
+          description: "A human readable explanation specific to this occurrence of\
+            \ the warning. "
+          example: "The price of the given offer part has been updated during the\
+            \ booking operation"
+        instance:
+          type: "string"
+          description: "An absolute URI that identifies the specific occurrence of\
+            \ the warning. "
+          format: "uri"
+          example: "offers/offer1234"
+      description: "This element can be used to pass non-blocking information or events,\
+        \ such as a price difference with the initially offered price at booking time.\
+        \ It is inspired on the JSon problem structure. "
+    WarningCollection:
+      required:
+      - "warnings"
+      type: "object"
+      properties:
+        warnings:
+          maxItems: 2147483647
+          minItems: 1
+          type: "array"
+          items:
+            $ref: "#/components/schemas/Warning"
+      description: "List of warnings. "
+    Problem:
+      type: "object"
+      properties:
+        code:
+          type: "string"
+          description: "optional in version 3.1, will be made mandatory in upcoming\
+            \ releases "
+        type:
+          type: "string"
+          description: "An absolute URI that identifies the problem type. When dereferenced,\
+            \ it SHOULD provide human-readable documentation for the problem type\
+            \ (e.g., using HTML). "
+          format: "uri"
+          example: "https://example.com/probs/passenger-too-young"
+        title:
+          type: "string"
+          description: "A short, summary of the problem type. Written in English and\
+            \ readable for engineers (usually not suited for non technical stakeholders\
+            \ and not localized); "
+          example: "Service Unavailable"
+        status:
+          maximum: 599
+          minimum: 100
+          type: "integer"
+          description: "The HTTP status code generated by the origin server for this\
+            \ occurrence of the problem. "
+          format: "int32"
+          example: 503
+        detail:
+          type: "string"
+          description: "A human readable explanation specific to this occurrence of\
+            \ the problem. "
+          example: "Connection to database timed out"
+        instance:
+          type: "string"
+          description: "An absolute URI that identifies the specific occurrence of\
+            \ the problem. "
+          format: "uri"
+      description: "Problem Details for HTTP APIs (RFC 7807) defines a 'problem detail'\
+        \ as a way to carry machine-readable details of errors in a HTTP response\
+        \ to avoid the need to define new error response formats for HTTP APIs. See:\
+        \ https://tools.ietf.org/html/rfc7807 "
+    BaseTripPolicyFilter:
+      type: "object"
+      properties:
+        noSingleStep:
+          type: "boolean"
+          description: "The user is not able to climb one step, i.e. wheel chair. "
+        noSight:
+          type: "boolean"
+          description: "The user is not able to see. "
+      description: "Policies that control the trip search behavior for both public\
+        \ and individual transport. Provided by OJP. "
+    CarrierFilter:
+      type: "object"
+      properties:
+        exclude:
+          type: "boolean"
+          description: "Whether carrier in list are to include or exclude from search. "
+        carriers:
+          type: "array"
+          description: "Reference to carrier "
+          items:
+            type: "string"
+            description: "Reference to carrier "
+      description: "Filter for in/exclusion of carriers. Provided by OJP. "
+    ModeFilter:
+      type: "object"
+      properties:
+        exclude:
+          type: "boolean"
+          description: "Whether modes in list are to include or exclude from search. "
+        transportModes:
+          type: "array"
+          description: "List of Transport modes to include/exclude. "
+          items:
+            $ref: "#/components/schemas/Mode"
+      description: "List of public transport modes to include or exclude. Provided\
+        \ by OJP. "
+    NotVia:
+      type: "object"
+      properties:
+        notViaPlace:
+          type: "array"
+          items:
+            oneOf:
+            - $ref: "#/components/schemas/PlaceRef"
+            - $ref: "#/components/schemas/AddressRef"
+            - $ref: "#/components/schemas/FareConnectionPointRef"
+            - $ref: "#/components/schemas/GeoPositionRef"
+            - $ref: "#/components/schemas/PointOfInterestRef"
+            - $ref: "#/components/schemas/StopPlaceRef"
+      description: "Not-via restrictions for a trip, i.e. scheduled stop points or\
+        \ stop places that the trip is not allowed to pass through.  Provided by OJP. "
+    ReturnSearchParameters:
+      type: "object"
+      properties:
+        inwardReturnDate:
+          pattern: "(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d)"
+          type: "string"
+          description: "Needs to be provided when creating the collection of outward\
+            \ travels so that the provider knows when a return travel can be expected\
+            \ and propose appropriate product and fares. "
+        outwardOfferIds:
+          type: "array"
+          description: "Needs to be provided when creating the collection of inward\
+            \ travels so that the provider can relate the inward travels to the outward\
+            \ travels context. "
+          items:
+            type: "string"
+            description: "Needs to be provided when creating the collection of inward\
+              \ travels so that the provider can relate the inward travels to the\
+              \ outward travels context. "
+        outwardOfferTag:
+          type: "string"
+          description: "Needs to be provided when creating the collection of inward\
+            \ travels so that the provider knows what the outward offer is and and\
+            \ propose compatible offers only if desired or mandatory. "
+      description: "This property can be used in case a return trip is being requested.\
+        \ This will allow to benefit from return-specific fares or product "
+    ServiceBrandFilter:
+      type: "object"
+      properties:
+        exclude:
+          type: "boolean"
+          description: "Whether service brand in list are to include or exclude from\
+            \ search. "
+        serviceBrands:
+          type: "array"
+          description: "Reference to service brand codes "
+          items:
+            type: "string"
+            description: "Reference to service brand codes "
+      description: "Filter for in/exclusion of service brands. Provided by OJP. "
+    TripDataFilter:
+      type: "object"
+      properties:
+        ptModeFilter:
+          $ref: "#/components/schemas/ModeFilter"
+        carrierFilter:
+          $ref: "#/components/schemas/CarrierFilter"
+        serviceBrandFilter:
+          $ref: "#/components/schemas/ServiceBrandFilter"
+        vehicleFilter:
+          $ref: "#/components/schemas/VehicleFilter"
+      description: "Data to be included/excluded from search, f.e. modes, carriers.\
+        \ Provided by OJP. "
+    TripMobilityFilter:
+      type: "object"
+      properties:
+        bikeTransport:
+          type: "boolean"
+          description: "The user wants to carry a bike on public transport. "
+        walkSpeed:
+          type: "integer"
+          description: "Deviation from average walk speed in percent. 100% percent\
+            \ is average speed. "
+          format: "int32"
+        additionalTransferTime:
+          type: "string"
+          description: "Additional time added to all transfers (also to transfers\
+            \ between individual to public transport). "
+          example: "0S"
+        minimalTransferTime:
+          type: "string"
+      description: "Base mobility options to be applied for both public and individual\
+        \ transport. Provided by OJP. "
+    TripParameters:
+      type: "object"
+      properties:
+        dataFilter:
+          $ref: "#/components/schemas/TripDataFilter"
+        policyFilter:
+          $ref: "#/components/schemas/BaseTripPolicyFilter"
+        mobilityFilter:
+          $ref: "#/components/schemas/TripMobilityFilter"
+        numberOfResults:
+          type: "integer"
+          format: "int32"
+        numberOfResultsBefore:
+          type: "integer"
+          format: "int32"
+        numberOfResultsAfter:
+          type: "integer"
+          format: "int32"
+        ignoreRealtimeData:
+          type: "boolean"
+        transferLimit:
+          minimum: 0
+          type: "integer"
+          description: "The maximum number of interchanges the user will accept per\
+            \ trip. "
+          format: "int32"
+        itModesToCover:
+          type: "string"
+          description: "Modes which an individual powers themselves (such as walk,\
+            \ cycle). Provided by OJP. "
+      description: "Options to control the search behavior and response contents.\
+        \ number of results > either number of results or number of results before\
+        \ and after are used. Provided by OJP. "
+    TripSearchCriteria:
+      required:
+      - "destination"
+      - "origin"
+      type: "object"
+      properties:
+        departureTime:
+          pattern: "(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d)"
+          type: "string"
+          description: "Needs to in local date time format. "
+        arrivalTime:
+          pattern: "(\\d{4}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d)"
+          type: "string"
+          description: "Needs to in local date time format. If arrival time is provided\
+            \ the departure time must be omitted. "
+        origin:
+          oneOf:
+          - $ref: "#/components/schemas/PlaceRef"
+          - $ref: "#/components/schemas/AddressRef"
+          - $ref: "#/components/schemas/FareConnectionPointRef"
+          - $ref: "#/components/schemas/GeoPositionRef"
+          - $ref: "#/components/schemas/PointOfInterestRef"
+          - $ref: "#/components/schemas/StopPlaceRef"
+        destination:
+          oneOf:
+          - $ref: "#/components/schemas/PlaceRef"
+          - $ref: "#/components/schemas/AddressRef"
+          - $ref: "#/components/schemas/FareConnectionPointRef"
+          - $ref: "#/components/schemas/GeoPositionRef"
+          - $ref: "#/components/schemas/PointOfInterestRef"
+          - $ref: "#/components/schemas/StopPlaceRef"
+        vias:
+          type: "array"
+          description: "Ordered series of points where the journey must pass through.\
+            \ If more than one via point is given all of them must be obeyed - in\
+            \ the correct order. The server is allowed to replace a via stop by equivalent\
+            \ stops.  TripDataFilters given at a via apply to the section after that\
+            \ via. To apply a TripDataFilter for  the first section (between the origin\
+            \ and the first via), use the TripDataFilter within the TripParameters\
+            \ structure. "
+          items:
+            $ref: "#/components/schemas/TripVia"
+        parameters:
+          $ref: "#/components/schemas/TripParameters"
+        embed:
+          type: "array"
+          description: "Influences whether referenced resources are returned in full\
+            \ or as references only. Proposed default ALL "
+          items:
+            type: "string"
+            description: "Influences whether referenced resources are returned in\
+              \ full or as references only. Proposed default ALL "
+            enum:
+            - "ALL"
+            - "TRIPS"
+            - "TRIPSUMMARIES"
+            - "NONE"
+        returnSearchParameters:
+          $ref: "#/components/schemas/ReturnSearchParameters"
+        notVias:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NotVia"
+      description: "request for trips "
+    TripVia:
+      required:
+      - "viaPlace"
+      type: "object"
+      properties:
+        viaPlace:
+          oneOf:
+          - $ref: "#/components/schemas/PlaceRef"
+          - $ref: "#/components/schemas/AddressRef"
+          - $ref: "#/components/schemas/FareConnectionPointRef"
+          - $ref: "#/components/schemas/GeoPositionRef"
+          - $ref: "#/components/schemas/PointOfInterestRef"
+          - $ref: "#/components/schemas/StopPlaceRef"
+        dwellTime:
+          type: "string"
+          description: "desired dwell time at the via place "
+          example: "30M"
+        dataFilter:
+          $ref: "#/components/schemas/TripDataFilter"
+      description: "Via restrictions for a trip. Provided by OJP.  A TripDataFilter\
+        \ given applies to the section after this via. "
+    VehicleFilter:
+      type: "object"
+      properties:
+        exclude:
+          type: "boolean"
+          description: "Whether vehicle in list is to include or exclude from search. "
+        vehicleNumbers:
+          type: "array"
+          items:
+            type: "string"
+        lineNumbers:
+          type: "array"
+          items:
+            type: "string"
+      description: "Filter for in/exclusion of vehicle based on vehicle number or\
+        \ line number. "
+    PlaceResponse:
+      required:
+      - "places"
+      type: "object"
+      properties:
+        warnings:
+          $ref: "#/components/schemas/WarningCollection"
+        places:
+          maxItems: 2147483647
+          minItems: 1
+          type: "array"
+          items:
+            oneOf:
+            - $ref: "#/components/schemas/Place"
+            - $ref: "#/components/schemas/Address"
+            - $ref: "#/components/schemas/FareConnectionPoint"
+            - $ref: "#/components/schemas/PointOfInterest"
+            - $ref: "#/components/schemas/StopPlace"
+    InitialPlaceInput:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+          description: "Name of the place object which is looked after. This is usually\
+            \ the user's input. If not given, the name of the resulting place objects\
+            \ is not relevant. "
+          example: "Bern Bärengraben"
+        geoPosition:
+          $ref: "#/components/schemas/GeoPosition"
+      description: "Initial input for the place information request. This input defines\
+        \ what is originally looked for. Provided by OJP. "
+    OsmTag:
+      required:
+      - "tag"
+      - "value"
+      type: "object"
+      properties:
+        tag:
+          type: "string"
+          description: "Name of Open Street Map tag (amenity, leisure, tourism, bike,\
+            \ ...) "
+          example: "name"
+        value:
+          type: "string"
+          description: "Value for Open Street Map tag (charging_station, hostel, yes,\
+            \ ...) "
+          example: "Rozenrust"
+      description: "Structure of an Open Street Map tag. Provided by OJP. "
+    PlaceParam:
+      type: "object"
+      properties:
+        type:
+          type: "string"
+          enum:
+          - "STOP"
+          - "ADDRESS"
+          - "POI"
+          - "GEO_COORDINATE"
+          - "TOPOGRAPHIC_PLACE"
+        usage:
+          type: "string"
+          enum:
+          - "ORIGIN"
+          - "VIA"
+          - "DESTINATION"
+        ptModes:
+          $ref: "#/components/schemas/ModeFilter"
+        serviceBrandFilter:
+          $ref: "#/components/schemas/ServiceBrandFilter"
+        carrierFilter:
+          $ref: "#/components/schemas/CarrierFilter"
+        pointOfInterestFilter:
+          $ref: "#/components/schemas/PointOfInterestFilter"
+        numberOfResults:
+          minimum: 1
+          type: "integer"
+          description: "Maximum number of results to be returned. The service is allowed\
+            \ to return fewer objects if reasonable or otherwise appropriate. "
+          format: "int32"
+      description: "More parameters for restricting the request. Provided by OJP. "
+    PlaceRequest:
+      type: "object"
+      properties:
+        placeInput:
+          $ref: "#/components/schemas/InitialPlaceInput"
+        restrictions:
+          $ref: "#/components/schemas/PlaceParam"
+      description: "request for place "
+    PointOfInterestCategory:
+      type: "object"
+      properties:
+        osmTags:
+          type: "array"
+          description: "Open Street Map tag structure (key-value) "
+          items:
+            $ref: "#/components/schemas/OsmTag"
+        pointOfInterestClassifications:
+          type: "array"
+          description: "Classification of the POI (when it is not from OSM). The codification\
+            \ of the classification Id may include de codification source (for example\
+            \ 'IGN:[classificationCode]') "
+          items:
+            type: "string"
+            description: "Classification of the POI (when it is not from OSM). The\
+              \ codification of the classification Id may include de codification\
+              \ source (for example 'IGN:[classificationCode]') "
+      description: "A categorization of points of interest in respect of the activities\
+        \ undertaken at them (defined by key-value-pairs). Provided by OJP. "
+    PointOfInterestFilter:
+      type: "object"
+      properties:
+        exclude:
+          type: "boolean"
+          description: "Whether carriers are to be included or excluded from the filtering. "
+        pointOfInterestCategory:
+          type: "array"
+          description: "These POI categories can be used to filter POIs. If more than\
+            \ one is given the filtering is by logical 'OR' (when Exclude=FALSE) and\
+            \ logical 'AND' (when Exclude=TRUE). "
+          items:
+            $ref: "#/components/schemas/PointOfInterestCategory"
+      description: "Filter POIs by category. Provided by OJP. "
+    TripResponse:
+      required:
+      - "trip"
+      type: "object"
+      properties:
+        warnings:
+          $ref: "#/components/schemas/WarningCollection"
+        trip:
+          $ref: "#/components/schemas/Trip"
+  securitySchemes:
+    oauth2-azure-ad:
+      type: "oauth2"
+      flows:
+        clientCredentials:
+          scopes:
+            api://233a2404-020e-4cc8-9eed-ebe491087969/.default: "required default\
+              \ scope"
+          tokenUrl: "https://login.microsoftonline.com/2cda5d11-f0ac-46b3-967d-af1b2e1bd01a/oauth2/v2.0/token"
