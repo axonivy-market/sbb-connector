@@ -1,46 +1,53 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "InputTripSearchDataData",
   "namespace" : "com.axonivy.connector.sbb.demo.InputTripSearchData",
-  "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "getPlacesDataIn",
-    "type" : "com.axonivy.connector.sbb.place.GetPlacesDataIn"
+    "type" : "com.axonivy.connector.sbb.place.GetPlacesDataIn",
+    "modifiers" : [ ]
   }, {
     "name" : "selectEvent",
     "type" : "org.primefaces.event.SelectEvent",
-    "comment" : "Event triggered by selection of Location name in autocomplete dropdown menu to set locationFrom or locationTo."
+    "comment" : "Event triggered by selection of Location name in autocomplete dropdown menu to set locationFrom or locationTo.",
+    "modifiers" : [ ]
   }, {
     "name" : "places",
-    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems>"
+    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems>",
+    "modifiers" : [ ]
   }, {
     "name" : "placeFrom",
-    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems"
+    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems",
+    "modifiers" : [ ]
   }, {
     "name" : "placeTo",
-    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems"
+    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems",
+    "modifiers" : [ ]
   }, {
     "name" : "selectedPlace",
-    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems"
+    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfPlaceResponsePlacesItems",
+    "modifiers" : [ ]
   }, {
     "name" : "getTripsCollectionDataIn",
-    "type" : "com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn"
+    "type" : "com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataIn",
+    "modifiers" : [ ]
   }, {
     "name" : "departureDate",
-    "type" : "java.util.Date",
-    "modifiers" : [ "PERSISTENT" ]
-  }, {
-    "name" : "arrivalDate",
     "type" : "java.util.Date"
   }, {
+    "name" : "arrivalDate",
+    "type" : "java.util.Date",
+    "modifiers" : [ ]
+  }, {
     "name" : "origin",
-    "type" : "String"
+    "modifiers" : [ ]
   }, {
     "name" : "destination",
-    "type" : "String"
+    "modifiers" : [ ]
   }, {
     "name" : "placeNames",
     "type" : "List<String>",
-    "comment" : "List of place names returned by subprocess GetPlaces. Used for autocomplete dropdown menu of input fields From and To."
+    "comment" : "List of place names returned by subprocess GetPlaces. Used for autocomplete dropdown menu of input fields From and To.",
+    "modifiers" : [ ]
   } ]
 }

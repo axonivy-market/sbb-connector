@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/13.2.0/process.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/process.json",
   "id" : "193FD1D89FF5B75B",
   "kind" : "CALLABLE_SUB",
   "config" : {
@@ -52,7 +52,7 @@
       "config" : {
         "method" : "POST",
         "target" : {
-          "clientId" : "13022aee-0653-4076-b253-a87b352403c8",
+          "clientId" : "SBB-Swiss-Mobility-API---Journey",
           "path" : "/v1/trips-collection",
           "headers" : {
             "Requestor" : "ivy.case.customFields().stringField(\"requestor\").getOrDefault(in.in.headers.requestor)",

@@ -1,34 +1,40 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "GetTripsCollectionDataParameters",
   "namespace" : "com.axonivy.connector.sbb.tripscollection",
-  "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "arrivalTime",
-    "type" : "String"
+    "modifiers" : [ ]
   }, {
     "name" : "departureTime",
-    "type" : "String"
+    "modifiers" : [ ]
   }, {
     "name" : "destination",
-    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfTripSearchCriteriaDestination"
+    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfTripSearchCriteriaDestination",
+    "modifiers" : [ ]
   }, {
     "name" : "embed",
-    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.TripSearchCriteria.EmbedEnum>"
+    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.TripSearchCriteria.EmbedEnum>",
+    "modifiers" : [ ]
   }, {
     "name" : "notVias",
-    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.NotVia>"
+    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.NotVia>",
+    "modifiers" : [ ]
   }, {
     "name" : "origin",
-    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfTripSearchCriteriaOrigin"
+    "type" : "ch.sbb.api.smapi.osdm.journey.client.OneOfTripSearchCriteriaOrigin",
+    "modifiers" : [ ]
   }, {
     "name" : "parameters",
-    "type" : "ch.sbb.api.smapi.osdm.journey.client.TripParameters"
+    "type" : "ch.sbb.api.smapi.osdm.journey.client.TripParameters",
+    "modifiers" : [ ]
   }, {
     "name" : "returnSearchParameters",
-    "type" : "ch.sbb.api.smapi.osdm.journey.client.ReturnSearchParameters"
+    "type" : "ch.sbb.api.smapi.osdm.journey.client.ReturnSearchParameters",
+    "modifiers" : [ ]
   }, {
     "name" : "vias",
-    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.TripVia>"
+    "type" : "List<ch.sbb.api.smapi.osdm.journey.client.TripVia>",
+    "modifiers" : [ ]
   } ]
 }

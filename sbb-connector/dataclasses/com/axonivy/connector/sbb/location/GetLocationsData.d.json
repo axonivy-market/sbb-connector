@@ -1,15 +1,16 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
   "simpleName" : "GetLocationsData",
   "namespace" : "com.axonivy.connector.sbb.location",
-  "isBusinessCaseData" : false,
   "fields" : [ {
     "name" : "in",
     "type" : "com.axonivy.connector.sbb.location.GetLocationsDataIn",
-    "comment" : "Argument for subprocess GetLocations."
+    "comment" : "Argument for subprocess GetLocations.",
+    "modifiers" : [ ]
   }, {
     "name" : "locations",
     "type" : "List<ch.sbb.app.b2p.client.Location>",
-    "comment" : "Return value of subprocess GetLocations."
+    "comment" : "Return value of subprocess GetLocations.",
+    "modifiers" : [ ]
   } ]
 }
