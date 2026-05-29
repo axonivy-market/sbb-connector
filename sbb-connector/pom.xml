@@ -17,6 +17,12 @@
       <groupId>com.axonivy.ivy.api</groupId>
       <artifactId>ivy-api</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.axonivy.ivy.spi</groupId>
+      <artifactId>ivy-rest-jersey-spi</artifactId>
+      <version>bugfix/MARP-4416-Fix-CI-build-failed-(13.2)</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
   <repositories>
     <repository>
