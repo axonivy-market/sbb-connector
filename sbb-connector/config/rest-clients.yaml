@@ -16,7 +16,8 @@ RestClients:
     OpenAPI:
       SpecUrl: file:///C:/Users/zugPcLgi/Downloads/api-docs.json
       Namespace: ch.sbb.app.b2p.client
-	  dateLibrary: java8
+	  GeneratorOptions:
+	      dateLibrary: java8
   #This API is one of the modules of the SBB Swiss Mobility API suite (see the SBB Swiss Mobility API Overview).
   #The SBB Swiss Mobility API - Journey is a REST API that enables SBB partners to request for places and trips for swiss public transportation in the OSDM Version 3 standard.
   SBB Swiss Mobility API - Journey:
@@ -34,4 +35,5 @@ RestClients:
     OpenAPI:
       SpecUrl: file:///C:/Users/phhung/Downloads/api-docs.yaml
       Namespace: ch.sbb.api.smapi.osdm.journey.client
-	  dateLibrary: java8
+	  GeneratorOptions:
+	      dateLibrary: java8
