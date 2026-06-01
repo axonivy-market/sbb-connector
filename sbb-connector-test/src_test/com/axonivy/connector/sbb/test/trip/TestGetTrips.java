@@ -4,6 +4,7 @@ import static com.axonivy.connector.sbb.constant.Constant.TRIPS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.axonivy.connector.sbb.test.BaseTest;
@@ -79,6 +80,7 @@ class TestGetTrips extends BaseTest {
 	}
 
 	@Test
+	@Tag("integration")
 	void call_realApi_returnsRealResponse(BpmClient bpmClient) {
 		GetTripsCollectionDataHeaders getTripsCollectionDataHeaders = prepareGetTripsCollectionDataHeaders();
 		GetTripsCollectionDataIn getTripsCollectionPlacesDataIn = prepareGetTripsCollectionDataIn(

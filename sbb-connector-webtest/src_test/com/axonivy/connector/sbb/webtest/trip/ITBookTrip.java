@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -40,6 +41,7 @@ class ITBookTrip {
 	}
 
 	@Test
+	@Tag("integration")
 	void start_inputTripSearchDataFieldsAreEmpty_proceedingShowsErrorMessages() {
 		processToShowTrip();
 
@@ -53,6 +55,7 @@ class ITBookTrip {
 	}
 
 	@Test
+	@Tag("integration")
 	void start_inputTripSearchDataFieldsDateAndTimeHaveInvalidContent_proceedingShowsErrorMessages() {
 		selectFromAndTo();
 
@@ -73,6 +76,7 @@ class ITBookTrip {
 	}
 
 	@Test
+	@Tag("integration")
 	void start_proceedFromInputTripSearchDataWithOptionEarliestDeparture_showShowTripsDialog() throws ParseException {
 		Date date = DATE_FORMATTER_PRESENTABLE.parse(MOCK_DATE_VALUE);
 		String dateStr = DATE_TIME_FORMATTER_PRESENTABLE.format(date);

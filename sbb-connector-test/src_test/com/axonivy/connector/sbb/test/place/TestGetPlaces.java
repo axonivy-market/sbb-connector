@@ -4,6 +4,7 @@ import static com.axonivy.connector.sbb.constant.Constant.PLACES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.axonivy.connector.sbb.place.GetPlacesDataHeaders;
@@ -72,6 +73,7 @@ class TestGetPlaces extends BaseTest {
 	}
 
 	@Test
+	@Tag("integration")
 	void call_realApi_returnsRealResponse(BpmClient bpmClient) {
 		GetPlacesDataHeaders getPlacesDataHeaders = prepareGetPlacesDataHeaders();
 		GetPlacesDataIn getPlacesDataIn = prepareGetPlacesDataIn(getPlacesDataHeaders);
