@@ -1,0 +1,59 @@
+{
+  "warnings": {
+    "warnings": [
+      {
+        "code": "string",
+        "type": "https://example.com/warns/price-updated",
+        "detail": "The price of the given offer part has been updated during the booking operation",
+        "instance": "offers/offer1234"
+      }
+    ]
+  },
+  "problems": [
+    {
+      "code": "string",
+      "type": "https://example.com/probs/passenger-too-young",
+      "title": "Service Unavailable",
+      "status": 503,
+      "detail": "Connection to database timed out",
+      "instance": "string",
+      "pointers": [
+        {
+          "code": "string",
+          "type": "https://example.com/probs/passenger-too-young",
+          "title": "Service Unavailable",
+          "status": 503,
+          "detail": "Connection to database timed out",
+          "instance": "string",
+          "requestPointer": "#/offers[1]/placeSelections[1]/reservationId",
+          "responsePointer": "#/booking/bookedOffers[4]/reservations[1]/id",
+          "originator": "IMS1"
+        }
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "urn:uic:stn:8500000",
+      "alternativeIds": [
+        "string"
+      ],
+      "geoPosition": {
+        "longitude": 8.54021,
+        "latitude": 47.37818
+      },
+      "ref": {
+        "objectType": "string"
+      },
+      "_links": [
+        {
+          "rel": "self",
+          "href": "string",
+          "type": "application/json",
+          "value": "string"
+        }
+      ],
+      "objectType": "string"
+    }
+  ]
+}
