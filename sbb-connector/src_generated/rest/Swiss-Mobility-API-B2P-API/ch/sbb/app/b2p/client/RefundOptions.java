@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Data related to the refund of the booking item.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class RefundOptions {
   @JsonProperty("ticketId")
   private String ticketId = null;

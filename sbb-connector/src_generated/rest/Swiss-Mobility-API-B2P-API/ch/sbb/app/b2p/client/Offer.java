@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * An actual offer for a specific trip with the given characteristics. The fare however is only guaranteed after prebooking.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class Offer {
   @JsonProperty("offerIdentifier")
   private String offerIdentifier = null;

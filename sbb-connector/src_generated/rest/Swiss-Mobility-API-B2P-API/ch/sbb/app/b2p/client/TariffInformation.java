@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Information about the tariff. The only mandatory attributes are valid from and valid to and at least one element in product description, including description of the product and the language in which the description is formulated. 
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class TariffInformation {
   @JsonProperty("description")
   private LocalizedDescription description = null;

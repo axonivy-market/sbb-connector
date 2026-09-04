@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A descriptive data associated with a place that can be used to describe the unique geographical context of a place for the purposes of identifying it. may be refined as either a road address, a postal address or both. Provided by OJP. 
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
 
 public class Address extends Place implements OneOfContinuousLegStart, OneOfContinuousLegEnd, OneOfPlaceResponsePlacesItems {
   @JsonProperty("name")

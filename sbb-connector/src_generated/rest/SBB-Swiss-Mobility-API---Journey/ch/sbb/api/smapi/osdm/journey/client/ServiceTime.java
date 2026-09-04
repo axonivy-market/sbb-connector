@@ -22,7 +22,7 @@ import java.time.OffsetDateTime;
 /**
  * The time needs to be in Offset Time Format, i.e.  2023-12-03T10:15:30+01:00 as it is important the time zones are important  to show in the timetable.  Do not use the Coordinated Universal Time (UTC) format, i.e. 2023-12-03T10:15:30Z. 
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
 
 public class ServiceTime {
   @JsonProperty("timetabledTime")

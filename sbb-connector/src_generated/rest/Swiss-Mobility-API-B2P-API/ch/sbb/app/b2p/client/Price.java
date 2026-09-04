@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * The cheapest price for a given trip with its characteristics.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class Price {
   @JsonProperty("links")
   private List<Link> links = null;
