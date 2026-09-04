@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://json-schema.axonivy.com/14.0-dev/config/rest-clients-1.json
+# yaml-language-server: $schema=https://json-schema.axonivy.com/14.0-dev/config/rest-clients-2.json
 RestClients:
   #The SBB Swiss Mobility API is an interface that you can integrate into your own distribution system. Timetable and fare details are made available to you via this interface.
   Swiss-Mobility-API-B2P-API:

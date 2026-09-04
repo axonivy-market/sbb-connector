@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/process.json",
+  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/process-2.json",
   "id" : "189FE241C19F033D",
   "kind" : "CALLABLE_SUB",
   "description" : "Can be used to perform a pattern-based search to retrieve a list of matching locations (resp. concrete STATION's) for journey planning.",

@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Contains offers that have to be prebooked together in the prebooking step. The container cannot have mixed 1 and 2 quality of service offers.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class OfferBundle {
   @JsonProperty("links")
   private List<Link> links = null;

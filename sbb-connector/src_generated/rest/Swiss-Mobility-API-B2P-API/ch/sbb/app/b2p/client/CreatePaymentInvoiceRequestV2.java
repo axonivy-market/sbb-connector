@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Request to create sbb invoice payment.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class CreatePaymentInvoiceRequestV2 {
   @JsonProperty("prebookingIds")
   private List<Long> prebookingIds = new ArrayList<>();

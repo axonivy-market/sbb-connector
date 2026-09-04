@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * The prices request.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class PricesRequest {
   /**
    * Passenger data required to request an offer. Consists of the passenger id, the age of the passenger and the type of reduction card separated by a semicolon. Supported reduction codes are: {ga-1st, ga-2nd, half-fare, junior-card, child-card, none, swiss-half-fare-card, swiss-travel-pass}.

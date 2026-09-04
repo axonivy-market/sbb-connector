@@ -22,7 +22,7 @@ import java.time.OffsetDateTime;
 /**
  * Passengerdata to prebook an offer.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class PrebookingPassengerV2 {
   @JsonProperty("firstname")
   private String firstname = null;

@@ -33,7 +33,8 @@
     "modifiers" : [ ]
   }, {
     "name" : "departureDate",
-    "type" : "java.util.Date"
+    "type" : "java.util.Date",
+    "modifiers" : [ ]
   }, {
     "name" : "arrivalDate",
     "type" : "java.util.Date",

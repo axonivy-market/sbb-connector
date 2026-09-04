@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Aka Leg (aka J-S v3 PTRideLeg, AccessLeg, PTConnectionLeg).
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class Segment {
   /**
    * Type of Segment. PUBLIC_JOURNEY for public transportation by a TransportProduct; WALK_TRANSFER for a short walk to change between PUBLIC_JOURNEY Segments; TRANSFER any other
