@@ -7,7 +7,7 @@ import javax.ws.rs.core.FeatureContext;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
-import ch.ivyteam.ivy.rest.client.FeatureConfig;
+import ch.ivyteam.ivy.rest.client.feature.FeatureConfig;
 import ch.ivyteam.ivy.rest.client.oauth2.OAuth2BearerFilter;
 import ch.ivyteam.ivy.rest.client.oauth2.OAuth2TokenRequester.AuthContext;
 import ch.ivyteam.ivy.rest.client.oauth2.uri.OAuth2UriProperty;
@@ -27,7 +27,7 @@ public class OAuth2Feature implements Feature {
 
   @Override
   public boolean configure(FeatureContext context) {
-    var config = new FeatureConfig(context.getConfiguration(), OAuth2Feature.class);
+    var config = FeatureConfig.of(context.getConfiguration(), OAuth2Feature.class);
     if (config.read(Property.AUTH_CLIENT_ID).get().equals("DEMO")) {
       return false;
     }
