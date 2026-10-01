@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * PlaceRef
  */
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "objectType", visible = true )
 @JsonSubTypes({
   @JsonSubTypes.Type(value = GeoPositionRef.class, name = "GeoPositionRef"),

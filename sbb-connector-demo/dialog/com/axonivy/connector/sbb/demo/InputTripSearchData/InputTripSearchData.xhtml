@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="jakarta.faces.core"
+	xmlns:h="jakarta.faces.html"
+	xmlns:ui="jakarta.faces.facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="primefaces"
+	xmlns:pe="primefaces.extensions">
+
+<h:body>
+	<ui:composition template="/layouts/frame-10.xhtml">
+		<ui:define name="title">InputTripSearchData</ui:define>
+		<ui:define name="content">
+			<h:outputStylesheet name="layouts/styles/input-trip-search-data.css" />
+
+			<p:staticMessage severity="info" summary="DEMO" detail="#{ivy.cms.co('/demoInfoMessage')}" />
+
+			<h3>Search for Trips</h3>
+
+			<h:form id="form">
+				<p:messages />
+				<p:panelGrid columns="2" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid"
+					columnClasses="ui-g-12 ui-md-3 ui-lg-2, ui-g-12 ui-md-9 ui-lg-4, ui-g-12 ui-md-3 ui-lg-2, ui-g-12 ui-md-9 ui-lg-4">
+
+					<p:outputLabel for="from" value="From" />
+					<p:autoComplete id="from" value="#{data.origin}"
+						completeMethod="#{logic.getPlaces}" required="true"
+						minQueryLength="1" forceSelection="true">
+						<p:ajax event="itemSelect" listener="#{logic.updatePlace}" />
+					</p:autoComplete>
+
+					<p:outputLabel for="to" value="To" />
+					<p:autoComplete id="to" value="#{data.destination}"
+						completeMethod="#{logic.getPlaces}" required="true"
+						minQueryLength="1" forceSelection="true">
+						<p:ajax event="itemSelect" listener="#{logic.updatePlace}" />
+					</p:autoComplete>
+
+					<p:outputLabel for="departure-date" value="Departure date" />
+					<p:datePicker id="departure-date" value="#{data.departureDate}"
+						showTime="true" pattern="dd.MM.yyyy" required="true">
+						<p:ajax update="@this" process="@this" />
+					</p:datePicker>
+
+					<p:outputLabel for="arrival-date" value="Arrival date" />
+					<p:datePicker id="arrival-date" value="#{data.arrivalDate}"
+						showTime="true" pattern="dd.MM.yyyy" required="true">
+						<p:ajax update="@this" process="@this" />
+					</p:datePicker>
+				</p:panelGrid>
+				<br />
+				<div class="command-btns">
+					<p:commandLink id="cancel"
+						actionListener="#{ivyWorkflowView.cancel()}" value="Cancel" />
+					<p:commandButton id="proceed" actionListener="#{logic.close}"
+						value="Search" update="form" icon="pi pi-check" />
+				</div>
+
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

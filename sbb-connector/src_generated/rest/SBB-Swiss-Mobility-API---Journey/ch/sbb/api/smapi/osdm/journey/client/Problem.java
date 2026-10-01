@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * Problem Details for HTTP APIs (RFC 7807) defines a &#x27;problem detail&#x27; as a way to carry machine-readable details of errors in a HTTP response to avoid the need to define new error response formats for HTTP APIs. See: https://tools.ietf.org/html/rfc7807 
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
 
 public class Problem {
   @JsonProperty("code")

@@ -1,0 +1,12 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/14.0/project/data-class.json",
+  "simpleName" : "GetLocationsDataHeaders",
+  "namespace" : "com.axonivy.connector.sbb.location",
+  "fields" : [ {
+    "name" : "conversationId",
+    "comment" : "REQUIRED. The Conversation Id of the current business process."
+  }, {
+    "name" : "acceptLanguage",
+    "comment" : "The language of the translatable properties. Available values : de, fr, it, en"
+  } ]
+}

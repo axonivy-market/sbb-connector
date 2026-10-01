@@ -22,7 +22,7 @@ import java.time.LocalDate;
 /**
  * Information about the passenger(s), hence the list type of this attributeif customerNumber (CKM) is set and the functionality is globally activated in the control system (current status : activated), the SwissPass of the passenger will be automatically retrieved during the validation, and the passes of the passenger referenced by the SwissPass will be considered in the validation as well.The passes of the passenger can only be retrieved during validation if the passenger has a valid SwissPass or a valid Übergangsbeleg. Otherwise the  additional passes such as HTA do not show up during validation.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class PassengerInformation {
   @JsonProperty("lastname")
   private String lastname = null;

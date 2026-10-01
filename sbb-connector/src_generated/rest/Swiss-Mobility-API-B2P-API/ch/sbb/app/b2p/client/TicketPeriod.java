@@ -22,7 +22,7 @@ import java.time.OffsetDateTime;
 /**
  * The period of time a ticket is valid. Note: The fields from/to are always provided with date values and optionally with time values. If time is omitted the ticket is valid all day.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class TicketPeriod {
   @JsonProperty("from")
   private OffsetDateTime from = null;

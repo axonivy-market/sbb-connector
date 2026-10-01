@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A one-way trip from an origin to a destination (may contain a via) with its segments and stops.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class Trip {
   @JsonProperty("links")
   private List<Link> links = null;

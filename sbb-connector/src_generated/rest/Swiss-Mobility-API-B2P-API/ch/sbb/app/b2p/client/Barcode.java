@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * The response contains, beside to the barcode itself, the barcode id, to be printed on the paper ticket, so that the control personal may use the control device to retrieve the barcode online if the barcode printed out was not readable for any reason.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class Barcode {
   @JsonProperty("png")
   private String png = null;

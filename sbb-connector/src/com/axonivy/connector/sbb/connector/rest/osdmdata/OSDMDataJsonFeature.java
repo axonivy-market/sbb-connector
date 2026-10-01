@@ -1,13 +1,13 @@
 package com.axonivy.connector.sbb.connector.rest.osdmdata;
 
-import javax.ws.rs.Priorities;
-import javax.ws.rs.core.FeatureContext;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.Priorities;
+import jakarta.ws.rs.core.FeatureContext;
+import jakarta.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
 
 import ch.ivyteam.ivy.rest.client.mapper.JsonFeature;
 

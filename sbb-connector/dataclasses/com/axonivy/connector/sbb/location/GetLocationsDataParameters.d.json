@@ -1,9 +1,0 @@
-{
-  "$schema" : "https://json-schema.axonivy.com/14.0-dev/project/data-class.json",
-  "simpleName" : "GetLocationsDataParameters",
-  "namespace" : "com.axonivy.connector.sbb.location",
-  "fields" : [ {
-    "name" : "name",
-    "comment" : "REQUIRED. Expression (min. 2 characters) to search for locations (STATION's). Example : Bern"
-  } ]
-}
