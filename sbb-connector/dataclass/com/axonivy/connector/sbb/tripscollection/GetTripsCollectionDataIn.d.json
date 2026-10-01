@@ -1,0 +1,14 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/14.0/project/data-class.json",
+  "simpleName" : "GetTripsCollectionDataIn",
+  "namespace" : "com.axonivy.connector.sbb.tripscollection",
+  "fields" : [ {
+    "name" : "headers",
+    "type" : "com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataHeaders",
+    "modifiers" : [ ]
+  }, {
+    "name" : "params",
+    "type" : "com.axonivy.connector.sbb.tripscollection.GetTripsCollectionDataParameters",
+    "modifiers" : [ ]
+  } ]
+}

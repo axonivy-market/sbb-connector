@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * Attributes that are not valid on the whole service, but only on section of a trip made on a single mode without interchange between boarding and alighting. 
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
 
 public class LegAttribute {
   @JsonProperty("text")

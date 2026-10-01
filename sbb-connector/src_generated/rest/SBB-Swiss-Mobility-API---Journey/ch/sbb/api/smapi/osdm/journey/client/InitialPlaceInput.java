@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * Initial input for the place information request. This input defines what is originally looked for. Provided by OJP. 
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
 
 public class InitialPlaceInput {
   @JsonProperty("name")

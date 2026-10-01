@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * A complete trip from origin to destination. Provided by OJP. 
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
 
 public class Trip {
   @JsonProperty("id")

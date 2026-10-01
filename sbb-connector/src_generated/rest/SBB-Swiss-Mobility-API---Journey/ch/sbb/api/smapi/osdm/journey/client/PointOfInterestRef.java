@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * Reference to a Point of Interest. Provided by OJP. 
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
 
 public class PointOfInterestRef implements OneOfNotViaNotViaPlaceItems, OneOfTransferLegStart, OneOfTransferLegEnd, OneOfTripOrigin, OneOfTripDestination, OneOfTripSearchCriteriaOrigin, OneOfTripSearchCriteriaDestination, OneOfTripSummaryOrigin, OneOfTripSummaryDestination, OneOfTripViaViaPlace {
   @JsonProperty("pointOfInterestRef")

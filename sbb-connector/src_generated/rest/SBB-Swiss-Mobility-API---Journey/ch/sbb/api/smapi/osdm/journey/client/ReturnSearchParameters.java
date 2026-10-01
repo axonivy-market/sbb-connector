@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * This property can be used in case a return trip is being requested. This will allow to benefit from return-specific fares or product 
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
 
 public class ReturnSearchParameters {
   @JsonProperty("inwardReturnDate")

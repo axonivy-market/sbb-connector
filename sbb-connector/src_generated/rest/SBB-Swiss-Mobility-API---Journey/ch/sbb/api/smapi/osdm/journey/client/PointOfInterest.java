@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A type of place to or through which passengers may wish to navigate as part of their journey and which is modelled in detail by journey planners. Provided by OJP. 
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
 
 public class PointOfInterest extends Place implements OneOfContinuousLegStart, OneOfContinuousLegEnd, OneOfPlaceResponsePlacesItems {
   @JsonProperty("name")

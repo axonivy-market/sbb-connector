@@ -1,0 +1,14 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/14.0/project/data-class.json",
+  "simpleName" : "GetPlacesDataIn",
+  "namespace" : "com.axonivy.connector.sbb.place",
+  "fields" : [ {
+    "name" : "headers",
+    "type" : "com.axonivy.connector.sbb.place.GetPlacesDataHeaders",
+    "modifiers" : [ ]
+  }, {
+    "name" : "params",
+    "type" : "com.axonivy.connector.sbb.place.GetPlacesDataParameters",
+    "modifiers" : [ ]
+  } ]
+}

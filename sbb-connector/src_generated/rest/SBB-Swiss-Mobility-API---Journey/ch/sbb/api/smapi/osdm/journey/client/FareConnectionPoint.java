@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Connection point connecting two fare regimes. The connection is possible between stations of the two provided station sets. A legacy border point code (id) might be provided as an additional code within the stations (code list BORDER_POINT provided in URN). In case the connection point is a real station this station is indicated. In case the connection point is between stations for each side of the border real stations must be provided. Multiple sets of station can be provided in the rare case that the connection point connects more than two station (A-B and A-C). Multiple stations within a set at one side of the border might be provided in case of changes (new stations build near the border).  Providing the UIC code for the station is mandatory. 
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2024-12-25T14:33:18.914614100+07:00[Asia/Saigon]")
 
 public class FareConnectionPoint extends Place implements OneOfContinuousLegStart, OneOfContinuousLegEnd, OneOfPlaceResponsePlacesItems {
   @JsonProperty("name")

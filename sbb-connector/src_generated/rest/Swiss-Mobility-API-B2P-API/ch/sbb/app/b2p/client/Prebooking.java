@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * The prebooking information for a specific offer or complimentary prebooking.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class Prebooking {
   @JsonProperty("preBookingId")
   private Long preBookingId = null;

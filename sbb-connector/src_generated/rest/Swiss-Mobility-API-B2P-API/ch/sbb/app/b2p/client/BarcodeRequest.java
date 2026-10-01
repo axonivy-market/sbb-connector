@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A barcode request is made of an original system and id. The tuple original Id / original System is used to identify the leistung in the control system, the values themselves are free text and can be freely determined by the caller. The original system and ID are mandatory, so that the service request may be identified thereafter.
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class BarcodeRequest {
   @JsonProperty("originalSystem")
   private String originalSystem = null;

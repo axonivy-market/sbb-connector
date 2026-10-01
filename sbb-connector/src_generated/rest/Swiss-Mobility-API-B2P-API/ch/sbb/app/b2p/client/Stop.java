@@ -23,7 +23,7 @@ import java.time.OffsetDateTime;
 /**
  * A stop within a segment of a trip (aka J-S v3 ScheduledStopPoint).
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
+@jakarta.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-08-17T11:44:18.538712800+02:00[Europe/Zurich]")
 public class Stop {
   @JsonProperty("id2")
   private LocationIdentity id2 = null;
