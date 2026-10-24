@@ -1,0 +1,337 @@
+{
+  "warning": {
+    "warnings": [
+      {
+        "code": "string",
+        "type": "https://example.com/warns/price-updated",
+        "detail": "The price of the given offer part has been updated during the booking operation",
+        "instance": "offers/offer1234"
+      }
+    ]
+  },
+  "problems": [
+    {
+      "code": "string",
+      "type": "https://example.com/probs/passenger-too-young",
+      "title": "Service Unavailable",
+      "status": 503,
+      "detail": "Connection to database timed out",
+      "instance": "string",
+      "pointers": [
+        {
+          "code": "string",
+          "type": "https://example.com/probs/passenger-too-young",
+          "title": "Service Unavailable",
+          "status": 503,
+          "detail": "Connection to database timed out",
+          "instance": "string",
+          "requestPointer": "#/offers[1]/placeSelections[1]/reservationId",
+          "responsePointer": "#/booking/bookedOffers[4]/reservations[1]/id",
+          "originator": "IMS1"
+        }
+      ]
+    }
+  ],
+  "id": "string",
+  "trips": [
+    {
+      "id": "string",
+      "externalRef": "string",
+      "summary": "string",
+      "duration": "PT20M",
+      "direction": "OUT_BOUND",
+      "origin": {
+        "objectType": "string"
+      },
+      "destination": {
+        "objectType": "string"
+      },
+      "startTime": "2023-12-03T10:15:30+01:00",
+      "endTime": "2023-12-03T10:15:30+01:00",
+      "transfers": 0,
+      "distance": 0,
+      "legs": [
+        {
+          "id": "string",
+          "externalRef": "string",
+          "timedLeg": {
+            "start": {
+              "stopPlaceRef": {
+                "objectType": "string",
+                "stopPlaceRef": "urn:uic:stn:8503000"
+              },
+              "stopPlaceName": "Luzern",
+              "plannedStopPointName": "3",
+              "estimatedStopPointName": "8",
+              "serviceDeparture": {
+                "timetabledTime": "2023-12-03T10:15:30+01:00",
+                "estimatedTime": "2023-12-03T10:15:30+01:00",
+                "observedTime": "2023-12-03T10:15:30+01:00"
+              },
+              "status": {
+                "order": 0,
+                "requestStop": true,
+                "unplannedStop": true,
+                "notServicedStop": true,
+                "noBoardingAtStop": true,
+                "noAlightingAtStop": true,
+                "isBorderPoint": true
+              }
+            },
+            "intermediates": [
+              {
+                "stopPlaceRef": {
+                  "objectType": "string",
+                  "stopPlaceRef": "urn:uic:stn:8503000"
+                },
+                "stopPlaceName": "Luzern",
+                "plannedStopPointName": "3",
+                "estimatedStopPointName": "8",
+                "serviceArrival": {
+                  "timetabledTime": "2023-12-03T10:15:30+01:00",
+                  "estimatedTime": "2023-12-03T10:15:30+01:00",
+                  "observedTime": "2023-12-03T10:15:30+01:00"
+                },
+                "serviceDeparture": {
+                  "timetabledTime": "2023-12-03T10:15:30+01:00",
+                  "estimatedTime": "2023-12-03T10:15:30+01:00",
+                  "observedTime": "2023-12-03T10:15:30+01:00"
+                },
+                "status": {
+                  "order": 0,
+                  "requestStop": true,
+                  "unplannedStop": true,
+                  "notServicedStop": true,
+                  "noBoardingAtStop": true,
+                  "noAlightingAtStop": true,
+                  "isBorderPoint": true
+                }
+              }
+            ],
+            "end": {
+              "stopPlaceRef": {
+                "objectType": "string",
+                "stopPlaceRef": "urn:uic:stn:8503000"
+              },
+              "stopPlaceName": "Luzern",
+              "plannedStopPointName": "3",
+              "estimatedStopPointName": "8",
+              "serviceArrival": {
+                "timetabledTime": "2023-12-03T10:15:30+01:00",
+                "estimatedTime": "2023-12-03T10:15:30+01:00",
+                "observedTime": "2023-12-03T10:15:30+01:00"
+              },
+              "status": {
+                "order": 0,
+                "requestStop": true,
+                "unplannedStop": true,
+                "notServicedStop": true,
+                "noBoardingAtStop": true,
+                "noAlightingAtStop": true,
+                "isBorderPoint": true
+              }
+            },
+            "service": {
+              "operatingDayRef": "OperatingDay:12345",
+              "mode": {
+                "ptMode": "string",
+                "name": "rail",
+                "shortName": "S",
+                "description": "string"
+              },
+              "productCategory": {
+                "name": "TGV Lyria",
+                "shortName": "TGV",
+                "productCategoryRef": "urn:uic:sbc:76"
+              },
+              "publishedServiceName": "S1",
+              "vehicleNumbers": [
+                "string"
+              ],
+              "lineNumbers": [
+                "string"
+              ],
+              "serviceStatus": {
+                "unplanned": true,
+                "cancelled": true,
+                "deviation": true,
+                "occupancy": "string"
+              },
+              "situationFullRefs": [
+                "string"
+              ],
+              "carriers": [
+                {
+                  "ref": "string",
+                  "name": "RhB"
+                }
+              ],
+              "attributes": [
+                {
+                  "text": "string",
+                  "code": "string",
+                  "url": "string"
+                }
+              ]
+            },
+            "operatingDays": {
+              "from": "2023-12-03T10:15:30+01:00",
+              "until": "2023-12-03T10:15:30+01:00",
+              "pattern": "string"
+            },
+            "operatingDaysDescription": "string",
+            "duration": "string",
+            "co2Emission": {
+              "value": 0,
+              "unit": "kg"
+            },
+            "attributes": [
+              {
+                "text": "string",
+                "code": "string",
+                "fromStopSeqNumber": 0,
+                "toStopSeqNumber": 0
+              }
+            ]
+          },
+          "transferLeg": {
+            "continuousMode": "string",
+            "transferMode": "string",
+            "start": {
+              "objectType": "string"
+            },
+            "end": {
+              "objectType": "string"
+            },
+            "timeWindowStart": "2023-12-03T10:15:30+01:00",
+            "timeWindowEnd": "2023-12-03T10:15:30+01:00",
+            "duration": "PT20M",
+            "situationFullRefs": [
+              "string"
+            ],
+            "co2Emission": {
+              "value": 0,
+              "unit": "kg"
+            }
+          },
+          "continuousLeg": {
+            "start": {
+              "id": "urn:uic:stn:8500000",
+              "alternativeIds": [
+                "string"
+              ],
+              "geoPosition": {
+                "longitude": 8.54021,
+                "latitude": 47.37818
+              },
+              "ref": {
+                "objectType": "string"
+              },
+              "_links": [
+                {
+                  "rel": "self",
+                  "href": "string",
+                  "type": "application/json",
+                  "value": "string"
+                }
+              ],
+              "objectType": "string"
+            },
+            "end": {
+              "id": "urn:uic:stn:8500000",
+              "alternativeIds": [
+                "string"
+              ],
+              "geoPosition": {
+                "longitude": 8.54021,
+                "latitude": 47.37818
+              },
+              "ref": {
+                "objectType": "string"
+              },
+              "_links": [
+                {
+                  "rel": "self",
+                  "href": "string",
+                  "type": "application/json",
+                  "value": "string"
+                }
+              ],
+              "objectType": "string"
+            },
+            "service": {
+              "continuousMode": "string",
+              "individualMode": "string",
+              "operatingDayRef": "OperatingDay:12345",
+              "journeyRef": "ServiceJourney:1",
+              "mode": "Ask Stefan",
+              "publishedServiceName": "Circle Line",
+              "originText": "string",
+              "destinationText": "string"
+            },
+            "timeWindowStart": "2023-12-03T10:15:30+01:00",
+            "timeWindowEnd": "2023-12-03T10:15:30+01:00",
+            "duration": "PT10M",
+            "situationFullRefs": [
+              "string"
+            ],
+            "co2Emission": {
+              "value": 0,
+              "unit": "kg"
+            }
+          }
+        }
+      ],
+      "operatingDays": {
+        "from": "2023-12-03T10:15:30+01:00",
+        "until": "2023-12-03T10:15:30+01:00",
+        "pattern": "string"
+      },
+      "operatingDaysDescription": "string",
+      "situationFullRefs": [
+        "string"
+      ],
+      "tripStatus": {
+        "unplanned": true,
+        "cancelled": true,
+        "deviation": true,
+        "delayed": true,
+        "infeasible": true
+      },
+      "_links": [
+        {
+          "rel": "self",
+          "href": "string",
+          "type": "application/json",
+          "value": "string"
+        }
+      ]
+    }
+  ],
+  "tripSummaries": [
+    {
+      "id": "string",
+      "summary": "string",
+      "externalRef": "string",
+      "startTime": "2023-12-03T10:15:30+01:00",
+      "endTime": "2023-12-03T10:15:30+01:00",
+      "duration": "string",
+      "origin": {
+        "objectType": "string"
+      },
+      "destination": {
+        "objectType": "string"
+      },
+      "transfers": 0,
+      "distance": 0
+    }
+  ],
+  "_links": [
+    {
+      "rel": "self",
+      "href": "string",
+      "type": "application/json",
+      "value": "string"
+    }
+  ]
+}

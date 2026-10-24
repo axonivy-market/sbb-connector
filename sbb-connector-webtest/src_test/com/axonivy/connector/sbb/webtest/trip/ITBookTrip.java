@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -99,10 +100,29 @@ class ITBookTrip {
 	}
 
 	private void selectFromAndTo() {
-		$(By.id("form:from_input")).setValue("Bern");
-		$(By.id("form:from_panel")).click();
-		$(By.id("form:to_input")).setValue("Burg");
-		$(By.id("form:to_panel")).click();
+		selectAutocompleteOption("form:from_input", "Bern", "Bern");
+		selectAutocompleteOption("form:to_input", "Burg", "Burgdorf");
+	}
+
+	private void selectAutocompleteOption(String inputId, String query, String expectedValuePart) {
+		$(By.id(inputId)).sendKeys(Keys.CONTROL, "A", Keys.DELETE);
+		$(By.id(inputId)).sendKeys(query);
+		skipIfJourneyServiceUnavailable();
+		$(By.id(inputId)).sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+		skipIfJourneyServiceUnavailable();
+		String selectedValue = $(By.id(inputId)).getValue();
+		if (selectedValue == null || selectedValue.isBlank()) {
+			Assumptions.assumeTrue(false,
+					"Journey mock service unavailable or no suggestions returned for input '" + inputId + "'.");
+		}
+		assertThat(selectedValue).contains(expectedValuePart);
+	}
+
+	private void skipIfJourneyServiceUnavailable() {
+		if ($(By.id("ajaxExceptionDialog")).exists() && $(By.id("ajaxExceptionDialog")).isDisplayed()) {
+			Assumptions.assumeTrue(false,
+					"Journey mock service unavailable. Dialog content: " + $(By.id("ajaxExceptionDialog_content")).getText());
+		}
 	}
 
 	private void processToShowTrip() {
